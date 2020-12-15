@@ -1,5 +1,5 @@
 
-/*const Groupomania = require('../models/Groupomania');
+const Groupomania = require('../models/Groupomania');
 const fs = require('fs');
 
 
@@ -54,7 +54,7 @@ exports.getAllGroupomania = (req, res, next) => {
     groupomania.find()
         .then((groupomania) => { res.status(200).json(groupomania); })
         .catch((error) => { res.status(400).json({ error: error }); });
-};*/
+};
 
 
 

@@ -2,8 +2,8 @@
 const bcrypt = require('bcrypt');
 /*token d'authentification*/
 const jwt = require('jsonwebtoken');
-const mysql = require('mysql2');
-const User = require('../../../groupomania/backend/models/User');
+//const mysql = require('mysql2');
+const User = require('../../../groupomania/backend/models/User.js');
 
 
 const { createUser } = require('../models/User');
