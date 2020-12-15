@@ -2,12 +2,12 @@
 const express = require('express');
 /*middleware*/
 const bodyParser = require('body-parser');
-const path = require('path');
+//const path = require('path');
 const mysql = require('mysql2');
 
 
 
-const userRoutes = require('./routes/user');
+const userRoutes = require('./backend/routes/user');
 
 const connection = mysql.createConnection({
   host: 'localhost',

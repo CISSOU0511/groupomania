@@ -1,7 +1,6 @@
 {
   "name": "groupomania",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -27,7 +26,10 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.6",
+    "request": "^2.88.2",
     "sass": "^1.30.0",
     "sequelize": "^6.3.5"
-  }
+  },
+  "devDependencies": {},
+  "description": ""
 }
