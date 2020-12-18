@@ -9,4 +9,4 @@ const commentSchema = mysql.Schema({
   imageUrl: { type: String, required: true },
 });
 
-module.exports = mysql.model('groupomania', commentSchema);
+module.exports = mysql.model('groupomania', commentSchema);*/

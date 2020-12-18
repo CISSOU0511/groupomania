@@ -2,19 +2,23 @@
 const bcrypt = require('bcrypt');
 /*token d'authentification*/
 const jwt = require('jsonwebtoken');
-//const mysql = require('mysql2');
 const User = require('../../../groupomania/backend/models/User.js');
 
 
 const { createUser } = require('../models/User');
 
 exports.signup = (req, res, next) => {
-    console.log('test', req.body)
+    console.log('ok', req.body)
     bcrypt.hash(req.body.password, 10)
-        .then(hash => {
-            const newUser = createUser()
-        })
-        .catch(error => res.status(500).json({ error }))
+    .then(async (hash) => {
+        console.log(hash)
+        const newUser = await createUser(req.body, hash)
+        console.log(newUser)
+        if (newUser.affectedRows){
+            res.status(201).send('utilisateur créé ! ')
+        }
+    })
+    .catch(error => res.status(500).json({ error }))
 };
 
 exports.login = (req, res, next) => {
