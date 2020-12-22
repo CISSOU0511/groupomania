@@ -1,12 +1,19 @@
-/*const mysql = require('mysql2');
+/*modèle de données*/
+/*middleware*/
+const mysql = require('./db')
+/*plugin*/
 
 
-
-const commentSchema = mysql.Schema({
-  userId: { type: String, required: true },
-  name: { type: String, required: true },
-  firstName: { type: String, required: true },
-  imageUrl: { type: String, required: true },
-});
-
-module.exports = mysql.model('groupomania', commentSchema);*/
+exports.createComment = function (comment, hash) {
+    return new Promise((resolve, reject) => {
+        const newComment = {             
+            ARTICLE_ID: user.email,
+            COMMENTAIRE: user,
+            CREATION_DATE: user,
+        }
+        mysql.query('SELECT * FROM `commentaire` WHERE commentaire ', newComment, function (error, result, fields) {
+            if (error) return reject(error)
+            resolve(fields)
+        })
+    })
+};

@@ -1,7 +1,6 @@
 
-const articles = require('../models/Articles');
+const Articles = require('../models/Articles');
 const fs = require('fs');
-
 
 exports.createArticles = (req, res, next) => {
     const articlesObject = JSON.parse(req.body.articles);
@@ -26,7 +25,6 @@ exports.modifyArticles = (req, res, next) => {
         .then(() => res.status(200).json({ message: 'Article modifié !' }))
         .catch(error => res.status(400).json({ error }));
 };
-
 
 
 exports.deleteArticles = (req, res, next) => {

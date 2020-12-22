@@ -1,5 +1,5 @@
 
-const comment = require('../models/Comment');
+const Comment = require('../models/Comment');
 const fs = require('fs');
 
 

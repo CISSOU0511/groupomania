@@ -5,24 +5,29 @@ const jwt = require('jsonwebtoken');
 const User = require('../../../groupomania/backend/models/User.js');
 
 
-const { createUser } = require('../models/User');
 
-exports.signup = (req, res, next) => {
+const { createUser, findOne } = require('../models/User');
+
+
+exports.signup = async (req, res, next) => {
     console.log('ok', req.body)
-    bcrypt.hash(req.body.password, 10)
-    .then(async (hash) => {
-        console.log(hash)
-        const newUser = await createUser(req.body, hash)
-        console.log(newUser)
-        if (newUser.affectedRows){
-            res.status(201).send('utilisateur créé ! ')
-        }
-    })
-    .catch(error => res.status(500).json({ error }))
+    const hash = await bcrypt.hash(req.body.password, 10)
+    
+    const newUser = await createUser(req.body, hash)
+    if (newUser.affectedRows >0) {
+       return res.status(201).send(' utilisateur créé ! ')
+    }
+    else {
+        res.status(500).send('error')
+    }       
 };
 
-exports.login = (req, res, next) => {
-    User.findOne({ email: req.body.email })
+exports.login = async (req, res, next) => {
+    console.log('ok', req.body)
+    const user = await findOne(req.body.email)
+    console.log(user)
+
+    /*User.findOne({ email: req.body.email })
         .then(user => {
             if (!user) {
                 return res.status(401).json({ error: 'Utilisateur non trouvé !' });
@@ -43,5 +48,5 @@ exports.login = (req, res, next) => {
                 })
                 .catch(error => res.status(500).json({ error }));
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({ error }));*/
 };

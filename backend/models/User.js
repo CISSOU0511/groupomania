@@ -5,7 +5,7 @@ const mysql = require('./db')
 
 
 exports.createUser = function (user, hash) {
-    return new Promise((reject, resolve) => {
+    return new Promise((resolve,reject ) => {
         const newUser = {
             NOM: user.nom,
             PRENOM: user.prenom,
@@ -14,11 +14,24 @@ exports.createUser = function (user, hash) {
         }
         mysql.query('INSERT INTO `utilisateurs` SET ? ', newUser, function (error, result, fields) {
             if (error) return reject(error)
-            console.log('test:', result)
-            resolve(fields)
+            resolve(result)
         })
     })
-
 };
+
+exports.findOne = function (email) {
+    return new Promise((resolve,reject ) => {        
+        mysql.query('SELECT * FROM `utilisateurs` WHERE email= ? ', [email], function (error, result, fields) {
+            if (error) return reject(error)
+            resolve(result)
+        })
+    })
+};
+
+
+
+
+
+
 
 
