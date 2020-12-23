@@ -1,20 +1,28 @@
+const bcrypt = require('bcrypt');
+//const jwt = require('jsonwebtoken');
 
-const Comment = require('../models/Comment');
-const fs = require('fs');
 
+const { createComment } = require ('../models/Comment');
 
-exports.createComment = (req, res, next) => {
-    const commentObject = JSON.parse(req.body.comment);
-    delete commentObject._id;
-    const comment = new Comment({
-        ...commentObject,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    });
-    comment.save()
-        .then(() => res.status(201).json({ message: 'commentaire enregistré !' }))
-        .catch(error => res.status(400).json({ error }));
+exports.createComment = async (req, res, next) => { 
+    console.log('commentaire créé !', req.body)   
+    const hash = await bcrypt.hash(req.body.password, 10)
+    const newComment = await createComment(req.body, hash) 
+    if (newComment.affectedRows > 0) {
+        return res.status(201).send(' commentaire créé ! ')
+    }
+    else {
+        res.status(500).send('error')
+    }  
+    /*res.status(200).json({
+        userId: user._id,
+        token: jwt.sign(
+            { userId: user._id },
+            'RANDOM_TOKEN_SECRET',
+            { expiresIn: '24h' }
+        )
+    })*/
 };
-
 
 exports.modifyComment = (req, res, next) => {
     const commentObject = req.file ?
@@ -26,8 +34,6 @@ exports.modifyComment = (req, res, next) => {
         .then(() => res.status(200).json({ message: 'Commentaire modifié !' }))
         .catch(error => res.status(400).json({ error }));
 };
-
-
 
 exports.deleteComment = (req, res, next) => {
     comment.findOne({ _id: req.params.id })
@@ -42,12 +48,12 @@ exports.deleteComment = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
-exports.getOneComment = (req, res, next) => {
+/*exports.getOneComment = (req, res, next) => {
     comment.findOne({ _id: req.params.id })
         .then((comment) => { res.status(200).json(comment); })
         .catch((error) => { res.status(404).json({ error }); });
 
-};
+};*/
 
 exports.getAllComment = (req, res, next) => {
     comment.find()

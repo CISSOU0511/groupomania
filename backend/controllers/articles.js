@@ -1,17 +1,26 @@
+const bcrypt = require('bcrypt');
+//const jwt = require('jsonwebtoken');
 
-const Articles = require('../models/Articles');
-const fs = require('fs');
 
-exports.createArticles = (req, res, next) => {
-    const articlesObject = JSON.parse(req.body.articles);
-    delete articlesObject._id;
-    const articles = new Articles({
-        ...articlesObject,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    });
-    articles.save()
-        .then(() => res.status(201).json({ message: 'Article enregistré !' }))
-        .catch(error => res.status(400).json({ error }));
+const { createArticles } = require('../models/Articles');
+
+exports.createArticles = async (req, res, next) => {
+    const hash = await bcrypt.hash(req.body.password, 10)
+    const newArticles = await createArticles(req.body, hash) 
+    if (newArticles.affectedRows > 0) {
+        return res.status(201).send(' commentaire créé ! ')
+    }
+    else {
+        res.status(500).send('error')
+    }  
+    /*res.status(200).json({
+        userId: user._id,
+        token: jwt.sign(
+            { userId: user._id },
+            'RANDOM_TOKEN_SECRET',
+            { expiresIn: '24h' }
+        )
+    })*/
 };
 
 

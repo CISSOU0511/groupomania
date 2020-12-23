@@ -4,13 +4,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-
 const userRoutes = require('./routes/user');
-/*const commentRoutes = require('./routes/comment');
-const articlesRoutes = require('./routes/articles');*/
-
 const app = express();
 
+
+const commentRoutes = require('./routes/comment');
+const articlesRoutes = require('./routes/articles');
 
 /*CORS middleware appliqué à toutes les routes*/
 app.use((_req, res, next) => {
@@ -27,8 +26,8 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 app.use('/api/auth', userRoutes);
-/*app.use('/api/comment', commentRoutes);
-app.use('/api/articles', articlesRoutes);*/
+app.use('/api/comment', commentRoutes);
+app.use('/api/articles', articlesRoutes);
 
 
 

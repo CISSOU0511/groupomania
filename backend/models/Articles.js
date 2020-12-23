@@ -1,10 +1,8 @@
 /*modèle de données*/
-/*middleware*/
-const mysql = require('./db')
-/*plugin*/
 
 
-exports.createArticles = function (user, hash) {
+
+exports.createArticles = function (user) {
     return new Promise((resolve, reject) => {
         const newArticles = {
             ID: user.nom,
@@ -13,9 +11,9 @@ exports.createArticles = function (user, hash) {
             USER_ID: user,
             CREATION_DATE: user,
         }
-        mysql.query('SELECT `articles` SET ? ', newArticles, function (error, result, fields) {
+        mysql.query('INSERT INTO `articles` SET ? ', newArticles, function (error, result, fields) {
             if (error) return reject(error)
-            resolve(fields)
+            resolve(result)
         })
     })
 };

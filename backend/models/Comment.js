@@ -1,19 +1,20 @@
-/*modèle de données*/
-/*middleware*/
-const mysql = require('./db')
-/*plugin*/
+const mysql = require('mysql2');
 
-
-exports.createComment = function (comment, hash) {
+exports.createComment = function (comment) {
     return new Promise((resolve, reject) => {
-        const newComment = {             
-            ARTICLE_ID: user.email,
-            COMMENTAIRE: user,
-            CREATION_DATE: user,
+        const newComment = {
+            COMMENTAIRE: comment,
         }
-        mysql.query('SELECT * FROM `commentaire` WHERE commentaire ', newComment, function (error, result, fields) {
+        mysql.query('INSERT INTO `commentaire` SET ? ', newComment, function (error, result, fields) {
             if (error) return reject(error)
-            resolve(fields)
+            resolve(result)
         })
     })
 };
+
+/*exports.getAllComment = function(comment) {
+        mysql.query('SELECT * FROM `commentaire` WHERE comment= ? ', [comment], function (error, result, fields) {
+            if (error) return reject(error)
+            resolve(result)
+        })
+};*/

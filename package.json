@@ -27,7 +27,8 @@
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.6",
     "sequelize": "^6.3.5",
-    "vue": "^2.6.12"
+    "vue": "^2.6.12",
+    "vuetify": "^2.4.0"
   },
   "devDependencies": {}
 }
