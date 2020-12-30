@@ -1,9 +1,12 @@
-const mysql = require('mysql2');
+const mysql = require('./db');
 
 exports.createComment = function (comment) {
     return new Promise((resolve, reject) => {
         const newComment = {
-            COMMENTAIRE: comment,
+            COMMENTAIRE: comment.commentaire,
+            USER_ID: comment.user_id,
+            ARTICLE_ID: comment.article_id
+
         }
         mysql.query('INSERT INTO `commentaire` SET ? ', newComment, function (error, result, fields) {
             if (error) return reject(error)
@@ -11,10 +14,11 @@ exports.createComment = function (comment) {
         })
     })
 };
-
-/*exports.getAllComment = function(comment) {
-        mysql.query('SELECT * FROM `commentaire` WHERE comment= ? ', [comment], function (error, result, fields) {
+exports.updateComment = function (comment) {
+    return new Promise((resolve, reject) => {
+        mysql.query('UPDATE `commentaire` SET COMMENTAIRE = ? WHERE ID = ?', [comment.commentaire, comment.id], function (error, result, fields) {
             if (error) return reject(error)
             resolve(result)
         })
-};*/
+    })
+};

@@ -7,7 +7,6 @@ const { createUser, findOne } = require('../models/User');
 
 
 exports.signup = async (req, res, next) => {
-    console.log('ok', req.body)
     const hash = await bcrypt.hash(req.body.password, 10)
     const newUser = await createUser(req.body, hash)
     if (newUser.affectedRows > 0) {
