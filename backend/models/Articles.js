@@ -22,9 +22,28 @@ exports.updateArticle = function (article) {
         })
     })
 };
+
 exports.deleteArticle = function (article) {
     return new Promise((resolve, reject) => {
         mysql.query('DELETE FROM `articles` WHERE ID = ?', [article.id], function (error, result, fields) {
+            if (error) return reject(error)
+            resolve(result)
+        })
+    })
+};
+
+exports.findOne = function (article) {
+    return new Promise((resolve, reject) => {
+        mysql.query('SELECT `CONTENU`, `IMAGE` FROM `articles` WHERE ID = ? ', [article.id], function (error, result, fields) {
+            if (error) return reject(error)
+            resolve(result)
+        })
+    })
+};
+
+exports.findAll = function () {
+    return new Promise((resolve, reject) => {
+        mysql.query('SELECT * FROM `articles`', function (error, result, fields) {
             if (error) return reject(error)
             resolve(result)
         })

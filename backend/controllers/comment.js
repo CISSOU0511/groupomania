@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+//const bcrypt = require('bcrypt');
+//const jwt = require('jsonwebtoken');
 
 
 const modelComment = require('../models/Comment');
@@ -28,32 +28,32 @@ exports.modifyComment = async (req, res, next) => {
         res.status(500).send('error')
     }
 };
-/*
-exports.deleteComment = (req, res, next) => {
-    comment.findOne({ _id: req.params.id })
-        .then(comment => {
-            const filename = comment.imageUrl.split('/images/')[1];
-            fs.unlink(`images/${filename}`, () => {
-                comment.deleteOne({ _id: req.params.id })
-                    .then(() => res.status(200).json({ message: 'Deleted!' }))
-                    .catch(error => res.status(400).json({ error }));
-            });
-        })
-        .catch(error => res.status(500).json({ error }));
+
+exports.deleteComment = async (req, res, next) => {
+    const comment = {
+        id: req.params.id
+    }
+    const deleteComment = await modelComment.deleteComment(comment)
+    if (deleteComment.affectedRows > 0) {
+        return res.status(201).send(' Commentaire supprimé ! ')
+    }
+    else {
+        res.status(500).send('error')
+    }
 };
 
-/*exports.getOneComment = (req, res, next) => {
-    comment.findOne({ _id: req.params.id })
-        .then((comment) => { res.status(200).json(comment); })
-        .catch((error) => { res.status(404).json({ error }); });
 
-};*/
+exports.findOne = async (req, res, next) => {
+    const comment = {
+        id: req.params.id
+    }
+    const findOne = await modelComment.findOne(comment)
+    res.status(200).json({ findOne })
+};
 
-/*exports.getAllComment = (req, res, next) => {
-    comment.find()
-        .then((comment) => { res.status(200).json(comment); })
-        .catch((error) => { res.status(400).json({ error: error }); });
-};*/
-
+exports.findAll = async (req, res, next) => {
+    const findAll = await modelComment.findAll()
+    res.status(200).json({ findAll })
+};
 
 

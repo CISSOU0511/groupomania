@@ -22,3 +22,30 @@ exports.updateComment = function (comment) {
         })
     })
 };
+
+exports.deleteComment = function (comment) {
+    return new Promise((resolve, reject) => {
+        mysql.query('DELETE FROM `commentaire` WHERE ID = ?', [comment.id], function (error, result, fields) {
+            if (error) return reject(error)
+            resolve(result)
+        })
+    })
+};
+
+exports.findOne = function (comment) {
+    return new Promise((resolve, reject) => {
+        mysql.query('SELECT `COMMENTAIRE`, `ARTICLE_ID`FROM `commentaire` WHERE ID = ? ', [comment.id], function (error, result, fields) {
+            if (error) return reject(error)
+            resolve(result)
+        })
+    })
+};
+
+exports.findAll = function () {
+    return new Promise((resolve, reject) => {
+        mysql.query(' SELECT * FROM `commentaire`', function (error, result, fields) {
+            if (error) return reject(error)
+            resolve(result)
+        })
+    })
+};

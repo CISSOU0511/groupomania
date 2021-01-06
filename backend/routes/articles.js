@@ -11,7 +11,7 @@ const articleCtrl = require('../controllers/articles');
 router.post('/', articleCtrl.createArticle);
 router.put('/:id', articleCtrl.modifyArticle);
 router.delete('/:id', articleCtrl.deleteArticle);
-//router.get('/:id', articleCtrl.getOneArticle);
-//router.get('/', articleCtrl.getAllArticle);
+router.get('/:id', articleCtrl.findOne);
+router.get('/', articleCtrl.findAll);
 
 module.exports = router;
