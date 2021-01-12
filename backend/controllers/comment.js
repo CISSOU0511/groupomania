@@ -42,7 +42,6 @@ exports.deleteComment = async (req, res, next) => {
     }
 };
 
-
 exports.findOne = async (req, res, next) => {
     const comment = {
         id: req.params.id
@@ -55,5 +54,3 @@ exports.findAll = async (req, res, next) => {
     const findAll = await modelComment.findAll()
     res.status(200).json({ findAll })
 };
-
-

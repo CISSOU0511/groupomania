@@ -34,7 +34,7 @@ exports.deleteComment = function (comment) {
 
 exports.findOne = function (comment) {
     return new Promise((resolve, reject) => {
-        mysql.query('SELECT `COMMENTAIRE`, `ARTICLE_ID`FROM `commentaire` WHERE ID = ? ', [comment.id], function (error, result, fields) {
+        mysql.query('SELECT `COMMENTAIRE`, `ARTICLE_ID` FROM `commentaire` WHERE ID = ? ', [comment.id], function (error, result, fields) {
             if (error) return reject(error)
             resolve(result)
         })

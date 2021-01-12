@@ -30,5 +30,7 @@
     "vue": "^2.6.12",
     "vuetify": "^2.4.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@vue/cli-plugin-router": "^4.5.10"
+  }
 }
