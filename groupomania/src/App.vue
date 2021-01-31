@@ -1,6 +1,10 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
+      <div id="nav">
+        <router-link to="/">Signup</router-link>
+      </div>
+      <router-view />
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -35,16 +39,19 @@
 
     <v-main>
       <accueil/>
+      <Signup/>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import accueil from "./components/accueil";
+import Signup from "./components/Signup";
 export default {
   name: "App",
   components: {
     accueil,
+    Signup,
   },
   data: () => ({
     //
