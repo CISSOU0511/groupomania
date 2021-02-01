@@ -1,4 +1,4 @@
-<template>  
+<template>
   <nav>
     <div class="left-nav">
       <ul>
@@ -7,11 +7,17 @@
         </li>
       </ul>
     </div>
-      <img src="../assets/images/icon-left-font-monochrome-white.svg" alt="logo"/>
+    <img
+      src="../assets/images/icon-left-font-monochrome-white.svg"
+      alt="logo"
+    />
     <div class="right-nav">
       <ul>
         <li>
-          <router-link to="/Signup">Inscription</router-link>
+          <router-link to="/">Inscription</router-link>
+        </li>
+        <li>
+          <router-link to="/">Connexion</router-link>
         </li>
         <li>
           <a to="/Login" v-on:click="Logout()">Déconnexion</a>
@@ -20,20 +26,20 @@
     </div>
   </nav>
 </template>
-<script>
-  export default {
-    name: 'logo',
-    props: ['logo']
-  }
-</script>
 
+<script>
+export default {
+  name: "logo",
+  props: ["logo"],
+};
+</script>
 
 <style lang="scss">
 // Palette de couleurs
 $primary-blue: #122442;
-$text-danger: #E53935;
-$primary-grey: #E53935;
-$secondary-grey: #E53935;
+$text-danger: #e53935;
+$primary-grey: #e53935;
+$secondary-grey: #e53935;
 $primary-white: whitesmoke;
 nav {
   display: flex;
@@ -62,6 +68,7 @@ nav {
   }
   li {
     margin: 0 15px;
+
   }
   a {
     color: white;
