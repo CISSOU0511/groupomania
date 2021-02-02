@@ -8,16 +8,16 @@
       </ul>
     </div>
     <img
-      src="../assets/images/icon-left-font-monochrome-white.svg"
-      alt="logo"
-    />
+      src="../assets/images/icon-left-font-monochrome-white.svg" alt="logo"/>
+      
+
     <div class="right-nav">
       <ul>
         <li>
-          <router-link to="/">Inscription</router-link>
+          <router-link to="/Signup">Inscription</router-link>
         </li>
         <li>
-          <router-link to="/">Connexion</router-link>
+          <router-link to="/Login">Connexion</router-link>
         </li>
         <li>
           <a to="/Login" v-on:click="Logout()">Déconnexion</a>
@@ -68,7 +68,6 @@ nav {
   }
   li {
     margin: 0 15px;
-
   }
   a {
     color: white;

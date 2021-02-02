@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Accueil from '../views/Accueil'
-import Signup from '../views/Signup'
+import Accueil from '@/views/Accueil'
+import Signup from '@/components/Signup'
+
 
 Vue.use(VueRouter)
 
@@ -16,7 +17,6 @@ const routes = [
     name: 'Signup',
     component: Signup
   },
-
 ]
 
 

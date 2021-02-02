@@ -1,13 +1,16 @@
 <template>
   <v-app>
-    <main>      
-        <router-view />      
-    </main>
+    <v-app-bar app color="#F44336"> </v-app-bar>
+    <v-main>
+      <router-view></router-view>
+    </v-main>
   </v-app>
 </template>
 
 <script>
 export default {
-  name: "App",
+  data() {
+    return {};
+  },
 };
 </script>
