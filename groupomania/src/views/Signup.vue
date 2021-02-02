@@ -29,47 +29,41 @@
     </v-toolbar>
     <v-form ref="form" v-model="form" class="pa-4 pt-6">
       <v-text-field
+        v-model="email"
+        :rules="[rules.email]"
+        filled
+        color="deep-purple"
+        label="Email"
+        type="email"
+      ></v-text-field>
+      <v-text-field
         v-model="password"
         :rules="[rules.password, rules.length(6)]"
         filled
         color="deep-purple"
-        counter="6"
+        counter="8"
         label="Password"
         style="min-height: 96px"
         type="password"
       ></v-text-field>
       <v-text-field
-        v-model="phone"
+        v-model="Nom"
         filled
         color="deep-purple"
-        label="Phone number"
+        label="Nom"
       ></v-text-field>
       <v-text-field
-        v-model="email"
-        :rules="[rules.email]"
+        v-model="Prénom"
         filled
         color="deep-purple"
-        label="Email address"
-        type="email"
+        label="Prénom"
       ></v-text-field>
-
-      <v-checkbox
-        v-model="agreement"
-        :rules="[rules.required]"
-        color="deep-purple"
-      >
-        <template v-slot:label>
-          I agree to the&nbsp;
-          <a href="#" @click.stop.prevent="dialog = true">Terms of Service</a>
-          &nbsp;and&nbsp;
-          <a href="#" @click.stop.prevent="dialog = true">Privacy Policy</a>*
-        </template>
-      </v-checkbox>
+      
     </v-form>
     <v-divider></v-divider>
     <v-card-actions>
       <v-btn text @click="$refs.form.reset()">
-        Clear
+        Annuler
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn
@@ -79,7 +73,7 @@
         color="deep-purple accent-4"
         depressed
       >
-        Submit
+        Envoyer
       </v-btn>
     </v-card-actions>
     <v-dialog v-model="dialog" absolute max-width="400" persistent>

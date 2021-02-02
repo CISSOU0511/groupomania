@@ -61,7 +61,7 @@ export default {
   },
 
   methods: {
-    customFilter(item, queryText, itemText) {
+    customFilter(item, queryText,) {
       const textOne = item.name.toLowerCase();
       const textTwo = item.abbr.toLowerCase();
       const searchText = queryText.toLowerCase();

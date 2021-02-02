@@ -3,14 +3,12 @@
     <div class="left-nav">
       <ul>
         <li>
-          <router-link to="/accueil">Accueil</router-link>
+          <router-link to="/Accueil">Accueil</router-link>
         </li>
       </ul>
     </div>
     <img
       src="../assets/images/icon-left-font-monochrome-white.svg" alt="logo"/>
-      
-
     <div class="right-nav">
       <ul>
         <li>
@@ -18,9 +16,6 @@
         </li>
         <li>
           <router-link to="/Login">Connexion</router-link>
-        </li>
-        <li>
-          <a to="/Login" v-on:click="Logout()">Déconnexion</a>
         </li>
       </ul>
     </div>
@@ -41,6 +36,7 @@ $text-danger: #e53935;
 $primary-grey: #e53935;
 $secondary-grey: #e53935;
 $primary-white: whitesmoke;
+
 nav {
   display: flex;
   padding: 10px;
