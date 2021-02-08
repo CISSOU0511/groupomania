@@ -1,12 +1,12 @@
 <template>
-  <v-card class="overflow-hidden" color="purple lighten-1" dark>
-    <v-toolbar flat color="purple">
+  <v-card class="overflow-hidden" color="blue" dark>
+    <v-toolbar flat color="indigo">
       <v-icon>mdi-account</v-icon>
       <v-toolbar-title class="font-weight-light">
-        User Profile
+        Mon Profil
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="purple darken-3" fab small @click="isEditing = !isEditing">
+      <v-btn color="blue" fab small @click="isEditing = !isEditing">
         <v-icon v-if="isEditing">
           mdi-close
         </v-icon>
@@ -19,16 +19,14 @@
       <v-text-field
         :disabled="!isEditing"
         color="white"
-        label="Name"
+        label="Email"
       ></v-text-field>
-      <v-autocomplete
+      <v-text-field
         :disabled="!isEditing"
-        :items="states"
-        :filter="customFilter"
         color="white"
         item-text="name"
-        label="State"
-      ></v-autocomplete>
+        label="Password"
+      ></v-text-field>
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
@@ -61,7 +59,7 @@ export default {
   },
 
   methods: {
-    customFilter(item, queryText,) {
+    customFilter(item, queryText) {
       const textOne = item.name.toLowerCase();
       const textTwo = item.abbr.toLowerCase();
       const searchText = queryText.toLowerCase();

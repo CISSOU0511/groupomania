@@ -3,19 +3,19 @@
     <div class="left-nav">
       <ul>
         <li>
-          <router-link to="/Accueil">Accueil</router-link>
+          <v-btn to="/Accueil">Accueil</v-btn>
         </li>
       </ul>
     </div>
-    <img
-      src="../assets/images/icon-left-font-monochrome-white.svg" alt="logo"/>
+    <img src="@/assets/images/icon-left-font-monochrome-white.svg" alt="logo"/>
+     
     <div class="right-nav">
       <ul>
         <li>
-          <router-link to="/Signup">Inscription</router-link>
+          <v-btn to="/Signup">Inscription</v-btn>
         </li>
         <li>
-          <router-link to="/Login">Connexion</router-link>
+          <v-btn to="/Login">Connexion</v-btn>
         </li>
       </ul>
     </div>
@@ -46,7 +46,7 @@ nav {
   .left-nav,
   .right-nav {
     align-self: center;
-    width: 30%;
+    width: 50%;
   }
   .right-nav {
     ul {

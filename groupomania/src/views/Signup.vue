@@ -1,33 +1,25 @@
 <template>
   <v-card class="mx-auto" style="max-width: 500px;">
-    <v-system-bar color="deep-purple darken-4" dark>
-      <v-spacer></v-spacer>
-      <v-icon small>
-        mdi-square
-      </v-icon>
-      <v-icon class="ml-1" small>
-        mdi-circle
-      </v-icon>
-      <v-icon class="ml-1" small>
-        mdi-triangle
-      </v-icon>
-    </v-system-bar>
-    <v-toolbar color="deep-purple accent-4" cards dark flat>
-      <v-btn icon>
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-btn>
-      <v-card-title class="title font-weight-regular">
-        Sign up
-      </v-card-title>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
+    <v-toolbar color="cyan lighten-1"  cards dark flat>    
+      <v-card-title class="title">
+          Inscription
+      </v-card-title> 
+          
     </v-toolbar>
     <v-form ref="form" v-model="form" class="pa-4 pt-6">
+      
+      <v-text-field
+        v-model="Nom"
+        filled
+        color="deep-purple"
+        label="Nom"
+      ></v-text-field>
+      <v-text-field
+        v-model="Prénom"
+        filled
+        color="deep-purple"
+        label="Prénom"
+      ></v-text-field>
       <v-text-field
         v-model="email"
         :rules="[rules.email]"
@@ -42,23 +34,10 @@
         filled
         color="deep-purple"
         counter="8"
-        label="Password"
+        label="Mot de passe"
         style="min-height: 96px"
         type="password"
       ></v-text-field>
-      <v-text-field
-        v-model="Nom"
-        filled
-        color="deep-purple"
-        label="Nom"
-      ></v-text-field>
-      <v-text-field
-        v-model="Prénom"
-        filled
-        color="deep-purple"
-        label="Prénom"
-      ></v-text-field>
-      
     </v-form>
     <v-divider></v-divider>
     <v-card-actions>
