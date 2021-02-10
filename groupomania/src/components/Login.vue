@@ -1,12 +1,12 @@
 <template>
-  <v-card class="overflow-hidden" color="blue" dark>
-    <v-toolbar flat color="indigo">
+  <v-card class="mx-auto" color="indigo" dark style="max-width: 500px;">
+    <v-toolbar flat color="indigo darken-3">
       <v-icon>mdi-account</v-icon>
-      <v-toolbar-title class="font-weight-light">
+      <v-toolbar-title>
         Mon Profil
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="blue" fab small @click="isEditing = !isEditing">
+      <v-btn color="indigo darken-3" fab small @click="isEditing = !isEditing">
         <v-icon v-if="isEditing">
           mdi-close
         </v-icon>
@@ -32,12 +32,9 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn :disabled="!isEditing" color="success" @click="save">
-        Save
+        Connexion
       </v-btn>
     </v-card-actions>
-    <v-snackbar v-model="hasSaved" :timeout="2000" absolute bottom left>
-      Your profile has been updated
-    </v-snackbar>
   </v-card>
 </template>
 
@@ -48,13 +45,6 @@ export default {
       hasSaved: false,
       isEditing: null,
       model: null,
-      states: [
-        { name: "Florida", abbr: "FL", id: 1 },
-        { name: "Georgia", abbr: "GA", id: 2 },
-        { name: "Nebraska", abbr: "NE", id: 3 },
-        { name: "California", abbr: "CA", id: 4 },
-        { name: "New York", abbr: "NY", id: 5 },
-      ],
     };
   },
 

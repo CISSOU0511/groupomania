@@ -1,28 +1,29 @@
 <template>
   <v-app>
-     
     <nav>
-    <div class="left-nav">
-      <ul>
-        <li>
-          <v-btn to="/Accueil">Accueil</v-btn>
-        </li>
-      </ul>
-    </div>
-    <img src="@/assets/images/icon-left-font-monochrome-white.svg" alt="logo"/>
-     
-    <div class="right-nav">
-      <ul>
-        <li>
-          <v-btn to="/Signup">Inscription</v-btn>
-        </li>
-        <li>
-          <v-btn to="/Login">Connexion</v-btn>
-        </li>
-      </ul>
-    </div>
-  </nav>
-    
+      <div class="left-nav">
+        <ul>
+          <li>
+            <v-btn to="/Accueil">Accueil</v-btn>
+          </li>
+        </ul>
+      </div>
+      <v-img
+        src="@/assets/images/icon-left-font-monochrome-white.svg"
+        alt="logo"
+      />
+
+      <div class="right-nav">
+        <ul>
+          <li>
+            <v-btn to="/Signup">Inscription</v-btn>
+          </li>
+          <li>
+            <v-btn to="/Login">Connexion</v-btn>
+          </li>
+        </ul>
+      </div>
+    </nav>
     <v-main>
       <router-view></router-view>
     </v-main>
