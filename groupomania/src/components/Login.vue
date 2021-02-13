@@ -1,7 +1,7 @@
 <template>
-  <v-card class="mx-auto" color="indigo" dark style="max-width: 500px;">
+  <v-card class="mx-auto ma-3" color="indigo" dark style="max-width: 500px;">
     <v-toolbar flat color="indigo darken-3">
-      <v-icon>mdi-account</v-icon>
+      <v-icon class="mr-3">mdi-account</v-icon>
       <v-toolbar-title>
         Mon Profil
       </v-toolbar-title>
@@ -15,7 +15,7 @@
         </v-icon>
       </v-btn>
     </v-toolbar>
-    <v-card-text>
+    <v-card-text class="mx-auto ma-3">
       <v-text-field
         :disabled="!isEditing"
         color="white"
