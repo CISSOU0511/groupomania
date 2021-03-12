@@ -1,12 +1,12 @@
 <template>
   <v-card class="mx-auto ma-3" color="indigo" dark style="max-width: 500px;">
-    <v-toolbar flat color="indigo darken-3">
+    <v-toolbar flat color="indigo darken-4">
       <v-icon class="mr-3">mdi-account</v-icon>
       <v-toolbar-title>
         Mon Profil
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="indigo darken-3" fab small @click="isEditing = !isEditing">
+      <v-btn color="indigo darken-4" fab small @click="isEditing = !isEditing">
         <v-icon v-if="isEditing">
           mdi-close
         </v-icon>

@@ -1,11 +1,8 @@
 <template>
   <v-card class="mx-auto ma-3" style="max-width: 500px;">
-    <v-toolbar color="indigo" cards dark flat>
-      <v-btn icon>
-        <v-icon>mdi-arrow-left</v-icon>
-      </v-btn>
+    <v-toolbar color="indigo darken-4" cards dark flat>
       <v-card-title class="title">
-      <v-icon class="mr-3">mdi-account</v-icon>
+        <v-icon class="mr-3">mdi-account</v-icon>
         Inscription
       </v-card-title>
     </v-toolbar>

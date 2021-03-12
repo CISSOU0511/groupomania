@@ -1,17 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Accueil from '@/views/Accueil'
 import Signup from '@/views/Signup'
 import Login from '@/components/Login'
+import NavBar from '@/components/NavBar'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Accueil',
-    component: Accueil
-  },
   {
     path: '/Signup',
     name: 'Signup',
@@ -21,6 +16,11 @@ const routes = [
     path: '/Login',
     name: 'Login',
     component: Login
+  },
+  {
+    path:'/NavBar',
+    name: 'NavBar',
+    component: NavBar
   },
 ]
 
