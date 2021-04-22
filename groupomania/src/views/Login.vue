@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto ma-3" color="indigo" dark style="max-width: 500px;">
+  <v-card class="mx-auto ma-6" color="indigo" dark style="max-width: 500px;">
     <v-toolbar flat color="indigo darken-4">
       <v-icon class="mr-3">mdi-account</v-icon>
       <v-toolbar-title>
@@ -47,13 +47,11 @@ export default {
       model: null,
     };
   },
-
   methods: {
     customFilter(item, queryText) {
       const textOne = item.name.toLowerCase();
       const textTwo = item.abbr.toLowerCase();
       const searchText = queryText.toLowerCase();
-
       return (
         textOne.indexOf(searchText) > -1 || textTwo.indexOf(searchText) > -1
       );

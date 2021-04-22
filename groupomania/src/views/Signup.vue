@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto ma-3" style="max-width: 500px;">
+  <v-card class="mx-auto ma-6" style="max-width: 500px;">
     <v-toolbar color="indigo darken-4" cards dark flat>
       <v-card-title class="title">
         <v-icon class="mr-3">mdi-account</v-icon>
@@ -40,15 +40,15 @@
     </v-form>
     <v-divider></v-divider>
     <v-card-actions>
-      <v-btn text @click="$refs.form.reset()">
+      <v-btn class="indigo darken-4 white--text" text @click="$refs.form.reset()">
         Annuler
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn
         :disabled="!form"
         :loading="isLoading"
-        class="indigo--text"
-        color="indigo accent-4"
+        class="white--text"
+        color="indigo darken-4"
         depressed
       >
         Envoyer
@@ -57,28 +57,25 @@
   </v-card>
 </template>
 
-<script>
+<script> 
+
 export default {
+  name: 'signup',
   data: () => ({
-    agreement: false,
-    bio:
-      "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts",
-    dialog: false,
     email: undefined,
     form: false,
     isLoading: false,
     password: undefined,
-    phone: undefined,
     rules: {
-      email: (v) => !!(v || "").match(/@/) || "Please enter a valid email",
+      email: (v) => !!(v || "").match(/@/) || "Veuillez saisir une adresse e-mail valide",
       length: (len) => (v) =>
-        (v || "").length >= len || `Invalid character length, required ${len}`,
+        (v || "").length >= len || `Longueur de caractère non valide, obligatoire ${len}`,
       password: (v) =>
         !!(v || "").match(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
         ) ||
-        "Password must contain an upper case letter, a numeric character, and a special character",
-      required: (v) => !!v || "This field is required",
+        "Le mot de passe doit contenir une lettre majuscule, un caractère numérique et un caractère spécial",
+      required: (v) => !!v || "Ce champ est requis",
     },
   }),
 };
