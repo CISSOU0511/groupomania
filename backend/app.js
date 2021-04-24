@@ -1,15 +1,15 @@
 /*framework*/
 const express = require('express');
 /*middleware*/
-const bodyParser = require('body-parser');
+
 const path = require('path');
 
 const userRoutes = require('./routes/user');
 const app = express();
 
-
 const commentRoutes = require('./routes/comment');
 const articleRoutes = require('./routes/articles');
+
 
 /*CORS middleware appliqué à toutes les routes*/
 app.use((_req, res, next) => {
@@ -19,13 +19,13 @@ app.use((_req, res, next) => {
   next();
 });
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-
-app.use('/api/auth', userRoutes);
+app.use('/api', userRoutes);
 app.use('/api/articles', articleRoutes);
 app.use('/api/comment', commentRoutes);
 
