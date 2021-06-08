@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <NavBar />  
+    <NavBar></NavBar>  
     <v-main>
-      <router-view/>      
+      <router-view>
+      </router-view>      
     </v-main>
-
     <div id="Footer">
     <Footer></Footer>
     </div>
@@ -14,7 +14,6 @@
 <script>
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-
 
 export default {
   name: "App",

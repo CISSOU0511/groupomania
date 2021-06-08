@@ -8,13 +8,13 @@
     </v-toolbar>
     <v-form ref="form" v-model="form" class="pa-4 pt-6">
       <v-text-field
-        v-model="Nom"
+        v-model="lastName"
         filled
         color="indigo"
         label="Nom"
       ></v-text-field>
       <v-text-field
-        v-model="Prénom"
+        v-model="firstName"
         filled
         color="indigo"
         label="Prénom"
@@ -32,7 +32,7 @@
         :rules="[rules.password, rules.length(6)]"
         filled
         color="indigo"
-        counter="8"
+        counter="9"
         label="Mot de passe"
         style="min-height: 96px"
         type="password"
@@ -40,7 +40,11 @@
     </v-form>
     <v-divider></v-divider>
     <v-card-actions>
-      <v-btn class="indigo darken-4 white--text" text @click="$refs.form.reset()">
+      <v-btn
+        class="indigo darken-4 white--text"
+        text
+        @click="$refs.form.reset()"
+      >
         Annuler
       </v-btn>
       <v-spacer></v-spacer>
@@ -57,19 +61,22 @@
   </v-card>
 </template>
 
-<script> 
-
+<script>
 export default {
-  name: 'signup',
+  name: "signup",
   data: () => ({
+    firstName: undefined,
+    lastName: undefined,
     email: undefined,
     form: false,
     isLoading: false,
     password: undefined,
     rules: {
-      email: (v) => !!(v || "").match(/@/) || "Veuillez saisir une adresse e-mail valide",
+      email: (v) =>
+        !!(v || "").match(/@/) || "Veuillez saisir une adresse e-mail valide",
       length: (len) => (v) =>
-        (v || "").length >= len || `Longueur de caractère non valide, obligatoire ${len}`,
+        (v || "").length >= len ||
+        `Longueur de caractère non valide, obligatoire ${len}`,
       password: (v) =>
         !!(v || "").match(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/

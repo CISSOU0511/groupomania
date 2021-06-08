@@ -10,6 +10,7 @@
 </template>
 
 <script>
+
 import Axios from "axios";
 
 export default {    
@@ -20,19 +21,5 @@ export default {
         createAt: String,
         articleId: Number,
     },
-    methods: {
-        deleteArticle: function(){
-            Axios
-            .delete("http://localhost:3000/api/articles/" + this.articleId,{
-            })
-            .then(() => {
-                console.log('article supprimé');
-            })
-            .catch((error) => {
-                console.log('impossible de supprimer cet article');
-                console.log(error.response.data.msg);
-            })
-        }
-    }    
 }
 </script>

@@ -5,11 +5,12 @@
                 <div class="contentComment flex-grow-1">{{commentaire}}</div>
             <v-btn class="indigo darken-4 white--text" @click="deleteCommentaire()">supprimer</v-btn>
         </div>
-    
+
     </div>
 </template>
 
 <script>
+
 import Axios from "axios";
 
 export default {    

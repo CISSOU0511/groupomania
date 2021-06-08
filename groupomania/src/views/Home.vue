@@ -3,7 +3,7 @@
     <div class= "row justify-content-center">
       <div class= "col">
         <img alt="Groupomania logo" src="../assets/logo.png" class="justify-item-center">
-        <h1><span>Groupomania</span><br> Bienvenue sur votre résaux sociale</h1>
+        <h1><span>Groupomania</span><br> Bienvenue sur votre réseau social</h1>
       </div>
     </div>
 
