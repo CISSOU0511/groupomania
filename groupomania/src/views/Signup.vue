@@ -48,7 +48,7 @@
         Annuler
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn
+      <v-btn to="/Accueil"
         :disabled="!form"
         :loading="isLoading"
         class="white--text"
@@ -62,8 +62,10 @@
 </template>
 
 <script>
+
 export default {
   name: "signup",
+
   data: () => ({
     firstName: undefined,
     lastName: undefined,

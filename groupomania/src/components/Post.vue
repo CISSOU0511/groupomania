@@ -5,7 +5,7 @@
       <v-card-title>
       <v-form ref="form" v-model="form" class="pa-4 pt-6">
       <v-btn to="/Articles" class="mr-5 indigo darken-4 white--text"> Ajouter un Article </v-btn>
-      <h3 class="indigo darken-4 white--text" rows="3"> Contenu du message (Minimum 5 Caractères) <span class ="indigo darken-4 white--text"> * </span> :</h3>
+      <v-btn class="indigo darken-4 white--text"> Ajouter une photo </v-btn>
       </v-form> 
       </v-card-title>  
     </div>
@@ -13,7 +13,6 @@
 </template>
 
 <script>
-
 import Axios from "axios";
 
 export default {
