@@ -8,19 +8,35 @@
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
           <v-img
-            style="max-width: 250px;"
+            style="max-width: 200px;"
             src="@/assets/images/icon-left-font-monochrome-white.svg"
             alt="logo"
           ></v-img>
      </router-link>         
       </v-toolbar-title>
       <v-spacer></v-spacer>
-        <v-btn to="/Post" class="mr-5 indigo darken-4 white--text">
-          Ajouter un Post
+        <v-btn to="/Signup" class="mr-5 indigo darken-4 white--text">
+          <v-icon>mdi-account</v-icon>Inscription
         </v-btn>
-  
+        <v-btn to="/Home" class="mr-5 indigo darken-4 white--text">
+          <v-icon>mdi-login</v-icon>Connexion
+        </v-btn>
+        <v-btn to="/About" class="mr-5 indigo darken-4 white--text">
+          <v-icon>mdi-face</v-icon>Profil
+        </v-btn>
+        <v-btn to="/Articles" class="mr-5 indigo darken-4 white--text">
+          <v-icon>mdi-notebook</v-icon>Articles
+        </v-btn>
+        <v-btn to="/comment" class="mr-5 indigo darken-4 white--text">
+          <v-icon>mdi-comment</v-icon>Commentaires
+        </v-btn>
     </v-app-bar>
-
+         <v-container class="container">
+           <div>
+           <v-img style="max-width: 500px;" src="@/assets/images/groupomania.png"></v-img>
+           <p class="indigo darken-4 white--text">Bienvenue sur GROUPOMANIA</p>
+           </div>   
+          </v-container>
     <v-navigation-drawer
       temporary
       v-model="drawer"
@@ -31,8 +47,6 @@
         <v-list-item
           v-for="item in menuItems"
           :key="item.title"
-          router
-          :to="item.link"
         >
           <v-list-item-action>
             <v-list-item-icon>
@@ -63,11 +77,21 @@ export default {
       NavBar: false,
       drawer: false,
       menuItems: [
-        { icon: "mdi-view-dashboard", title: "Articles", link: "/Articles" },
-        { icon: "mdi-image", title: "Photos", link: "/Photos" },
-        { icon: "mdi-comment", title: "Commentaires", link: "/Commentaires" },
+        { icon: "mdi-account", title: "Inscription", link: "/Signup"},
+        { icon: "mdi-login", title: "Connexion", link: "/Home"},
+        { icon: "mdi-face", title:"Profil", link:"/About"},
+        { icon: "mdi-notebook", title: "Articles", link: "/Articles" },
+        { icon: "mdi-comment", title: "Commentaires", link: "/Commentaires" },              
       ],
     };
   },
 };
 </script>
+
+<style scoped>
+  .container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>

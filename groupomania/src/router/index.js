@@ -7,7 +7,8 @@ import comment from '@/components/comment'
 import Accueil from '@/views/Accueil'
 import Articles from '@/components/Articles'
 import Post from '@/components/Post'
-
+import NewArticle from '@/components/NewArticle'
+import Profile from '@/components/Profile'
 
 Vue.use(VueRouter)
 
@@ -46,6 +47,16 @@ const routes = [
     path: '/Post',
     name: 'Post',
     component: Post
+  },
+  {
+    path: '/NewArticle',
+    name: 'NewArticle',
+    component: NewArticle
+  },
+  {
+    path: '/Profile',
+    name: 'Profile',
+    component: Profile
   },
 ]
 

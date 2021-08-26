@@ -3,7 +3,7 @@
     <v-toolbar flat color="indigo darken-4">
       <v-icon class="mr-3">mdi-account</v-icon>
       <v-toolbar-title>
-        Mon Profil
+        Connexion
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn color="indigo darken-4" fab small @click="isEditing = !isEditing">

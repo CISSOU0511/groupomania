@@ -12,14 +12,7 @@
             alt="logo"></v-img>
         </router-link>
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-
-      <v-btn to="/Signup" class="mr-5 indigo darken-4 white--text">
-        Inscription
-      </v-btn>
-      <v-btn to="/Login" class="mr-5 indigo darken-4 white--text">
-        Connexion
-      </v-btn>
+      
     </v-app-bar>
   </nav>
 </template>
