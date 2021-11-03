@@ -1,28 +1,34 @@
 <template>
   <div class="Post">
     <div id="Post">
-      <div to="/Post" class="userPost">{{ userNom }} {{ userPrenom }}</div>
-      <v-card-title>
-      <v-form ref="form" v-model="form" class="pa-4 pt-6">
-      <v-btn to="/Articles" class="mr-5 indigo darken-4 white--text"><v-icon>mdi-notebook</v-icon> Ajouter un Article </v-btn>
-      <v-btn class="indigo darken-4 white--text"><v-icon>mdi-camera</v-icon> Ajouter une photo </v-btn>
-      </v-form> 
-      </v-card-title>  
+      <v-textarea class="pt-12">
+        <h3>{{ commentaire }}</h3>
+        <v-btn color="success" @click="createComment()">Enregistrer</v-btn>
+      </v-textarea>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import Axios from "axios";
 
 export default {
-    props: {
-        commentaire: String,
-        userNom: String,
-        userPrenom: String,
-    },
-    created(){
-      axios.get('http://localhost:3000/api/comment')
-    }  
-};
+  props: {
+    commentaire: String,
+    userId: Number,
+    ArticleId: String,
+    creationDate: Number,
+  },
+  methods: {
+    createComment: function() {
+      Axios.post("http://localhost:3000/api/comment/" + this.commentaireId, {})
+      .then(() => {
+        console.log("commentaire créé");
+      })
+      .catch((error) => {
+        console.log("impossible d'ajouter ce commentaire");
+      });
+    }
+  }
+};  
 </script>

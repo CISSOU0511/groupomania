@@ -25,7 +25,7 @@ export default new Vuex.Store({
     status: '',
     user: {
       userId: -1,
-      token:'',
+      token: '',
     },
   },
   getters: {
@@ -41,7 +41,7 @@ export default new Vuex.Store({
       state.status = status;
     },
     logUser: function (state, user) {
-      state.user= user;
+      state.user = user;
     },
     SET_TOKEN: (state, token) => {
       state.token = token;
@@ -54,31 +54,28 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    signin: ({ commit }, userInfos) => {
-      commit ('setStatus', 'loading');
+    createAccount: ({ commit }, userInfos) => {
+      commit;
       return new Promise((resolve, reject) => {
-        instance.post('/login', userInfos)
+        instance.post('/Signup', userInfos)
           .then(function (response) {
-            commit('setStatus', 'error');
-            commit('logUser', response.data);
+            console.log(response)
             resolve(response);
           })
           .catch(function (error) {
-            commit('setStatus', 'error_login');
+            console.log('Error')
             reject(error);
           });
       })
     },
-    signup: ({ commit }, userInfos) => {
+    signin: ({ commit }, userInfos) => {
       return new Promise((resolve, reject) => {
         commit;
-        instance.post('/signup', userInfos)
+        instance.post('/Login', userInfos)
           .then(function (response) {
-            commit('setStatus', 'created');
             resolve(response);
           })
           .catch(function (error) {
-            commit('setStatus', 'error_create');
             reject(error);
           });
       })

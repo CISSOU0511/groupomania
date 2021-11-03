@@ -4,7 +4,7 @@ const mysql = require('./db')
 /*plugin*/
 
 exports.createUser = function (user, hash) {
-    return new Promise((resolve,reject ) => {
+    return new Promise((resolve,reject) => {
         const newUser = {
             NOM: user.nom,
             PRENOM: user.prenom,

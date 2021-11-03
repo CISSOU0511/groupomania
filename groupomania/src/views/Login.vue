@@ -31,7 +31,7 @@
     <v-divider></v-divider>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn :disabled="!isEditing" color="success" @click="save">
+      <v-btn :disabled="!isEditing" color="success" @click="signin()">
         Connexion
       </v-btn>
     </v-card-actions>
@@ -47,7 +47,14 @@ export default {
       model: null,
     };
   },
-  methods: {
+   methods: {
+      signin: function() {
+      this.$store
+        .dispatch("signin", {
+          email: this.email,
+          password: this.password,
+        })
+    },
     customFilter(item, queryText) {
       const textOne = item.name.toLowerCase();
       const textTwo = item.abbr.toLowerCase();
@@ -60,6 +67,7 @@ export default {
       this.isEditing = !this.isEditing;
       this.hasSaved = true;
     },
+    
   },
 };
 </script>

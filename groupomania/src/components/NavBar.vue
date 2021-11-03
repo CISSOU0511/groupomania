@@ -11,8 +11,7 @@
             src="@/assets/images/icon-left-font-monochrome-white.svg"
             alt="logo"></v-img>
         </router-link>
-      </v-toolbar-title>
-      
+      </v-toolbar-title>      
     </v-app-bar>
   </nav>
 </template>
