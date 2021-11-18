@@ -15,13 +15,13 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-        <v-btn to="/signup" class="mr-5 indigo darken-4 white--text">
+        <v-btn to="/Signup" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-face-woman-profile</v-icon>Inscription
       </v-btn>
       <v-btn to="/Login" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-login</v-icon>se connecter
+        <v-icon class="mr-2">mdi-login</v-icon>Se Connecter
       </v-btn>
-      <v-btn to="/Articles" class="mr-5 indigo darken-4 white--text">
+      <v-btn to="/NewArticle" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-notebook</v-icon>Articles
       </v-btn>
       <v-btn to="/comment" class="mr-5 indigo darken-4 white--text">

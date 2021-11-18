@@ -5,9 +5,7 @@ import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
-const axios = require('axios').default;
-
-const instance = axios.create({
+const instance = Axios.create({
   baseURL: 'http://localhost:3000/api',
 });
 
@@ -22,6 +20,7 @@ export default new Vuex.Store({
   strict: true,
   plugins: [createPersistedState()],
   state: {
+    //comment: [],
     status: '',
     user: {
       userId: -1,
@@ -37,6 +36,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+  //SET_COMMMENT(state, comment) {
+     // state.comment = comment;
+   // },
     setStatus: function (state, status) {
       state.status = status;
     },
@@ -54,7 +56,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    createAccount: ({ commit }, userInfos) => {
+    newAccount: ({ commit }, userInfos,) => {
       commit;
       return new Promise((resolve, reject) => {
         instance.post('/Signup', userInfos)
@@ -68,14 +70,30 @@ export default new Vuex.Store({
           });
       })
     },
-    signin: ({ commit }, userInfos) => {
+    createArticle: ({ commit }, userInfos) => {
+      commit;
       return new Promise((resolve, reject) => {
-        commit;
-        instance.post('/Login', userInfos)
+        instance.post('/Articles', userInfos)
           .then(function (response) {
+            console.log(response)
             resolve(response);
           })
           .catch(function (error) {
+            console.log('Error')
+            reject(error);
+          });
+      })
+    },
+    modifyArticle: ({ commit }, userInfos) => {
+      commit;
+      return new Promise((resolve, reject) => {
+        instance.put('/Articles', userInfos)
+          .then(function (response) {
+            console.log(response)
+            resolve(response);
+          })
+          .catch(function (error) {
+            console.log('Error')
             reject(error);
           });
       })

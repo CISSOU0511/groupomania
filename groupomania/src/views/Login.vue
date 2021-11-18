@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import Axios from "axios";
 export default {
   data() {
     return {
@@ -47,13 +48,16 @@ export default {
       model: null,
     };
   },
-   methods: {
-      signin: function() {
-      this.$store
-        .dispatch("signin", {
-          email: this.email,
-          password: this.password,
+  methods: {
+    signin: function() {
+      Axios.post("http://localhost:3000/api/login")
+              .then(() => {
+          console.log("utilisateur non trouvé !");
         })
+        .catch((error) => {
+          console.log("impossible de se connecter !");
+          console.log(error.response.data.msg);
+        });
     },
     customFilter(item, queryText) {
       const textOne = item.name.toLowerCase();
@@ -67,7 +71,6 @@ export default {
       this.isEditing = !this.isEditing;
       this.hasSaved = true;
     },
-    
   },
 };
 </script>

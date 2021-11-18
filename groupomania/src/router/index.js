@@ -5,9 +5,9 @@ import Footer from '@/components/Footer'
 import comment from '@/components/comment'
 import Accueil from '@/views/Accueil'
 import Articles from '@/components/Articles'
-import NewArticle from '@/components/NewArticle'
 import Profile from '@/components/Profile'
 import Signup from '@/views/Signup'
+import NewArticle from '@/components/NewArticle'
 
 Vue.use(VueRouter)
 
@@ -34,11 +34,6 @@ const routes = [
     component: Articles
   },
   {
-    path: '/NewArticle',
-    name: 'NewArticle',
-    component: NewArticle
-  },
-  {
     path: '/Profile',
     name: 'Profile',
     component: Profile
@@ -52,6 +47,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/NewArticle',
+    name: 'NewArticle',
+    component: NewArticle,
   },
 ]
 

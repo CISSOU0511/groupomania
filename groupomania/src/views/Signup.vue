@@ -51,12 +51,12 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        @click="createAccount()"
         :disabled="!form"
         :loading="isLoading"
         color="indigo darken-4"
         class="white--text"
         depressed
+        @click="newAccount()"
       >
         Créer mon compte
       </v-btn>
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+
 export default {
   name: "signup",
 
@@ -93,14 +94,13 @@ export default {
     };
   },
   methods: {
-    createAccount: function() {
-      this.$store
-        .dispatch("createAccount", {
-          email: this.email,
-          nom: this.nom,
-          prenom: this.prenom,
-          password: this.password,
-        })
+    newAccount: function() {
+      this.$store.dispatch("newAccount", {
+        email: this.email,
+        nom: this.nom,
+        prenom: this.prenom,
+        password: this.password,
+      });
     },
   },
 };

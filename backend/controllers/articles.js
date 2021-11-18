@@ -14,7 +14,7 @@ exports.createArticle = async (req, res, next) => {
 };
 
 exports.modifyArticle = async (req, res, next) => {
-    console.log('article créé !', req.body)
+    console.log('article modifié !', req.body)
     const article = {
         contenu: req.body.contenu,
         image: req.body.image,

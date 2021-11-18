@@ -5,38 +5,31 @@
         <v-card class="indigo darken-4">
           <v-container fluid>
             <v-layout row>
-              <v-flex xs12 sm4 md3>
-                <v-card-actions>
-                  <v-img
-                    style="cursor: pointer"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Eiffel_trocadero_i.jpg/240px-Eiffel_trocadero_i.jpg"
-                    height="150px"
-                  ></v-img>
-                </v-card-actions>
-              </v-flex>
               <v-flex xs12 sm8 md9>
                 <v-card-title primary-title>
                   <div>
-                    <h5 class="white--text mb-0">Mon Article</h5>
+                    <h5 class="white--text mb-0">Nouvel Article</h5>
                     <div>17 juillet 2021</div>
                   </div>
                 </v-card-title>
-                <v-card-actions>
-                  <v-textarea class="white">
-                    <div class="contentComment flex-grow-1">
-                      {{ article }}
-                    </div>
-                  </v-textarea>
-                </v-card-actions>
+                <v-card class="mx-auto ma-6" style="max-width: 500px;">
+                  <v-form ref="formArticle" v-model="form" class="pa-4 pt-6">
+                    <v-text-field
+                      v-model="contenu"
+                      filled
+                      label="Contenu"
+                    ></v-text-field>
+                    <v-text-field
+                      v-model="imageUrl"
+                      filled
+                      label="Image"
+                    ></v-text-field>
+                  </v-form>
+                </v-card>
               </v-flex>
               <v-btn
                 class="indigo darken-4 white--text"
-                @click="createArticle()"
-                >Ajouter un Article</v-btn
-              >
-              <v-btn
-                class="indigo darken-4 white--text"
-                @click="updateArticle()"
+                @click="modifyArticle()"
                 >Modifier</v-btn
               >
               <v-btn
@@ -56,41 +49,30 @@
 import Axios from "axios";
 
 export default {
-  props: {
-    article: String,
-
-    createAt: String,
-    articleId: Number,
+  name: "Articles",
+  data() {
+    return {
+      userId: 1,
+      imageUrl: "",
+      contenu: "",
+      form: false,
+    };
   },
   methods: {
-    createArticle: function() {
-      Axios.post("http://localhost:3000/api/article/" + this.articleId, {})
-        .then(() => {
-          console.log("article créé");
-        })
-        .catch((error) => {
-          console.log("impossible d'ajouter cet article");
-          console.log(error.response.data.msg);
-        });
-    },
-    updateArticle: function() {
-      Axios.put("http://localhost:3000/api/article/id" + this.articleId, {})
-        .then(() => {
-          console.log("article modifié");
-        })
-        .catch((error) => {
-          console.log("impossible de modifier cet article");
-          console.log(error.response.data.msg);
-        });
+    modifyArticle: function() {
+     this.$store.dispatch("modifyArticle", {
+       contenu: this.contenu,
+       image: this.imageUrl,
+     });
     },
     deleteArticle: function() {
-      Axios.delete("http://localhost:3000/api/article/" + this.articleId)
+      Axios.delete("http://localhost:3000/api/articles/", {})
         .then(() => {
           console.log("article supprimé");
         })
         .catch((error) => {
           console.log("impossible de supprimer cet article");
-          console.log(error.response.data.msg);
+          console.log(error);
         });
     },
   },
