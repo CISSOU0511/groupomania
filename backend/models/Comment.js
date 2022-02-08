@@ -1,51 +1,42 @@
-const mysql = require('./db');
+const { Sequelize, DataTypes } = require('sequelize');
 
-exports.createComment = function (comment) {
-    return new Promise((resolve, reject) => {
-        const newComment = {
-            COMMENTAIRE: comment.commentaire,
-            USER_ID: comment.user_id,
-            ARTICLE_ID: comment.article_id
+const sequelize = new Sequelize('groupomania', 'root', '', {
+    dialect: 'mysql'
+})
+/*const User = require('../models/User');
+const Article = require('../models/Articles');*/
 
-        }
-        mysql.query('INSERT INTO `commentaire` SET ? ', newComment, function (error, result, fields) {
-            if (error) return reject(error)
-            resolve(result)
-        })
-    })
-};
-exports.updateComment = function (comment) {
-    return new Promise((resolve, reject) => {
-        mysql.query('UPDATE `commentaire` SET COMMENTAIRE = ? WHERE ID = ?', [comment.commentaire, comment.id], function (error, result, fields) {
-            if (error) return reject(error)
-            resolve(result)
-        })
-    })
-};
+const Comment = sequelize.define('commentaire', {
+    CommentId: {
+        type : DataTypes.INTEGER,
+        primaryKey : true,
+        autoIncrement : true,
+        allowNull: false        
+    },
 
-exports.deleteComment = function (comment) {
-    return new Promise((resolve, reject) => {
-        mysql.query('DELETE FROM `commentaire` WHERE ID = ?', [comment.id], function (error, result, fields) {
-            if (error) return reject(error)
-            resolve(result)
-        })
-    })
-};
+    commentaire: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull:false,
+        defaultValue: Sequelize.NOW
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull:false,
+        defaultValue: Sequelize.NOW
+    }
+});
 
-exports.findOne = function (comment) {
-    return new Promise((resolve, reject) => {
-        mysql.query('SELECT `COMMENTAIRE`, `ARTICLE_ID` FROM `commentaire` WHERE ID = ? ', [comment.id], function (error, result, fields) {
-            if (error) return reject(error)
-            resolve(result)
-        })
-    })
-};
+/*User.hasMany(Comment, {foreignKey: 'postId', onDelete: "cascade"});
+Comment.belongsTo(User, {foreignKey: 'postId', onDelete: "cascade"});
+Article.hasMany(Comment, {foreignKey: "articleId", onDelete: "cascade"});
+Comment.belongsTo(Article, {foreignKey: "articleId", onDelete: "cascade"});*/
 
-exports.findAll = function () {
-    return new Promise((resolve, reject) => {
-        mysql.query(' SELECT * FROM `commentaire`', function (error, result, fields) {
-            if (error) return reject(error)
-            resolve(result)
-        })
-    })
-};
+Comment.sync()
+.then(() => console.log('Table commentaire créée dans la bdd'))
+.catch(error => console.error('Une erreur est survenue', error));
+
+module.exports = Comment;

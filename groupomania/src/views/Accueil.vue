@@ -15,7 +15,7 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-        <v-btn to="/Signup" class="mr-5 indigo darken-4 white--text">
+      <v-btn to="/Signup" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-face-woman-profile</v-icon>Inscription
       </v-btn>
       <v-btn to="/Login" class="mr-5 indigo darken-4 white--text">
@@ -28,19 +28,20 @@
         <v-icon class="mr-2">mdi-comment</v-icon>Commentaires
       </v-btn>
     </v-app-bar>
-    <v-navigation-drawer style="cursor: pointer"
+    <v-navigation-drawer
+      style="cursor: pointer"
       temporary
       v-model="drawer"
       app
       class="pt-10 indigo darken-4"
     >
       <v-list>
-        <v-list-item v-for="item in menuItems" 
-        :key="item.title"
-        router
-        :to="item.link"
+        <v-list-item
+          v-for="item in menuItems"
+          :key="item.title"
+          router
+          :to="item.link"
         >
-
           <v-list-item-action>
             <v-list-item-icon>
               <v-icon class="white--text">{{ item.icon }}</v-icon>
@@ -54,28 +55,34 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <v-layout row wrap>
+      <v-flex xs12 sm-6 class="flex">
+        <v-btn router to="/NewArticle" class="red darken-4 white--text"
+          >Articles</v-btn
+        >
+        <v-btn router to="/comment" class="red darken-4 white--text"
+          >Commentaires</v-btn
+        >
+      </v-flex>
+    </v-layout>
     <v-container class="container">
-      <v-layout row wrap>
-        <v-flex xs12>
-          <v-carousel>
-            <v-carousel-item style="cursor: pointer"
-              v-for="Articles in Articles"
-              :src="Articles.imageUrl"
-              :key="Articles.id"
-            >
-              <div class="title">
-                {{ Articles.title }}
-              </div>
-            </v-carousel-item>
-          </v-carousel>
-        </v-flex>
-      </v-layout>
+      <v-carousel class="carousel">
+        <v-carousel-item
+          style="cursor: pointer"
+          v-for="Articles in Articles"
+          :src="Articles.imageUrl"
+          :key="Articles.id"
+        >
+          <div class="title">
+            {{ Articles.title }}
+          </div>
+        </v-carousel-item>
+      </v-carousel>
     </v-container>
   </nav>
 </template>
 
 <script>
-
 export default {
   name: "Accueil",
 
@@ -107,18 +114,23 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  width: 70%;
+}
 .title {
-  position:absolute;
-  bottom:50px;
-  background-color: rgba(0,0,0,0.5);
-  color:white;
+  position: absolute;
+  bottom: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
   font-size: 2em;
   padding: 20px;
 }
-.container {
+.flex {
+  flex-direction: row;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
+  justify-content: space-around;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: 10px;
 }
 </style>

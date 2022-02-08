@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import NavBar from '@/components/NavBar'
 import Login from '@/views/Login'
 import Footer from '@/components/Footer'
 import comment from '@/components/comment'
@@ -8,10 +9,16 @@ import Articles from '@/components/Articles'
 import Profile from '@/components/Profile'
 import Signup from '@/views/Signup'
 import NewArticle from '@/components/NewArticle'
+import Post from '@/components/Post'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/NavBar',
+    name: 'NavBar',
+    component: NavBar
+  },
 
   {
     path: '/Footer',
@@ -53,6 +60,11 @@ const routes = [
     name: 'NewArticle',
     component: NewArticle,
   },
+  {
+    path: '/Post',
+    name: 'Post',
+    component: Post,
+  },
 ]
 
 
@@ -60,4 +72,4 @@ const router = new VueRouter({
   routes
 })
 
-export default router
+export default router;

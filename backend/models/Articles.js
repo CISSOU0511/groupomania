@@ -1,51 +1,42 @@
-const mysql = require('./db');
+const { Sequelize, DataTypes } = require('sequelize');
 
-exports.createArticle = function (article) {
-    return new Promise((resolve, reject) => {
-        const newArticle = {
-            CONTENU: article.contenu,
-            IMAGE: article.image,
-            USER_ID: article.user_id
-        }
-        mysql.query('INSERT INTO `articles` SET ? ', newArticle, function (error, result, fields) {
-            if (error) return reject(error)
-            resolve(result)
-        })
-    })
-};
+const sequelize = new Sequelize('groupomania', 'root', '', {
+    dialect: 'mysql'
+});
 
-exports.updateArticle = function (article) {
-    return new Promise((resolve, reject) => {
-        mysql.query('UPDATE `articles` SET CONTENU = ?, IMAGE = ?  WHERE ID = ?', [article.contenu, article.image, article.id], function (error, result, fields) {
-            if (error) return reject(error)
-            resolve(result)
-        })
-    })
-};
+/*const User = require('../models/User');*/
 
-exports.deleteArticle = function (article) {
-    return new Promise((resolve, reject) => {
-        mysql.query('DELETE FROM `articles` WHERE ID = ?', [article.id], function (error, result, fields) {
-            if (error) return reject(error)
-            resolve(result)
-        })
-    })
-};
+const Article = sequelize.define('Articles', {
+    ArticleId: {
+        type : DataTypes.INTEGER,
+        primaryKey : true,
+        autoIncrement : true,
+        allowNull: false        
+    },
+    contenu: {
+        type : DataTypes.STRING,
+        allowNull: false
+    },
+    imageUrl: {
+        type : DataTypes.STRING,
+        allowNull: false
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull:false,
+        defaultValue: Sequelize.NOW
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull:false,
+        defaultValue: Sequelize.NOW
+    }
+});
+/*Article.belongsTo(User, {foreignKey: 'CreateId', onDelete:'cascade'});
+User.hasMany(Article, {foreignKey: 'CreateId', onDelete:'cascade'});*/
 
-exports.findOne = function (article) {
-    return new Promise((resolve, reject) => {
-        mysql.query('SELECT `CONTENU`, `IMAGE` FROM `articles` WHERE ID = ? ', [article.id], function (error, result, fields) {
-            if (error) return reject(error)
-            resolve(result)
-        })
-    })
-};
+Article.sync()
+.then(() => console.log('Table article créée dans la bdd'))
+.catch(error => console.error('Une erreur est survenue', error));
 
-exports.findAll = function () {
-    return new Promise((resolve, reject) => {
-        mysql.query('SELECT * FROM `articles`', function (error, result, fields) {
-            if (error) return reject(error)
-            resolve(result)
-        })
-    })
-};
+module.exports = Article;

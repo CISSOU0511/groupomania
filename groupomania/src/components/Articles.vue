@@ -28,13 +28,11 @@
                 </v-card>
               </v-flex>
               <v-btn
-                class="indigo darken-4 white--text"
-                @click="modifyArticle()"
+                class="indigo darken-4 white--text" @click="modifyArticle()"
                 >Modifier</v-btn
               >
               <v-btn
                 class="indigo darken-4 white--text"
-                @click="deleteArticle()"
                 >Supprimer</v-btn
               >
             </v-layout>
@@ -59,24 +57,12 @@ export default {
     };
   },
   methods: {
-    modifyArticle: function() {
-     this.$store.dispatch("modifyArticle", {
-       contenu: this.contenu,
-       image: this.imageUrl,
-     });
-    },
-    deleteArticle: function() {
-      Axios.delete("http://localhost:3000/api/articles/", {})
-        .then(() => {
-          console.log("article supprimé");
-        })
-        .catch((error) => {
-          console.log("impossible de supprimer cet article");
-          console.log(error);
-        });
-    },
-  },
-};
+    modifyArticle(){
+      Axios.put("http://localhost:3000/api/:id")
+      
+    }
+  }
+ };
 </script>
 
 <style scoped>

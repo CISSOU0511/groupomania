@@ -1,36 +1,46 @@
-/*modèle de données*/
-/*middleware*/
-const mysql = require('./db')
-/*plugin*/
+const { Sequelize, DataTypes } = require('sequelize');
 
-exports.createUser = function (user, hash) {
-    return new Promise((resolve,reject) => {
-        const newUser = {
-            NOM: user.nom,
-            PRENOM: user.prenom,
-            EMAIL: user.email,
-            PASSWORD: hash,
-        }
-        mysql.query('INSERT INTO `utilisateurs` SET ? ', newUser, function (error, result, fields) {
-            if (error) return reject(error)
-            resolve(result)
-        })
-    })
-};
+const sequelize = new Sequelize('groupomania', 'root', '', {
+    dialect: 'mysql'
+});
 
-exports.findOne = function (email) {
-    return new Promise((resolve,reject ) => {        
-        mysql.query('SELECT * FROM `utilisateurs` WHERE email= ? ', [email], function (error, result, fields) {
-            if (error) return reject(error)
-            resolve(result)
-        })
-    })
-};
+const User = sequelize.define('utilisateurs', {
+    ID: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+        allowNull: false
+    },
+    EMAIL: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    PASSWORD: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    NOM: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    PRENOM: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW
+    }
+});
 
+User.sync()
+    .then(() => console.log('Table utilisateurs créée dans la bdd'))
+    .catch(error => console.error('Une erreur est survenue', error));
 
-
-
-
-
-
-
+module.exports = User;

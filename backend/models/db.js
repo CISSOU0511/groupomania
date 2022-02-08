@@ -1,23 +1,5 @@
-const mysql = require('mysql2');
+import {Sequelize} from 'sequelize'
 
-//connexion mysql
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'groupomania',
+export default new Sequelize('groupomania', 'root', '',{
+dialect: 'mysql'
 })
-
-connection.connect(function (err) {
-  if (err) {
-    console.error('erreur de connexion ' + err.stack);
-    return;
-  }
-
-  console.log('connecté en tant id ' + connection.threadId);
-});
-
-
-//connection.end();
-
-module.exports = connection;

@@ -1,17 +1,12 @@
-/*route express*/
-const express = require('express');
+const express = require ('express')
 const router = express.Router();
-
-const auth = require('../middleware/auth');
-const multer = require('../middleware/multer-config');
-
 const articleCtrl = require('../controllers/articles');
 
+router.post('/', articleCtrl.createOneArticle);
+/*router.put('/:id', articleCtrl.modifyOneArticle);
+router.delete('/:id', articleCtrl.deleteOneArticle);
+router.get('/:id', articleCtrl.getOneArticle);
+router.get('/', articleCtrl.getAllArticles);*/
 
-router.post('/', articleCtrl.createArticle);
-router.put('/:id', articleCtrl.modifyArticle);
-router.delete('/:id', articleCtrl.deleteArticle);
-router.get('/:id', articleCtrl.findOne);
-router.get('/', articleCtrl.findAll);
 
 module.exports = router;

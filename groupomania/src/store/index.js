@@ -5,9 +5,9 @@ import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
-const instance = Axios.create({
+/*const instance = Axios.create({
   baseURL: 'http://localhost:3000/api',
-});
+});*/
 
 const getDefaultState = () => {
   return {
@@ -19,10 +19,15 @@ const getDefaultState = () => {
 export default new Vuex.Store({
   strict: true,
   plugins: [createPersistedState()],
+
   state: {
-    //comment: [],
     status: '',
-    user: {
+    userInfos:
+    {
+      nom: '',
+      prenom: '',
+      email: '',
+      photo: '',
       userId: -1,
       token: '',
     },
@@ -36,14 +41,24 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-  //SET_COMMMENT(state, comment) {
-     // state.comment = comment;
-   // },
+    //SET_COMMMENT(state, comment) {
+    // state.comment = comment;
+    // },
     setStatus: function (state, status) {
       state.status = status;
     },
     logUser: function (state, user) {
       state.user = user;
+    },
+    userInfos: function (state, userInfos) {
+      state.userInfos = userInfos;
+    },
+    logout: function (state) {
+      state.user = {
+        userId: -1,
+        token: '',
+      }
+      localStorage.removeItem('user');
     },
     SET_TOKEN: (state, token) => {
       state.token = token;
@@ -56,10 +71,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    newAccount: ({ commit }, userInfos,) => {
+    /*createComment: ({commit}) => {
       commit;
       return new Promise((resolve, reject) => {
-        instance.post('/Signup', userInfos)
+        instance.post('/comment')
           .then(function (response) {
             console.log(response)
             resolve(response);
@@ -69,38 +84,11 @@ export default new Vuex.Store({
             reject(error);
           });
       })
-    },
-    createArticle: ({ commit }, userInfos) => {
-      commit;
-      return new Promise((resolve, reject) => {
-        instance.post('/Articles', userInfos)
-          .then(function (response) {
-            console.log(response)
-            resolve(response);
-          })
-          .catch(function (error) {
-            console.log('Error')
-            reject(error);
-          });
-      })
-    },
-    modifyArticle: ({ commit }, userInfos) => {
-      commit;
-      return new Promise((resolve, reject) => {
-        instance.put('/Articles', userInfos)
-          .then(function (response) {
-            console.log(response)
-            resolve(response);
-          })
-          .catch(function (error) {
-            console.log('Error')
-            reject(error);
-          });
-      })
-    },
+    },*/
     login: ({ commit }, { token, user }) => {
       commit('SET_TOKEN', token);
       commit('SET_USER', user);
+
 
       // set auth header
       Axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -108,5 +96,5 @@ export default new Vuex.Store({
     logout: ({ commit }) => {
       commit('RESET', '');
     }
-  }
+  },
 });

@@ -41,12 +41,13 @@
 </template>
 
 <script>
+import Axios from "axios";
 export default {
-  name: "articles",
+  name: "NewArticle",
 
   data() {
     return {
-      articles:[],
+      articles: [],
       userId: 1,
       imageUrl: "",
       contenu: "",
@@ -54,12 +55,17 @@ export default {
     };
   },
   methods: {
-    createArticle: function() {
-      this.$store.dispatch("createArticle", {
-        contenu: this.contenu,
-        image: this.imageUrl,
-        user_id: this.userId,
-      });
+    createArticle() {
+        Axios.post("http://localhost:3000/api/articles", {
+          contenu: this.contenu,
+          userId: this.userId,
+          imageUrl: this.imageUrl,
+        })
+
+          .then(function(response) {
+            console.log(response);
+          })
+          .catch((error) => console.log({ error }));
     },
   },
 };

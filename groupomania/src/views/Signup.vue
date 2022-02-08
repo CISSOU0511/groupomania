@@ -56,7 +56,7 @@
         color="indigo darken-4"
         class="white--text"
         depressed
-        @click="newAccount()"
+        @click="signup()"
       >
         Créer mon compte
       </v-btn>
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import Axios from "axios";
 
 export default {
   name: "signup",
@@ -94,13 +95,17 @@ export default {
     };
   },
   methods: {
-    newAccount: function() {
-      this.$store.dispatch("newAccount", {
-        email: this.email,
+    signup() {
+      Axios.post("http://localhost:3000/api/signup", {
         nom: this.nom,
         prenom: this.prenom,
+        email: this.email,
         password: this.password,
-      });
+      })
+        .then(function(response) {
+            console.log(response);
+          })
+          .catch((error) => console.log({ error }));
     },
   },
 };
