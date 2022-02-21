@@ -56,12 +56,6 @@ export default {
       form: false,
     };
   },
-  methods: {
-    modifyArticle(){
-      Axios.put("http://localhost:3000/api/:id")
-      
-    }
-  }
  };
 </script>
 

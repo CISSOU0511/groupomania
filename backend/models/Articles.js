@@ -4,7 +4,7 @@ const sequelize = new Sequelize('groupomania', 'root', '', {
     dialect: 'mysql'
 });
 
-/*const User = require('../models/User');*/
+const User = require('../models/User');
 
 const Article = sequelize.define('Articles', {
     ArticleId: {
@@ -32,8 +32,8 @@ const Article = sequelize.define('Articles', {
         defaultValue: Sequelize.NOW
     }
 });
-/*Article.belongsTo(User, {foreignKey: 'CreateId', onDelete:'cascade'});
-User.hasMany(Article, {foreignKey: 'CreateId', onDelete:'cascade'});*/
+Article.belongsTo(User, {foreignKey: 'CreateId', onDelete:'cascade'});
+User.hasMany(Article, {foreignKey: 'CreateId', onDelete:'cascade'});
 
 Article.sync()
 .then(() => console.log('Table article créée dans la bdd'))

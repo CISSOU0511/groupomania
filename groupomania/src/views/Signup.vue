@@ -102,10 +102,7 @@ export default {
         email: this.email,
         password: this.password,
       })
-        .then(function(response) {
-            console.log(response);
-          })
-          .catch((error) => console.log({ error }));
+         this.$router.push('/Profile');
     },
   },
 };

@@ -65,7 +65,6 @@
 <script>
 export default {
   name: "NavBar",
-
   data() {
     return {
       NavBar: false,

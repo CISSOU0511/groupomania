@@ -32,6 +32,16 @@
                 @click="createArticle()"
                 >Ajouter un Article</v-btn
               >
+              <v-btn
+                class="indigo darken-4 white--text"
+                @click="modifyArticle()"
+                >Modifier</v-btn
+              >
+              <v-btn
+                class="indigo darken-4 white--text"
+                @click="deleteArticle()"
+                >Supprimer</v-btn
+              >
             </v-layout>
           </v-container>
         </v-card>
@@ -42,12 +52,13 @@
 
 <script>
 import Axios from "axios";
+
 export default {
   name: "NewArticle",
-
+  props: ["articles"],
   data() {
     return {
-      articles: [],
+      articleId: 1,
       userId: 1,
       imageUrl: "",
       contenu: "",
@@ -56,16 +67,41 @@ export default {
   },
   methods: {
     createArticle() {
-        Axios.post("http://localhost:3000/api/articles", {
+      Axios.post("http://localhost:3000/api/articles", {
+        contenu: this.contenu,
+        userId: this.userId,
+        imageUrl: this.imageUrl,
+      })
+
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch((error) => console.log({ error }));
+    },
+    modifyArticle() {
+      Axios.put(
+        "http://localhost:3000/api/articles/users/:id" + this.articleId,
+        {
           contenu: this.contenu,
           userId: this.userId,
           imageUrl: this.imageUrl,
+        }
+      )
+        .then(function(response) {
+          console.log(response);
         })
-
-          .then(function(response) {
-            console.log(response);
-          })
-          .catch((error) => console.log({ error }));
+        .catch((error) => console.log({ error }));
+    },
+    deleteArticle() {
+      Axios.delete("http://localhost:3000/api/articles/:id" + this.articleId, {
+        contenu: this.contenu,
+        userId: this.userId,
+        imageUrl: this.imageUrl,
+      })
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch((error) => console.log({ error }));
     },
   },
 };

@@ -1,23 +1,40 @@
 <template>
-  <div class="Post">
     <div id="Post">
-      <v-textarea class="pt-12">
-        <h3>{{ comment }}</h3>
-      </v-textarea>
-      <v-btn color="success">Enregistrer</v-btn>
+      <v-textarea class="pt-12"> </v-textarea>
+      <v-btn color="success" @click="createComment()">Enregistrer</v-btn>
+      <v-btn class="indigo darken-4 white--text">Modifier</v-btn>
+      <v-btn class="indigo darken-4 white--text">Supprimer</v-btn>
     </div>
-  </div>
 </template>
 
 <script>
+import Axios from "axios";
 
 export default {
-  data(){
-    return{
-      mode: "Post",
-      comment: "",
-
-    }
+  name: "Post",
+  data() {
+    return {
+      commentaire: "",
+      postId: "",
+      articleId: "",
+      userId: 1,
+    };
   },
+  methods: {
+    createComment() {
+      
+      Axios.post("http://localhost:3000/api/comment", {
+        commentaire: this.commentaire,
+        postId: this.postId,
+        articleId: this.articleId,
+        userId: this.userId,
+      })
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch((error) => console.log({ error }));
+    },
+  },
+  
 };
 </script>

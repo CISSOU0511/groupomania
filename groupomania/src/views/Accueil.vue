@@ -27,6 +27,10 @@
       <v-btn to="/comment" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-comment</v-icon>Commentaires
       </v-btn>
+      <v-btn @click="logout()" class="mr-5 indigo darken-4 white--text">
+        <v-icon class="mr-2">mdi-logout</v-icon>
+        Déconnexion
+      </v-btn>
     </v-app-bar>
     <v-navigation-drawer
       style="cursor: pointer"
@@ -107,8 +111,15 @@ export default {
         { icon: "mdi-login", title: "Connexion", link: "/Login" },
         { icon: "mdi-notebook", title: "Articles", link: "/Articles" },
         { icon: "mdi-comment", title: "Commentaires", link: "/Commentaires" },
+        { icon: "mdi-logout", title: "Déconnexion", link:"/Logout"},
       ],
     };
+  },
+  methods: {
+    logout: function() {
+      this.$store.commit("logout");
+      this.$router.push("/");
+    },
   },
 };
 </script>

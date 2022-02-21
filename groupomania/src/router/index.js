@@ -10,6 +10,7 @@ import Profile from '@/components/Profile'
 import Signup from '@/views/Signup'
 import NewArticle from '@/components/NewArticle'
 import Post from '@/components/Post'
+import createComment from '@/components/createComment'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
     path: '/comment',
     name: 'comment',
     component: comment
+  },
+  {
+    path: '/createComment',
+    name: 'createComment',
+    component: createComment
   },
   {
     path: '/Accueil',

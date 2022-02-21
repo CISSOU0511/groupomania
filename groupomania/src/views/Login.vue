@@ -31,11 +31,7 @@
     <v-divider></v-divider>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn
-        :disabled="!isEditing"
-        color="success"
-        @click="signin()"
-      >
+      <v-btn :disabled="!isEditing" color="success" @click="signin()">
         Connexion
       </v-btn>
     </v-card-actions>
@@ -46,23 +42,23 @@
 import Axios from "axios";
 
 export default {
+  name: "Login",
   data() {
     return {
+      email: "",
+      password: "",
       hasSaved: false,
       isEditing: null,
       model: null,
     };
   },
   methods: {
-    signin: function() {
-      Axios.post("http://localhost:3000/api/login")
-        .then(() => {
-          console.log("Vous êtes bien connecté !");
-          this.$router.push("/Articles");
-        })
-        .catch(() => {
-          console.log("impossible de se connecter !");
-        });
+    signin() {
+      Axios.post("http://localhost:3000/api/login", {
+        email: this.email,
+        password: this.password,
+      });
+      this.$router.push("/Profile");
     },
     customFilter(item, queryText) {
       const textOne = item.name.toLowerCase();

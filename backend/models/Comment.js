@@ -1,10 +1,10 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes, Model } = require('sequelize');
 
 const sequelize = new Sequelize('groupomania', 'root', '', {
     dialect: 'mysql'
 })
-/*const User = require('../models/User');
-const Article = require('../models/Articles');*/
+const User = require('../models/User');
+const Article = require('../models/Articles');
 
 const Comment = sequelize.define('commentaire', {
     CommentId: {
@@ -30,10 +30,10 @@ const Comment = sequelize.define('commentaire', {
     }
 });
 
-/*User.hasMany(Comment, {foreignKey: 'postId', onDelete: "cascade"});
+User.hasMany(Comment, {foreignKey: 'postId', onDelete: "cascade"});
 Comment.belongsTo(User, {foreignKey: 'postId', onDelete: "cascade"});
 Article.hasMany(Comment, {foreignKey: "articleId", onDelete: "cascade"});
-Comment.belongsTo(Article, {foreignKey: "articleId", onDelete: "cascade"});*/
+Comment.belongsTo(Article, {foreignKey: "articleId", onDelete: "cascade"});
 
 Comment.sync()
 .then(() => console.log('Table commentaire créée dans la bdd'))

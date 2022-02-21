@@ -5,9 +5,9 @@ import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
-/*const instance = Axios.create({
+const instance = Axios.create({
   baseURL: 'http://localhost:3000/api',
-});*/
+});
 
 const getDefaultState = () => {
   return {
@@ -71,7 +71,37 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    /*createComment: ({commit}) => {
+ signin: ({commit}, userInfos) => {
+      commit('setStatus', 'loading');
+      return new Promise((resolve, reject) => {
+        instance.post('/signin', userInfos)
+        .then(function (response) {
+          commit('setStatus', '');
+          commit('logUser', response.data);
+          resolve(response);
+        })
+        .catch(function (error) {
+          commit('setStatus', 'error_login');
+          reject(error);
+        });
+      });
+    },
+    createAccount: ({commit}, userInfos) => {
+      commit('setStatus', 'loading');
+      return new Promise((resolve, reject) => {
+        commit;
+        instance.post('/createAccount', userInfos)
+        .then(function (response) {
+          commit('setStatus', 'created');
+          resolve(response);
+        })
+        .catch(function (error) {
+          commit('setStatus', 'error_create');
+          reject(error);
+        });
+      });
+    },
+    createComment: ({commit}) => {
       commit;
       return new Promise((resolve, reject) => {
         instance.post('/comment')
@@ -84,7 +114,7 @@ export default new Vuex.Store({
             reject(error);
           });
       })
-    },*/
+    },
     login: ({ commit }, { token, user }) => {
       commit('SET_TOKEN', token);
       commit('SET_USER', user);
