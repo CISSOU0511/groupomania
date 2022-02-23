@@ -1,8 +1,8 @@
 //const bcrypt = require('bcrypt');
 //const jwt = require('jsonwebtoken');
 
-/*const { sequelize } = require('../models/Articles');*/
-const { sequelize } = require('../models/Comment');
+const { sequelize } = require('../models/Articles');
+
 const Comment = require('../models/Comment');
 const User = require('../models/User');
 
@@ -14,7 +14,7 @@ exports.getAllComments = (req, res, next) => {
     .then(() => res.status(200).json({ msg: 'Comment créé'}))
     .catch(error => res.status(400).json({ error }));
 };
-exports.createOneComment = function (req, res, next) {
+exports.createComment = function (req, res, next) {
     Comment.create({
         postId: req.params.id,
         articleId: req.body.userId,

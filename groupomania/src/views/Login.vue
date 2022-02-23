@@ -42,7 +42,8 @@
 import Axios from "axios";
 
 export default {
-  name: "Login",
+  name: "login",
+
   data() {
     return {
       email: "",
@@ -53,12 +54,16 @@ export default {
     };
   },
   methods: {
-    signin() {
-      Axios.post("http://localhost:3000/api/login", {
+    signin: function(){
+      const self = this;
+      this.$store.dispatch('Login', {
         email: this.email,
         password: this.password,
-      });
-      this.$router.push("/Profile");
+      }).then(function () {
+        this.$router.push('/profile');
+      }, function (error) {
+        console.log(error);
+      })
     },
     customFilter(item, queryText) {
       const textOne = item.name.toLowerCase();

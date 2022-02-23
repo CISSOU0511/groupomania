@@ -9,12 +9,12 @@
                 <v-card-title primary-title>
                   <div>
                     <h5 class="white--text mb-0">Nouvel Article</h5>
-                    <div>17 juillet 2021</div>
+                    <div>{{createAt}}</div>
                   </div>
                 </v-card-title>
                 <v-card class="mx-auto ma-6" style="max-width: 500px;">
-                  <v-form ref="formArticle" v-model="form" class="pa-4 pt-6">
-                    <v-text-field
+                  <v-form ref="formArticle" v-model="form" class="pa-4 pt-6" style="width:500px">
+                    <v-text-field 
                       v-model="contenu"
                       filled
                       label="Contenu"
@@ -24,9 +24,24 @@
                       filled
                       label="Image"
                     ></v-text-field>
+                    <div class="mb-3 align-items-start">
+                      <label
+                        for="formFileSm"
+                        class="form-label d-flex align-items-start"
+                        >Ajoutez une image</label
+                      >
+                      <input
+                        class="form-control form-control-sm"
+                        type="file"
+                        id="file"
+                        ref="fileInput"
+                      />
+                    </div>
                   </v-form>
                 </v-card>
               </v-flex>
+            </v-layout>
+            <div class="btn">
               <v-btn
                 class="indigo darken-4 white--text"
                 @click="createArticle()"
@@ -42,7 +57,7 @@
                 @click="deleteArticle()"
                 >Supprimer</v-btn
               >
-            </v-layout>
+            </div>
           </v-container>
         </v-card>
       </v-flex>
@@ -58,9 +73,10 @@ export default {
   props: ["articles"],
   data() {
     return {
-      articleId: 1,
-      userId: 1,
+      articleId: "",
+      userId: "",
       imageUrl: "",
+      createAt:"",
       contenu: "",
       form: false,
     };
@@ -93,7 +109,7 @@ export default {
         .catch((error) => console.log({ error }));
     },
     deleteArticle() {
-      Axios.delete("http://localhost:3000/api/articles/:id" + this.articleId, {
+      Axios.delete("http://localhost:3000/api/articles/users/:id" + this.articleId, {
         contenu: this.contenu,
         userId: this.userId,
         imageUrl: this.imageUrl,
@@ -119,7 +135,9 @@ export default {
 .container {
   padding: 40px;
 }
-.white {
-  max-width: 100%;
+.btn {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 20px;
 }
 </style>

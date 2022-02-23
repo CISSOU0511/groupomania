@@ -14,7 +14,7 @@ exports.createComment = async (req, res, next) => {
     }
 };
 
-exports.modifyComment = async (req, res, next) => {
+/*exports.modifyComment = async (req, res, next) => {
     console.log('Commentaire modifié !', req.body)
     const comment = {
         commentaire: req.body.commentaire,
@@ -53,4 +53,4 @@ exports.findOne = async (req, res, next) => {
 exports.findAll = async (req, res, next) => {
     const findAll = await modelComment.findAll()
     res.status(200).json({ findAll })
-};
+};*/

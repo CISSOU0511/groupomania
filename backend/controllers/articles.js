@@ -35,10 +35,11 @@ exports.modifyOneArticle = (req, res, next) => {
     console.log(req.params.id)
     if (req.file) {
         ArticleObject = {
+            createId: req.body.createId,
             contenu: req.body.contenu,
             imageUrl: req.body.imageUrl
-        }
-        Article.findAll({ where: { articleId: req.params.id } })
+        } 
+         Article.findAll({ where: { articleId: req.params.id } })
             .then(article => {
                 const filename = article[0].imageUrl.split('/images/')[1];
                 fs.unlink(`images/${filename}`, () => {

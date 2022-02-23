@@ -27,6 +27,9 @@
       <v-btn to="/comment" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-comment</v-icon>Commentaires
       </v-btn>
+      <v-btn to="/logout" class="mr-5 indigo darken-4 white--text">
+        <v-icon class="mr-2">mdi-logout</v-icon>Déconnexion
+      </v-btn>
     </v-app-bar>
     <v-navigation-drawer
       temporary
@@ -35,12 +38,13 @@
       class="pt-10 indigo darken-4"
     >
       <v-list>
-        <v-img class="logo"
+        <v-img
+          class="logo"
           style="max-width: 200px;"
           src="@/assets/images/icon-left-font-monochrome-white.svg"
           alt="logo"
         ></v-img>
-        <v-list-item 
+        <v-list-item
           v-for="item in menuItems"
           :key="item.title"
           router
@@ -74,6 +78,7 @@ export default {
         { icon: "mdi-login", title: "Connexion", link: "/Login" },
         { icon: "mdi-notebook", title: "Articles", link: "/NewArticle" },
         { icon: "mdi-comment", title: "Commentaires", link: "/Commentaires" },
+         { icon: "mdi-logout", title: "Déconnexion", link: "/Logout" },
       ],
     };
   },
@@ -81,7 +86,7 @@ export default {
 </script>
 
 <style scoped>
-.logo{
-  margin-left:15px;
+.logo {
+  margin-left: 15px;
 }
 </style>

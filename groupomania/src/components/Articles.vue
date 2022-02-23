@@ -74,4 +74,5 @@ export default {
 .white {
   max-width: 100%;
 }
+
 </style>

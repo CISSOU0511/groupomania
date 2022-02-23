@@ -2,7 +2,7 @@
   <div class="comment">
     <div id="comment">
       <div class="btn">
-        <v-btn to="/Post" class="indigo darken-4 white--text" @click="createComment()"
+        <v-btn to="/CreateComment" class="indigo darken-4 white--text" @click="createComment()"
           >Nouveau commentaire</v-btn
         >
         <v-btn class="indigo darken-4 white--text">Modifier</v-btn>
@@ -14,7 +14,6 @@
 
 <script>
 import Axios from "axios";
-
 export default {
   name: "comment",
   data() {

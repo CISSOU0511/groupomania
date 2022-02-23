@@ -17,7 +17,7 @@ export default {
       commentaire: "",
       postId: "",
       articleId: "",
-      userId: 1,
+      userId: "",
     };
   },
   methods: {

@@ -1,94 +1,90 @@
 <template>
-    <div id="create-comment">
-        <form method="POST" v-on:submit.prevent='submit()'>
-            <div>
-                <input id="comment" type="text" aria-label="Commentaire" v-model="comment" placeholder="Ecrivez un commentaire...">
-                <span v-if="(!$v.comment.required && $v.comment.$dirty) && submited" class="error-message">Veuillez écrire un commentaire avant de valider</span>
+  <v-container>
+    <v-layout row wrap>
+      <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+        <v-card class="indigo darken-4">
+          <v-container fluid>
+            <v-layout row>
+              <v-flex xs12 sm8 md9>
+                <v-card-title primary-title>
+                  <div>
+                    <h5 class="white--text mb-0">Nouveau Comentaire</h5>
+                    <div>{{ createAt }}</div>
+                  </div>
+                </v-card-title>
+                <v-card class="mx-auto ma-6" style="max-width: 500px;">
+                  <v-form
+                    ref="formComment"
+                    v-model="form"
+                    class="pa-4 pt-6"
+                    style="width:500px"
+                  >
+                    <v-text-field
+                      v-model="commentaire"
+                      filled
+                      label="Commentaire"
+                    ></v-text-field>
+                  </v-form>
+                </v-card>
+              </v-flex>
+            </v-layout>
+            <div class="btn">
+              <v-btn
+                class="indigo darken-4 white--text"
+                @click="createComment()"
+                >Ajouter un Commentaire</v-btn
+              >
             </div>
-        </form>
-    </div>
+          </v-container>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-import axios from 'axios'
-import { required } from 'vuelidate/lib/validators'
+import Axios from "axios";
+
 export default {
-    name: 'CreateComment',
-    props: ['comments', 'printComments'],
-    data(){
-        return{
-            comment: "",
-            submited: false
-        }
+  name: "CreateComment",
+  props: ["Comment"],
+  data() {
+    return {
+      commentaire: "",
+      createAt: "",
+      form: false,
+    };
+  },
+  methods: {
+    createComment() {
+      Axios.post("http://localhost:3000/api/comment", {
+        commentaire: this.commentaire,
+      })
+
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch((error) => console.log({ error }));
     },
-    validations:{
-        comment:{
-            required
-        }
-    },
-    methods:{
-        submit(){
-            this.submited = true;
-            this.$v.$touch();
-            if(!this.$v.$invalid){
-                const hashUrl = window.location.hash;
-                const post_Id = hashUrl.split('/')[2];
-                const token = sessionStorage.getItem('usertoken');
-                const userId = sessionStorage.getItem('userId');
-                const body = {
-                    userId: userId,
-                    content: this.comment
-                };
-                const header = {
-                    headers : {
-                        'Content-Type': 'application/json',
-                        'Authorization' : `Bearer ${token}`
-                    }
-                };
-                axios.post('http://localhost:3000/api/comments/create/' + post_Id, body, header )
-                .then(res => {
-                    console.log(res);
-                    this.printComments();
-                    this.submited = !this.submited;
-                    this.comment = "";
-                })
-                .catch(error => console.log({error}));
-            }
-        }
-    }
-}
+  },
+};
 </script>
 
-<style lang="scss">
-// Palette de couleurs
-$primary-blue: #122442;
-$text-danger: #d1515a;
-$primary-grey: #aeaeaee0;
-$secondary-grey: #424242;
-$primary-white: whitesmoke;
-#create-comment{
-    form{
-        width: 94%;
-        margin: 0%;
-        padding: 0%;
-        border: none;
-        border-radius: 0px;
-        background-color: transparent;
-        box-shadow: none;
-        input{
-            width: 106.5%;
-            font-size: 100%;
-            background-color: $primary-white;
-            border-radius: 10px;
-            border: 1px solid $primary-grey;
-            padding: 2%; 
-            &:focus{
-                background-color: lighten($primary-blue,80%);
-            }
-        }
-        .error-message{
-            color: $text-danger;
-        }
-    }
+<style scoped>
+.title {
+  position: absolute;
+  bottom: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 2em;
+  padding: 20px;
+}
+.container {
+  padding: 40px;
+}
+.btn {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 20px;
 }
 </style>

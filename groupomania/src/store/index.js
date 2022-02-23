@@ -71,10 +71,25 @@ export default new Vuex.Store({
     }
   },
   actions: {
- signin: ({commit}, userInfos) => {
+    createAccount: ({commit}, userInfos) => {
       commit('setStatus', 'loading');
       return new Promise((resolve, reject) => {
-        instance.post('/signin', userInfos)
+        commit;
+        instance.post('/Signup', userInfos)
+        .then(function (response) {
+          commit('setStatus', 'created');
+          resolve(response);
+        })
+        .catch(function (error) {
+          commit('setStatus', 'error_create');
+          reject(error);
+        });
+      });
+    },
+    signin:({commit}, userInfos) => {
+      commit('setStatus', 'loading');
+      return new Promise((resolve, reject) => {
+        instance.post('/login', userInfos)
         .then(function (response) {
           commit('setStatus', '');
           commit('logUser', response.data);
@@ -86,22 +101,35 @@ export default new Vuex.Store({
         });
       });
     },
-    createAccount: ({commit}, userInfos) => {
-      commit('setStatus', 'loading');
+    createArticle: ({commit}) => {
+      commit;
       return new Promise((resolve, reject) => {
-        commit;
-        instance.post('/createAccount', userInfos)
-        .then(function (response) {
-          commit('setStatus', 'created');
-          resolve(response);
-        })
-        .catch(function (error) {
-          commit('setStatus', 'error_create');
-          reject(error);
-        });
-      });
+        instance.put('/NewArticle')
+          .then(function (response) {
+            console.log(response)
+            resolve(response);
+          })
+          .catch(function (error) {
+            console.log('Error')
+            reject(error);
+          });
+      })
     },
-    createComment: ({commit}) => {
+    modifyArticle: ({commit}) => {
+      commit;
+      return new Promise((resolve, reject) => {
+        instance.put('/NewArticle')
+          .then(function (response) {
+            console.log(response)
+            resolve(response);
+          })
+          .catch(function (error) {
+            console.log('Error')
+            reject(error);
+          });
+      })
+    },
+    /*createComment: ({commit}) => {
       commit;
       return new Promise((resolve, reject) => {
         instance.post('/comment')
@@ -114,7 +142,7 @@ export default new Vuex.Store({
             reject(error);
           });
       })
-    },
+    },*/
     login: ({ commit }, { token, user }) => {
       commit('SET_TOKEN', token);
       commit('SET_USER', user);
