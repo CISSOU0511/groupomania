@@ -8,7 +8,23 @@ Vue.use(Vuex);
 const instance = Axios.create({
   baseURL: 'http://localhost:3000/api',
 });
-
+let user = localStorage.getItem('user');
+if (!user) {
+  user = {
+    userId: -1,
+    token: '',
+  };
+} else {
+  try {
+    user = JSON.parse(user);
+    instance.defaults.headers.common['Authorization'] = user.token;
+  } catch (ex) {
+    user = {
+      userId: -1,
+      token: '',
+    };
+  }
+}
 const getDefaultState = () => {
   return {
     token: '',
@@ -48,6 +64,8 @@ export default new Vuex.Store({
       state.status = status;
     },
     logUser: function (state, user) {
+      instance.defaults.headers.common['Authorization'] = user.token;
+      localStorage.setItem('user', JSON.stringify(user));
       state.user = user;
     },
     userInfos: function (state, userInfos) {
@@ -71,37 +89,45 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    createAccount: ({commit}, userInfos) => {
+    log: ({ commit }, userInfos) => {
+      commit('setStatus', 'loading');
+      return new Promise((resolve, reject) => {
+        instance.post('/login', userInfos)
+          .then(function (response) {
+            commit('setStatus', '');
+            commit('logUser', response.data);
+            resolve(response);
+          })
+          .catch(function (error) {
+            commit('setStatus', 'error_login');
+            reject(error);
+          });
+      });
+    },
+    createAccount: ({ commit }, userInfos) => {
       commit('setStatus', 'loading');
       return new Promise((resolve, reject) => {
         commit;
         instance.post('/Signup', userInfos)
-        .then(function (response) {
-          commit('setStatus', 'created');
-          resolve(response);
-        })
-        .catch(function (error) {
-          commit('setStatus', 'error_create');
-          reject(error);
-        });
+          .then(function (response) {
+            commit('setStatus', 'created');
+            resolve(response);
+          })
+          .catch(function (error) {
+            commit('setStatus', 'error_create');
+            reject(error);
+          });
       });
     },
-    signin:({commit}, userInfos) => {
-      commit('setStatus', 'loading');
-      return new Promise((resolve, reject) => {
-        instance.post('/login', userInfos)
+    getUserInfos: ({ commit }) => {
+      instance.post('/infos')
         .then(function (response) {
-          commit('setStatus', '');
-          commit('logUser', response.data);
-          resolve(response);
+          commit('userInfos', response.data.infos);
         })
-        .catch(function (error) {
-          commit('setStatus', 'error_login');
-          reject(error);
+        .catch(function () {
         });
-      });
     },
-    createArticle: ({commit}) => {
+    createArticle: ({ commit }) => {
       commit;
       return new Promise((resolve, reject) => {
         instance.put('/NewArticle')
@@ -115,7 +141,7 @@ export default new Vuex.Store({
           });
       })
     },
-    modifyArticle: ({commit}) => {
+    modifyArticle: ({ commit }) => {
       commit;
       return new Promise((resolve, reject) => {
         instance.put('/NewArticle')
@@ -129,7 +155,7 @@ export default new Vuex.Store({
           });
       })
     },
-    /*createComment: ({commit}) => {
+    createComment: ({ commit }) => {
       commit;
       return new Promise((resolve, reject) => {
         instance.post('/comment')
@@ -142,7 +168,7 @@ export default new Vuex.Store({
             reject(error);
           });
       })
-    },*/
+    },
     login: ({ commit }, { token, user }) => {
       commit('SET_TOKEN', token);
       commit('SET_USER', user);

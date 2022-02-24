@@ -35,11 +35,12 @@ exports.modifyOneArticle = (req, res, next) => {
     console.log(req.params.id)
     if (req.file) {
         ArticleObject = {
+            userId: req.body.userId,
             createId: req.body.createId,
             contenu: req.body.contenu,
             imageUrl: req.body.imageUrl
         } 
-         Article.findAll({ where: { articleId: req.params.id } })
+         Article.findAll({ where: { ArticleId: req.params.id } })
             .then(article => {
                 const filename = article[0].imageUrl.split('/images/')[1];
                 fs.unlink(`images/${filename}`, () => {
@@ -48,7 +49,7 @@ exports.modifyOneArticle = (req, res, next) => {
                     },
                         {
                             where: {
-                                articleId: req.params.id
+                                ArticleId: req.params.id
                             }
                         })
                         .then(() => res.status(200).json({ message: "Votre article a été modifié !" }))
@@ -59,11 +60,12 @@ exports.modifyOneArticle = (req, res, next) => {
 
     } else {
         Article.update({
-            contenu: req.body.contenu
+            contenu: req.body.contenu,
+            imageUrl: req.body.imageUrl,
         },
             {
                 where: {
-                    articleId: req.params.id
+                    ArticleId: req.params.id
                 }
             })
             .then(() => res.status(200).json({ message: "Votre article a été modifié !" }))

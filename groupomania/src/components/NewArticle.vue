@@ -9,12 +9,17 @@
                 <v-card-title primary-title>
                   <div>
                     <h5 class="white--text mb-0">Nouvel Article</h5>
-                    <div>{{createAt}}</div>
+                    <div>{{ createAt }}</div>
                   </div>
                 </v-card-title>
                 <v-card class="mx-auto ma-6" style="max-width: 500px;">
-                  <v-form ref="formArticle" v-model="form" class="pa-4 pt-6" style="width:500px">
-                    <v-text-field 
+                  <v-form
+                    ref="formArticle"
+                    v-model="form"
+                    class="pa-4 pt-6"
+                    style="width:500px"
+                  >
+                    <v-text-field
                       v-model="contenu"
                       filled
                       label="Contenu"
@@ -73,10 +78,11 @@ export default {
   props: ["articles"],
   data() {
     return {
-      articleId: "",
+      ArticleId: "",
       userId: "",
       imageUrl: "",
-      createAt:"",
+      createId: "",
+      createAt: "",
       contenu: "",
       form: false,
     };
@@ -96,10 +102,10 @@ export default {
     },
     modifyArticle() {
       Axios.put(
-        "http://localhost:3000/api/articles/users/:id" + this.articleId,
+        "http://localhost:3000/api/articles/users/:id" + this.ArticleId,
         {
-          contenu: this.contenu,
           userId: this.userId,
+          contenu: this.contenu,
           imageUrl: this.imageUrl,
         }
       )
@@ -109,11 +115,14 @@ export default {
         .catch((error) => console.log({ error }));
     },
     deleteArticle() {
-      Axios.delete("http://localhost:3000/api/articles/users/:id" + this.articleId, {
-        contenu: this.contenu,
-        userId: this.userId,
-        imageUrl: this.imageUrl,
-      })
+      Axios.delete(
+        "http://localhost:3000/api/articles/users/:id" + this.ArticleId,
+        {
+          contenu: this.contenu,
+          userId: this.userId,
+          imageUrl: this.imageUrl,
+        }
+      )
         .then(function(response) {
           console.log(response);
         })

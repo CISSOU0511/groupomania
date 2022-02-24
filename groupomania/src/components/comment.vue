@@ -20,17 +20,17 @@ export default {
     return {
       commentaire: "",
       postId: "",
-      articleId: "",
+      ArticleId: "",
       userId: "",
     };
   },
-  methods: {
+  /*methods: {
     createComment() {
       
       Axios.post("http://localhost:3000/api/comment", {
         commentaire: this.commentaire,
         postId: this.postId,
-        articleId: this.articleId,
+        ArticleId: this.ArticleId,
         userId: this.userId,
       })
         .then(function(response) {
@@ -38,7 +38,7 @@ export default {
         })
         .catch((error) => console.log({ error }));
     },
-  },
+  },*/
   
 };
 </script>

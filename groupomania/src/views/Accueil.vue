@@ -64,6 +64,7 @@
         <v-btn router to="/NewArticle" class="red darken-4 white--text"
           >Articles</v-btn
         >
+        <h1>BIENVENUE SUR GROUPOMANIA</h1>
         <v-btn router to="/comment" class="red darken-4 white--text"
           >Commentaires</v-btn
         >
@@ -111,7 +112,7 @@ export default {
         { icon: "mdi-login", title: "Connexion", link: "/Login" },
         { icon: "mdi-notebook", title: "Articles", link: "/Articles" },
         { icon: "mdi-comment", title: "Commentaires", link: "/Commentaires" },
-        { icon: "mdi-logout", title: "Déconnexion", link:"/Logout"},
+        { icon: "mdi-logout", title: "Déconnexion", link: "/Logout" },
       ],
     };
   },
@@ -126,7 +127,7 @@ export default {
 
 <style scoped>
 .container {
-  width: 70%;
+  width: 60%;
 }
 .title {
   position: absolute;
@@ -143,5 +144,8 @@ export default {
   padding-top: 20px;
   padding-bottom: 20px;
   margin-top: 10px;
+}
+h1{
+  color: #B71C1C;
 }
 </style>

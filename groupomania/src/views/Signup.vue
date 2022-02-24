@@ -56,7 +56,7 @@
         color="indigo darken-4"
         class="white--text"
         depressed
-        @click="signup()"
+        @click="createAccount()"
       >
         Créer mon compte
       </v-btn>
@@ -95,14 +95,14 @@ export default {
     };
   },
   methods: {
-    signup() {
+    createAccount() {
       Axios.post("http://localhost:3000/api/signup", {
         nom: this.nom,
         prenom: this.prenom,
         email: this.email,
         password: this.password,
       })
-         this.$router.push('/Profile');
+         this.$router.push('/Accueil');
     },
   },
 };

@@ -32,8 +32,8 @@ const Comment = sequelize.define('commentaire', {
 
 User.hasMany(Comment, {foreignKey: 'postId', onDelete: "cascade"});
 Comment.belongsTo(User, {foreignKey: 'postId', onDelete: "cascade"});
-Article.hasMany(Comment, {foreignKey: "articleId", onDelete: "cascade"});
-Comment.belongsTo(Article, {foreignKey: "articleId", onDelete: "cascade"});
+Article.hasMany(Comment, {foreignKey: "ArticleId", onDelete: "cascade"});
+Comment.belongsTo(Article, {foreignKey: "ArticleId", onDelete: "cascade"});
 
 Comment.sync()
 .then(() => console.log('Table commentaire créée dans la bdd'))

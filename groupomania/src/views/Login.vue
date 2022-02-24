@@ -17,11 +17,13 @@
     </v-toolbar>
     <v-card-text class="mx-auto ma-3">
       <v-text-field
+        v-model="email"
         :disabled="!isEditing"
         color="white"
         label="Email"
       ></v-text-field>
       <v-text-field
+        v-model="password"
         :disabled="!isEditing"
         color="white"
         item-text="name"
@@ -31,7 +33,7 @@
     <v-divider></v-divider>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn :disabled="!isEditing" color="success" @click="signin()">
+      <v-btn @click="log()" :disabled="!isEditing" color="success">
         Connexion
       </v-btn>
     </v-card-actions>
@@ -39,7 +41,7 @@
 </template>
 
 <script>
-import Axios from "axios";
+import { mapState } from "vuex";
 
 export default {
   name: "login",
@@ -53,17 +55,26 @@ export default {
       model: null,
     };
   },
+  computed: {
+    ...mapState(["status"]),
+  },
   methods: {
-    signin: function(){
+    log: function() {
       const self = this;
-      this.$store.dispatch('Login', {
-        email: this.email,
-        password: this.password,
-      }).then(function () {
-        this.$router.push('/profile');
-      }, function (error) {
-        console.log(error);
-      })
+      this.$store
+        .dispatch("login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then(
+          function() {
+            console.log('Vous êtes connecté !');
+            self.$router.push('/Accueil');
+          },
+          function(error) {
+            console.log(error);
+          }
+        );
     },
     customFilter(item, queryText) {
       const textOne = item.name.toLowerCase();

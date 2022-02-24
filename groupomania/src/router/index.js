@@ -11,11 +11,16 @@ import Signup from '@/views/Signup'
 import NewArticle from '@/components/NewArticle'
 import Post from '@/components/Post'
 import CreateComment from '@/components/CreateComment'
-
+import Home from '@/views/Home'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path:'Home',
+    name:'Home',
+    component: Home
+  },
   {
     path: '/CreateComment',
     name: 'CreateComment',

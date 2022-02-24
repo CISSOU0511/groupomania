@@ -19,8 +19,8 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
     User.findOne({where: {email: req.body.email}})
         .then(user => {
-            if (user === undefined) {
-                return res.status(404).json({ error: "Utilisateur non trouvé" });
+            if (!user) {
+                return res.status(401).json({ error: "Utilisateur non trouvé" });
             }
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
@@ -29,9 +29,8 @@ exports.login = (req, res, next) => {
                     }
                     res.status(200).json({
                         userId: user.userId,
-                        role: user.role,
                         token: jwt.sign(
-                            { userId: user.userId, role: user.role },
+                            { userId: user.userId},
                             'RANDOM_TOKEN_SECRET',
                             { expiresIn: '24h' }
                         )
@@ -41,7 +40,7 @@ exports.login = (req, res, next) => {
         })
         .catch(error => res.status(400).json({ error }));
 }
-exports.getOneUser = (req, res, next) => {
+/*exports.getOneUser = (req, res, next) => {
     User.findAll({ where: { userId: req.params.id } })
         .then(user => { res.status(200).json(user) })
         .catch(error => res.status(404).json({ error }));
@@ -64,4 +63,4 @@ exports.authenticate = (req, res, next) => {
             }
         })
         .catch(error => res.status(400).json({ error }))
-}
+}*/

@@ -14,12 +14,10 @@ exports.getAllComments = (req, res, next) => {
     .then(() => res.status(200).json({ msg: 'Comment créé'}))
     .catch(error => res.status(400).json({ error }));
 };
-exports.createComment = function (req, res, next) {
+exports.createOneComment = function (req, res, next) {
     Comment.create({
-        postId: req.params.id,
-        articleId: req.body.userId,
         commentaire: req.body.commentaire        
     })
-        .then(() => res.status(201).json({ msg: 'Commentaire créé !' }))
+        .then(() => res.status(200).json({ msg: 'Commentaire créé !' }))
         .catch(error => res.status(400).json({ error }));
 };
