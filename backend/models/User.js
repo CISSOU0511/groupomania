@@ -5,25 +5,25 @@ const sequelize = new Sequelize('groupomania', 'root', '', {
 });
 
 const User = sequelize.define('utilisateurs', {
-    ID: {
+    id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
     },
-    EMAIL: {
+    email: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    PASSWORD: {
+    password: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    NOM: {
+    nom: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    PRENOM: {
+    prenom: {
         type: DataTypes.STRING,
         allowNull: false
     },

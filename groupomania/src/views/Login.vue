@@ -24,16 +24,17 @@
       ></v-text-field>
       <v-text-field
         v-model="password"
+        :rules="[rules.password, rules.length(6)]"
         :disabled="!isEditing"
         color="white"
         item-text="name"
-        label="Password"
+        type="Password"
       ></v-text-field>
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn @click="log()" :disabled="!isEditing" color="success">
+      <v-btn @click="login()" :disabled="!isEditing" color="success">
         Connexion
       </v-btn>
     </v-card-actions>
@@ -41,7 +42,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import Axios from "axios";
 
 export default {
   name: "login",
@@ -53,28 +54,33 @@ export default {
       hasSaved: false,
       isEditing: null,
       model: null,
+      rules: {
+        email: (v) =>
+          !!(v || "").match(/@/) || "Veuillez saisir une adresse e-mail valide",
+        length: (len) => (v) =>
+          (v || "").length >= len ||
+          `Longueur de caractère non valide, obligatoire ${len}`,
+        password: (v) =>
+          !!(v || "").match(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/
+          ) ||
+          "Le mot de passe doit contenir une lettre majuscule, un caractère numérique et un caractère spécial",
+        required: (v) => !!v || "Ce champ est requis",
+      },
     };
   },
-  computed: {
-    ...mapState(["status"]),
-  },
   methods: {
-    log: function() {
-      const self = this;
-      this.$store
-        .dispatch("login", {
-          email: this.email,
-          password: this.password,
+    login() {
+
+      Axios.post("http://localhost:3000/api/login", { 
+        email: this.email,
+        password: this.password,
         })
-        .then(
-          function() {
-            console.log('Vous êtes connecté !');
-            self.$router.push('/Accueil');
-          },
-          function(error) {
-            console.log(error);
-          }
-        );
+        .then(function(response) {
+          console.log(response);
+          console.log("Vous êtes bien connecté !");
+        })
+        .catch((error) => console.log({ error }));
     },
     customFilter(item, queryText) {
       const textOne = item.name.toLowerCase();

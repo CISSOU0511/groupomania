@@ -66,19 +66,18 @@
 
 <script>
 import Axios from "axios";
-
 export default {
   name: "signup",
-
   data() {
     return {
-      mode: "signup",
+      mode: "",
       prenom: "",
       nom: "",
       email: "",
+      password: "",
       form: false,
       isLoading: false,
-      password: "",
+
       rules: {
         email: (v) =>
           !!(v || "").match(/@/) || "Veuillez saisir une adresse e-mail valide",
@@ -96,13 +95,18 @@ export default {
   },
   methods: {
     createAccount() {
+      const self = this;
       Axios.post("http://localhost:3000/api/signup", {
         nom: this.nom,
         prenom: this.prenom,
         email: this.email,
         password: this.password,
       })
-         this.$router.push('/Accueil');
+        .then(function(response) {
+          console.log(response);
+          self.$router.push("/Accueil");
+        })
+        .catch((error) => console.log({ error }));
     },
   },
 };

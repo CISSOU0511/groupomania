@@ -91,6 +91,7 @@ export default {
     createArticle() {
       Axios.post("http://localhost:3000/api/articles", {
         contenu: this.contenu,
+        createId: this.createId,
         userId: this.userId,
         imageUrl: this.imageUrl,
       })
@@ -102,7 +103,7 @@ export default {
     },
     modifyArticle() {
       Axios.put(
-        "http://localhost:3000/api/articles/users/:id" + this.ArticleId,
+        "http://localhost:3000/api/articles/user/:id" + this.ArticleId,
         {
           userId: this.userId,
           contenu: this.contenu,
