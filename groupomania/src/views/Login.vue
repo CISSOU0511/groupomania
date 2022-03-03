@@ -27,7 +27,7 @@
         :rules="[rules.password, rules.length(6)]"
         :disabled="!isEditing"
         color="white"
-        item-text="name"
+        label="Password"
         type="Password"
       ></v-text-field>
     </v-card-text>
@@ -71,11 +71,10 @@ export default {
   },
   methods: {
     login() {
-
-      Axios.post("http://localhost:3000/api/login", { 
+      Axios.post("http://localhost:3000/api/login", {
         email: this.email,
         password: this.password,
-        })
+      })
         .then(function(response) {
           console.log(response);
           console.log("Vous êtes bien connecté !");

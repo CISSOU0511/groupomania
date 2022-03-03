@@ -3,7 +3,7 @@
     <v-main>
       <div id="profile" v-for="user in profile" :key="user.userId"></div>
       <h2>
-        Bonjour <span>{{ user.prenom }}</span> ravi de vous revoir !
+        Bonjour <span>Cécile</span> ravi de vous revoir !
       </h2>
       <v-btn @click="toggleModale" class="mt-5 indigo darken-4 white--text"
         >Supprimer mon compte</v-btn
@@ -44,17 +44,11 @@ export default {
     toggleModale() {
       this.showModal = !this.showModal;
     },
-
     deleteAccount() {
-      Axios.delete("http://localhost:3000/api/users/" + this.userId, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token}`,
-        },
+      Axios.delete("http://localhost:3000/api/user/" + this.userId, {
       }).then(() => {
         console.log("Profil supprimé");
         sessionStorage.clear();
-        this.$store.commit("setAuthentication", false);
         this.$router.push("/Login");
       });
     },

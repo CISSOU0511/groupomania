@@ -6,7 +6,7 @@ const multer = require('../middleware/multer-config')
 
 router.post('/', articleCtrl.createOneArticle);
 router.put('/user/:id', articleCtrl.modifyOneArticle);
-router.delete('/user/:id', articleCtrl.deleteOneArticle);
+router.delete('/:id',auth, articleCtrl.deleteOneArticle);
 /*router.get('/:id', articleCtrl.getOneArticle);
 router.get('/', articleCtrl.getAllArticles);*/
 

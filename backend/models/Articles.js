@@ -7,7 +7,7 @@ const sequelize = new Sequelize('groupomania', 'root', '', {
 const User = require('../models/User');
 
 const Article = sequelize.define('Articles', {
-    ArticleId: {
+    id: {
         type : DataTypes.INTEGER,
         primaryKey : true,
         autoIncrement : true,

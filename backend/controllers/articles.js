@@ -36,7 +36,6 @@ exports.modifyOneArticle = (req, res, next) => {
     if (req.file) {
         ArticleObject = {
             userId: req.body.userId,
-            createId: req.body.createId,
             contenu: req.body.contenu,
             imageUrl: req.body.imageUrl
         } 

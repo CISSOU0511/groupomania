@@ -7,7 +7,7 @@ const User = require('../models/User');
 const Article = require('../models/Articles');
 
 const Comment = sequelize.define('commentaire', {
-    CommentId: {
+    id: {
         type : DataTypes.INTEGER,
         primaryKey : true,
         autoIncrement : true,
