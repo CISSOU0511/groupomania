@@ -4,6 +4,7 @@
 const { sequelize } = require('../models/Articles');
 const Article = require('../models/Articles');
 const User = require('../models/User');
+const fs = require('fs');
 
 exports.getAllArticles = function (req, res, next) {
     Article.findAll({
@@ -16,21 +17,33 @@ exports.getAllArticles = function (req, res, next) {
 
 exports.createOneArticle = function (req, res, next) {
     Article.create({
-        createId: req.body.createId,
+        user_Id: req.body.userId,
         contenu: req.body.contenu,
-        imageUrl: req.body.imageUrl
+        imageUrl: req.body.imageUrl,
     })
         .then(() => res.status(201).json({ msg: 'Article créé !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
 exports.getOneArticle = function (req, res, next) {
-    Article.findAll({ where: { postId: req.params.id }, include: [{ model: User }] })
-        .then(post => res.status(200).json(post))
+    Article.findAll({ where: { userId: req.params.id }, include: [{ model: User }] })
+        .then(user => res.status(200).json(user))
         .catch(error => res.status(400).json({ error }));
 };
 
-exports.modifyOneArticle = (req, res, next) => {
+exports.deleteOneArticle = (req, res, next) => {
+    Article.findAll({ where: { articleId: req.params.id } })
+        .then(article => {
+            const filename = article[0].imageUrl.split('/images/')[1];
+            fs.unlink(`images/${filename}`, () => {
+                Article.destroy({ where: { articleId: req.params.id } })
+                    .then(() => res.status(200).json({ message: "Article supprimé ! " }))
+                    .catch(error => res.status(400).json({ error }));
+            })
+        })
+        .catch(error => res.status(500).json({ error }))
+};
+/*exports.modifyOneArticle = (req, res, next) => {
     let ArticleObject;
     console.log(req.params.id)
     if (req.file) {
@@ -39,7 +52,7 @@ exports.modifyOneArticle = (req, res, next) => {
             contenu: req.body.contenu,
             imageUrl: req.body.imageUrl
         } 
-         Article.findAll({ where: { ArticleId: req.params.id } })
+         Article.findAll({ where: { articleId: req.params.id } })
             .then(article => {
                 const filename = article[0].imageUrl.split('/images/')[1];
                 fs.unlink(`images/${filename}`, () => {
@@ -48,7 +61,7 @@ exports.modifyOneArticle = (req, res, next) => {
                     },
                         {
                             where: {
-                                ArticleId: req.params.id
+                                articleId: req.params.id
                             }
                         })
                         .then(() => res.status(200).json({ message: "Votre article a été modifié !" }))
@@ -64,23 +77,11 @@ exports.modifyOneArticle = (req, res, next) => {
         },
             {
                 where: {
-                    ArticleId: req.params.id
+                    articleId: req.params.id
                 }
             })
             .then(() => res.status(200).json({ message: "Votre article a été modifié !" }))
             .catch(error => res.status(400).json({ message: "Votre article n'a pas pu être modifié" + error }));
     }
-};
-exports.deleteOneArticle = (req, res, next) => {
-    Article.findAll({ where: { articleId: req.params.id } })
-        .then(article => {
-            const filename = article[0].imageUrl.split('/images/')[1];
-            fs.unlink(`images/${filename}`, () => {
-                Article.destroy({ where: { articleId: req.params.id } })
-                    .then(() => res.status(200).json({ message: "Article supprimé ! " }))
-                    .catch(error => res.status(400).json({ error }));
-            })
-        })
-        .catch(error => res.status(500).json({ error }))
-};
+};*/
 

@@ -71,13 +71,23 @@ export default {
   },
   methods: {
     login() {
-      Axios.post("http://localhost:3000/api/login", {
-        email: this.email,
-        password: this.password,
-      })
-        .then(function(response) {
-          console.log(response);
+      const self = this;
+      Axios.post(
+        "http://localhost:3000/api/login",
+        {
+          email: this.email,
+          password: this.password,
+        },
+        {
+          headers: { "Content-type": "application/json" },
+        }
+      )
+        .then((res) => {
           console.log("Vous êtes bien connecté !");
+          localStorage.setItem("usertoken", res.data.token);
+          localStorage.setItem("userId", parseInt(res.data.userId));
+          localStorage.setItem("role", parseInt(res.data.role));
+          self.$router.push("/Accueil");
         })
         .catch((error) => console.log({ error }));
     },

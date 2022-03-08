@@ -24,7 +24,7 @@ export default {
       userId: "",
     };
   },
-  /*methods: {
+  methods: {
     createComment() {
       
       Axios.post("http://localhost:3000/api/comment", {
@@ -38,7 +38,7 @@ export default {
         })
         .catch((error) => console.log({ error }));
     },
-  },*/
+  },
   
 };
 </script>

@@ -3,7 +3,7 @@
     <v-main>
       <div id="profile" v-for="user in profile" :key="user.userId"></div>
       <h2>
-        Bonjour <span>Cécile</span> ravi de vous revoir !
+        Bonjour <span>{{ user.prenom }}</span> ravi de vous revoir !
       </h2>
       <v-btn @click="toggleModale" class="mt-5 indigo darken-4 white--text"
         >Supprimer mon compte</v-btn
@@ -25,27 +25,27 @@
 
 <script>
 import Axios from "axios";
-import { mapState } from "vuex";
+
 export default {
   name: "Profile",
-  props: ["userId"],
+  props: ["userId", 'token'],
   data() {
     return {
       profile: "",
       showModal: false,
     };
   },
-  computed: {
-    ...mapState({
-      user: "userInfos",
-    }),
-  },
+
   methods: {
     toggleModale() {
       this.showModal = !this.showModal;
     },
     deleteAccount() {
       Axios.delete("http://localhost:3000/api/user/" + this.userId, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
       }).then(() => {
         console.log("Profil supprimé");
         sessionStorage.clear();
