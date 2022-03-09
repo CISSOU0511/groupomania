@@ -73,8 +73,8 @@ export default {
   },
   methods: {
     createArticle() {
-      const userId = parseInt(sessionStorage.getItem("userId"));
-      const token = sessionStorage.getItem("usertoken");
+      const userId = parseInt(localStorage.getItem("userId"));
+      const token = localStorage.getItem("usertoken");
       let fd = new FormData();
       fd.append("userId", userId);
       const self = this;
@@ -91,10 +91,8 @@ export default {
         }
       )
         .then((res) => {
-          console.log(res.data);
-          sessionStorage.setItem("usertoken", res.data.token);
-          sessionStorage.setItem("userId", parseInt(res.data.userId));
-          sessionStorage.setItem("role", parseInt(res.data.role));
+          localStorage.setItem("usertoken", res.data.token);
+          localStorage.setItem("userId", parseInt(res.data.userId));
           self.$router.push("/Accueil");
         })
         .catch((error) => console.log({ error }));
