@@ -43,10 +43,8 @@
 
 <script>
 import Axios from "axios";
-
 export default {
   name: "login",
-
   data() {
     return {
       email: "",

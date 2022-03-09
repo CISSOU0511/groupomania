@@ -10,7 +10,6 @@ exports.signup = (req, res, next) => {
                 prenom: req.body.prenom,
                 email: req.body.email,
                 password: hash,
-                role: 2
             })
                 .then(() => res.status(201).json({ msg: 'Utilisateur créé !' }))
                 .catch(error => res.status(400).json({ error }));
@@ -32,10 +31,9 @@ exports.login = (req, res, next) => {
                         return res.status(401).json({ error: 'Mot de passe incorrect !' });
                     }
                     res.status(200).json({
-                        userId: user[0].userId, 
-                        role: user[0].role,
+                        userId: user.userId, 
                         token: jwt.sign(
-                            { userId: user[0].userId, role: user[0].role },
+                            { userId: user.userId },
                             'RANDOM_TOKEN_SECRET',
                             { expiresIn: '24h' }
                         )

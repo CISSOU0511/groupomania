@@ -57,12 +57,10 @@
 
 <script>
 import Axios from "axios";
-
 export default {
   name: "NewArticle",
   data() {
     return {
-
       contenu: "",
       imageUrl: "",
       form: false,

@@ -69,7 +69,6 @@ exports.deleteOneArticle = (req, res, next) => {
                 })
             })
             .catch(error => console.log("Article introuvable", error))
-
     } else {
         Article.update({
             contenu: req.body.contenu,
@@ -84,4 +83,3 @@ exports.deleteOneArticle = (req, res, next) => {
             .catch(error => res.status(400).json({ message: "Votre article n'a pas pu être modifié" + error }));
     }
 };*/
-
