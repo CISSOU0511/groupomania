@@ -8,7 +8,7 @@
               <v-flex xs12 sm8 md9>
                 <v-card-title primary-title>
                   <div>
-                    <h5 class="white--text mb-0">Nouveau Comentaire</h5>
+                    <h5 class="white--text mb-0">Nouveau Commentaire</h5>
                     <div>{{ createAt }}</div>
                   </div>
                 </v-card-title>
@@ -44,12 +44,12 @@
 
 <script>
 import Axios from "axios";
-
 export default {
   name: "CreateComment",
-  props: ["Comment"],
+
   data() {
     return {
+      id: "",
       commentaire: "",
       createAt: "",
       form: false,
@@ -60,7 +60,6 @@ export default {
       Axios.post("http://localhost:3000/api/comment", {
         commentaire: this.commentaire,
       })
-
         .then(function(response) {
           console.log(response);
         })

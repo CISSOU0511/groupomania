@@ -16,6 +16,8 @@ exports.getAllComments = (req, res, next) => {
 };
 exports.createOneComment = function (req, res, next) {
     Comment.create({
+        userId: 11,
+        articleId: 4,
         commentaire: req.body.commentaire        
     })
         .then(() => res.status(200).json({ msg: 'Commentaire créé !' }))

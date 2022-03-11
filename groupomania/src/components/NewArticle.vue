@@ -61,6 +61,7 @@ export default {
   name: "NewArticle",
   data() {
     return {
+      id: "",
       contenu: "",
       imageUrl: "",
       form: false,
@@ -73,7 +74,7 @@ export default {
   },
   methods: {
     createArticle() {
-      const userId = parseInt(localStorage.getItem("userId"));
+      const userId = localStorage.getItem("userId");
       const token = localStorage.getItem("usertoken");
       let fd = new FormData();
       fd.append("userId", userId);
@@ -92,12 +93,12 @@ export default {
       )
         .then((res) => {
           localStorage.setItem("usertoken", res.data.token);
-          localStorage.setItem("userId", parseInt(res.data.userId));
+          localStorage.setItem("userId", res.data.userId);
           self.$router.push("/Accueil");
         })
         .catch((error) => console.log({ error }));
     },
-    /*deleteArticle() {
+    deleteArticle() {
       Axios.delete("http://localhost:3000/api/articles/:id", {
         articleId: this.articleId,
       })
@@ -105,7 +106,7 @@ export default {
           console.log(response);
         })
         .catch((error) => console.log({ error }));
-    },*/
+    },
   },
 };
 </script>

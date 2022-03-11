@@ -19,8 +19,7 @@ export default {
   data() {
     return {
       commentaire: "",
-      postId: "",
-      ArticleId: "",
+      articleId: "",
       userId: "",
     };
   },
@@ -29,8 +28,8 @@ export default {
       
       Axios.post("http://localhost:3000/api/comment", {
         commentaire: this.commentaire,
-        postId: this.postId,
-        ArticleId: this.ArticleId,
+
+        articleId: this.articleId,
         userId: this.userId,
       })
         .then(function(response) {

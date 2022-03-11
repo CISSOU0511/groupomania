@@ -10,6 +10,7 @@ exports.signup = (req, res, next) => {
                 prenom: req.body.prenom,
                 email: req.body.email,
                 password: hash,
+                role: 2,
             })
                 .then(() => res.status(201).json({ msg: 'Utilisateur créé !' }))
                 .catch(error => res.status(400).json({ error }));

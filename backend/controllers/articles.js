@@ -17,7 +17,7 @@ exports.getAllArticles = function (req, res, next) {
 
 exports.createOneArticle = function (req, res, next) {
     Article.create({
-        userId: req.body.userId,
+        userId: 11,
         contenu: req.body.contenu,
         imageUrl: req.body.imageUrl,
     })
