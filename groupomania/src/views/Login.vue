@@ -81,10 +81,9 @@ export default {
         }
       )
         .then((res) => {
-          console.log("Vous êtes bien connecté !");
           localStorage.setItem("usertoken", res.data.token);
-          localStorage.setItem("userId", parseInt(res.data.userId));
-          localStorage.setItem("role", parseInt(res.data.role));
+          localStorage.setItem("userId", res.data.id);
+          console.log("Vous êtes bien connecté !");
           self.$router.push("/Accueil");
         })
         .catch((error) => console.log({ error }));

@@ -11,22 +11,6 @@ const getDefaultState = () => {
     user: {}
   };
 };
-let user = localStorage.getItem('user');
-if (!user) {
- user = {
-    userId: -1,
-    token: '',
-  }; 
-} else {
-  try {
-    user = JSON.parse(user);
-  } catch (ex) {
-    user = {
-      userId: -1,
-      token: '',
-    };
-  }
-}
 
 export default new Vuex.Store({
   strict: true,

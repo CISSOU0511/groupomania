@@ -15,7 +15,7 @@
                     </div>
                   </div>
                 </v-card-title>
-                <v-card class="mx-auto ma-6" style="max-width: 500px;">
+                <v-card class="mx-auto ma-6" style="max-width:1000px">
                   <v-form
                     ref="formArticle"
                     v-model="form"
@@ -57,11 +57,12 @@
 
 <script>
 import Axios from "axios";
+
 export default {
   name: "NewArticle",
   data() {
     return {
-      id: "",
+      userId:"",
       contenu: "",
       imageUrl: "",
       form: false,
@@ -74,31 +75,30 @@ export default {
   },
   methods: {
     createArticle() {
-      const userId = localStorage.getItem("userId");
-      const token = localStorage.getItem("usertoken");
-      let fd = new FormData();
-      fd.append("userId", userId);
       const self = this;
+      const token = localStorage.getItem("usertoken");
+      const userId = localStorage.getItem("userId");
+
+
       Axios.post(
         "http://localhost:3000/api/articles",
         {
+          userId: userId,
           contenu: this.contenu,
           imageUrl: this.imageUrl,
         },
         {
           headers: {
-            'Authorization': "Bearer " + token,
+            Authorization: "Bearer " + token,
           },
         }
       )
-        .then((res) => {
-          localStorage.setItem("usertoken", res.data.token);
-          localStorage.setItem("userId", res.data.userId);
+        .then(() => {
           self.$router.push("/Accueil");
         })
         .catch((error) => console.log({ error }));
     },
-    deleteArticle() {
+    /*deleteArticle() {
       Axios.delete("http://localhost:3000/api/articles/:id", {
         articleId: this.articleId,
       })
@@ -106,7 +106,7 @@ export default {
           console.log(response);
         })
         .catch((error) => console.log({ error }));
-    },
+    },*/
   },
 };
 </script>
