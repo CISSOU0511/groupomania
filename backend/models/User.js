@@ -4,8 +4,8 @@ const sequelize = new Sequelize('groupomania', 'root', '', {
     dialect: 'mysql'
 });
 
-const User = sequelize.define('utilisateurs', {
-    id: {
+const User = sequelize.define('users', {
+    userId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,

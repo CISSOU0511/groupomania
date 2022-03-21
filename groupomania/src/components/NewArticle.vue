@@ -97,10 +97,11 @@ export default {
         {
           headers: {
             "Content-type": "multipart/form-data",
-            Authorization: "Bearer " + token,
+            "Authorization": "Bearer " + token,
           },
         },
         {
+          userId: userId,
           contenu: this.contenu,
           imageUrl: this.imageUrl,
         }

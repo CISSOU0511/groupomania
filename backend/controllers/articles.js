@@ -19,7 +19,7 @@ exports.createOneArticle = function (req, res, next) {
     Article.create({
         userId: req.body.userId,
         contenu: req.body.contenu,
-        imageUrl: req.body.imageUrl,
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
     })
         .then(() => res.status(201).json({ msg: 'Article créé !' }))
         .catch(error => res.status(400).json({ error }));

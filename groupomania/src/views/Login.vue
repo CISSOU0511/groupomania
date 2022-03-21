@@ -27,7 +27,6 @@
         :rules="[rules.password, rules.length(6)]"
         :disabled="!isEditing"
         color="white"
-        counter="9"
         label="Password"
         type="Password"
       ></v-text-field>
@@ -85,7 +84,7 @@ export default {
           localStorage.setItem("usertoken", res.data.token);
           localStorage.setItem("userId", res.data.id);
           console.log("Vous êtes bien connecté !");
-          self.$router.push("/Accueil");
+          this.$router.push("/Accueil");
         })
         .catch((error) => console.log({ error }));
     },
