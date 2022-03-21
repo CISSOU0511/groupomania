@@ -42,8 +42,11 @@ const User = sequelize.define('utilisateurs', {
         defaultValue: Sequelize.NOW
     }
 });
-
-User.sync()
+User.associate = function(models) {
+    models.User.hasMany(models.Articles)
+    //models.User.hasMany(models.Articles, foreignKey: "userId")
+}
+User.sync({force:true})
     .then(() => console.log('Table utilisateurs créée dans la bdd'))
     .catch(error => console.error('Une erreur est survenue', error));
 

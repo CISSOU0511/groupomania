@@ -36,7 +36,7 @@ const Article = sequelize.define('Articles', {
         defaultValue: Sequelize.NOW
     }
 });
-Article.belongsTo(User, { foreignKey: 'userId', onDelete: 'cascade' });
+Article.belongsTo(User, { foreignKey:{field:'userId', allowNull:false},  onDelete: 'cascade' });
 User.hasMany(Article, { foreignKey: 'userId', onDelete: 'cascade' });
 
 Article.sync()

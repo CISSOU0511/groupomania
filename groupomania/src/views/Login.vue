@@ -27,6 +27,7 @@
         :rules="[rules.password, rules.length(6)]"
         :disabled="!isEditing"
         color="white"
+        counter="9"
         label="Password"
         type="Password"
       ></v-text-field>

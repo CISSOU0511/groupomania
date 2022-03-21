@@ -15,7 +15,7 @@
                     </div>
                   </div>
                 </v-card-title>
-                <v-card class="mx-auto ma-6" style="max-width:1000px">
+                <v-card class="mx-auto ma-6" style="max-width:500px">
                   <v-form
                     ref="formArticle"
                     v-model="form"
@@ -32,6 +32,19 @@
                       filled
                       label="Image"
                     ></v-text-field>
+                    <div class="mb-3 align-items-start">
+                      <label
+                        for="formFileSm"
+                        class="form-label d-flex align-items-start"
+                        >Ajoutez une image</label
+                      >
+                      <input
+                        class="form-control form-control-sm"
+                        type="file"
+                        id="file"
+                        ref="fileInput"
+                      />
+                    </div>
                   </v-form>
                 </v-card>
               </v-flex>
@@ -62,7 +75,7 @@ export default {
   name: "NewArticle",
   data() {
     return {
-      userId:"",
+      userId: "",
       contenu: "",
       imageUrl: "",
       form: false,
@@ -77,20 +90,19 @@ export default {
     createArticle() {
       const self = this;
       const token = localStorage.getItem("usertoken");
-      const userId = localStorage.getItem("userId");
-
+      const userId = parseInt(localStorage.getItem("userId"));
 
       Axios.post(
         "http://localhost:3000/api/articles",
         {
-          userId: userId,
-          contenu: this.contenu,
-          imageUrl: this.imageUrl,
-        },
-        {
           headers: {
+            "Content-type": "multipart/form-data",
             Authorization: "Bearer " + token,
           },
+        },
+        {
+          contenu: this.contenu,
+          imageUrl: this.imageUrl,
         }
       )
         .then(() => {
