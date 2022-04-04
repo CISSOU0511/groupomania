@@ -10,7 +10,6 @@ exports.signup = (req, res, next) => {
                 prenom: req.body.prenom,
                 email: req.body.email,
                 password: hash,
-                role: 2,
             })
                 .then(() => res.status(201).json({ msg: 'Utilisateur créé !' }))
                 .catch(error => res.status(400).json({ error }));
@@ -18,7 +17,6 @@ exports.signup = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 }
 exports.login = (req, res, next) => {
-
     User.findOne({
         where: { email: req.body.email },
     })
@@ -46,12 +44,12 @@ exports.login = (req, res, next) => {
 
 };
 exports.getOneUser = (req, res, next) => {
-    User.findAll({ where: { userId: req.params.id } })
+    User.findAll({ where: { id: req.params.id } })
         .then(user => { res.status(200).json(user) })
         .catch(error => res.status(404).json({ error }));
 }
 exports.deleteOneUser = (req, res, next) => {
-    User.destroy({ where: { userId: req.params.id } })
+    User.destroy({ where: { id: req.params.id } })
         .then(() => res.status(200).json({ message: 'Utilisateur supprimé' }))
         .catch(error => res.status(400).json({ error }));
 }

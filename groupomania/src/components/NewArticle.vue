@@ -7,6 +7,11 @@
             <v-layout row>
               <v-flex xs12 sm8 md9>
                 <v-card-title primary-title>
+                  <div
+                    id="post"
+                    v-for="article in articles"
+                    :key="article.articleId"
+                  ></div>
                   <div>
                     <h4 class="white--text mb-0">Nouvel Article</h4>
                     <div class="white--text mb-0">
@@ -27,14 +32,10 @@
                       filled
                       label="Contenu"
                     ></v-text-field>
-                    <v-text-field
-                      v-model="imageUrl"
-                      filled
-                      label="Image"
-                    ></v-text-field>
                     <div class="mb-3 align-items-start">
                       <label
-                        for="formFileSm"
+                        for="imageUrl"
+                        name="imageUrl"
                         class="form-label d-flex align-items-start"
                         >Ajoutez une image</label
                       >
@@ -75,6 +76,9 @@ export default {
   name: "NewArticle",
   data() {
     return {
+      id:1,
+      article:"",
+      articles: "",
       userId: "",
       contenu: "",
       imageUrl: "",
@@ -91,23 +95,20 @@ export default {
       const self = this;
       const token = localStorage.getItem("usertoken");
       const userId = parseInt(localStorage.getItem("userId"));
-
-      Axios.post(
-        "http://localhost:3000/api/articles",
-        {
-          headers: {
-            "Content-type": "multipart/form-data",
-            "Authorization": "Bearer " + token,
-          },
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("contenu", this.contenu);
+      formData.append("imageUrl", this.imageUrl);
+      console.log(formData);
+      Axios.post("http://localhost:3000/api/articles",formData, {
+        headers: {
+          "Content-type": "multipart/form-data",
+          "Authorization": "Bearer " + token,
         },
-        {
-          userId: userId,
-          contenu: this.contenu,
-          imageUrl: this.imageUrl,
-        }
-      )
+      })
         .then(() => {
-          self.$router.push("/Accueil");
+          this.contenu = "";
+          /*this.$router.push("/Accueil");*/
         })
         .catch((error) => console.log({ error }));
     },

@@ -2,41 +2,41 @@
 //const jwt = require('jsonwebtoken');
 
 const { sequelize } = require('../models/Articles');
-const Article = require('../models/Articles');
-const User = require('../models/User');
+const {Articles} = require('../models');
+const {Users} = require('../models');
 const fs = require('fs');
 
 exports.getAllArticles = function (req, res, next) {
-    Article.findAll({
+    Articles.findAll({
         order: sequelize.literal('(createdAt) DESC'),
-        include: [{ model: User }]
+        include: [{ model: Users }]
     })
         .then(() => res.status(200).json({ msg: 'Article créé' }))
         .catch(error => res.status(400).json({ error }));
 };
 
 exports.createOneArticle = function (req, res, next) {
-    Article.create({
+    Articles.create({
         userId: req.body.userId,
         contenu: req.body.contenu,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : "",
     })
         .then(() => res.status(201).json({ msg: 'Article créé !' }))
         .catch(error => res.status(400).json({ error }));
 };
 
 exports.getOneArticle = function (req, res, next) {
-    Article.findAll({ where: { userId: req.params.id }, include: [{ model: User }] })
+    Articles.findAll({ where: { userId: req.params.id }, include: [{ model: Users }] })
         .then(user => res.status(200).json(user))
         .catch(error => res.status(400).json({ error }));
 };
 
 exports.deleteOneArticle = (req, res, next) => {
-    Article.findAll({ where: { articleId: req.params.id } })
-        .then(article => {
-            const filename = article[0].imageUrl.split('/images/')[1];
+    Articles.findAll({ where: { articleId: req.params.id } })
+        .then(articles => {
+            const filename = articles[0].imageUrl.split('/images/')[1];
             fs.unlink(`images/${filename}`, () => {
-                Article.destroy({ where: { articleId: req.params.id } })
+                Articles.destroy({ where: { articleId: req.params.id } })
                     .then(() => res.status(200).json({ message: "Article supprimé ! " }))
                     .catch(error => res.status(400).json({ error }));
             })
