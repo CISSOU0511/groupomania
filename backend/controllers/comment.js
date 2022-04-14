@@ -3,8 +3,8 @@
 
 const { sequelize } = require('../models/Articles');
 
-const Comment = require('../models/Comment');
-const User = require('../models/User');
+const  Comment  = require('../models/Comment');
+const  User  = require('../models/User');
 
 exports.getAllComments = (req, res, next) => {
     Comment.findAll({

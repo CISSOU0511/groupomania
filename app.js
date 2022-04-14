@@ -1,12 +1,9 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const path = require('path');
 
-
-
-const userRoutes = require('./routes/user');
-const articleRoutes = require('./routes/articles');
 const commentRoutes = require('./routes/comment');
+const articleRoutes = require('./routes/articles');
+const userRoutes = require('./routes/user');
 
 
 const app = express();
@@ -15,7 +12,7 @@ db.sequelize.sync();
 
 app.use(express.json());
 app.use(express.urlencoded({
-    extended: false,
+    extended:false,
 }));
 app.use((_req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -30,12 +27,10 @@ db.sequelize.authenticate()
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use(bodyParser.json());
 
-
+app.use('/api/comment', commentRoutes);
 app.use('/api', userRoutes);
 app.use('/api/articles', articleRoutes);
-app.use('/api/comment', commentRoutes);
 
 
 module.exports = app;

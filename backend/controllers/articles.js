@@ -2,14 +2,14 @@
 //const jwt = require('jsonwebtoken');
 
 const { sequelize } = require('../models/Articles');
-const {Articles} = require('../models');
-const {Users} = require('../models');
+const  Articles  = require('../models/Articles');
+const  User  = require('../models/User');
 const fs = require('fs');
 
 exports.getAllArticles = function (req, res, next) {
     Articles.findAll({
         order: sequelize.literal('(createdAt) DESC'),
-        include: [{ model: Users }]
+        include: [{ model: User }]
     })
         .then(() => res.status(200).json({ msg: 'Article créé' }))
         .catch(error => res.status(400).json({ error }));
@@ -19,7 +19,7 @@ exports.createOneArticle = function (req, res, next) {
     Articles.create({
         userId: req.body.userId,
         contenu: req.body.contenu,
-        imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : "",
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     })
         .then(() => res.status(201).json({ msg: 'Article créé !' }))
         .catch(error => res.status(400).json({ error }));
@@ -27,7 +27,7 @@ exports.createOneArticle = function (req, res, next) {
 
 exports.getOneArticle = function (req, res, next) {
     Articles.findAll({ where: { userId: req.params.id }, include: [{ model: Users }] })
-        .then(user => res.status(200).json(user))
+        .then(users => res.status(200).json(users))
         .catch(error => res.status(400).json({ error }));
 };
 

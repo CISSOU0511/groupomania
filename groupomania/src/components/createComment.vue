@@ -7,6 +7,11 @@
             <v-layout row>
               <v-flex xs12 sm8 md9>
                 <v-card-title primary-title>
+                  <div
+                    id="comment"
+                    v-for="commentaire in commentaires"
+                    :key="commentaire.commentaireId"
+                  ></div>
                   <div>
                     <h5 class="white--text mb-0">Nouveau Commentaire</h5>
                     <div>{{ createAt }}</div>
@@ -49,23 +54,31 @@ export default {
 
   data() {
     return {
-      id: 1,
-      articleId: "",
-      userId: "",
       commentaire: "",
+      commentaires: "",
+      userId: "",
+      articleId: "",
       createAt: "",
       form: false,
     };
   },
   methods: {
     createComment() {
-      Axios.post("http://localhost:3000/api/comment", {
-        commentaire: this.commentaire,
-        articleId: this.articleId,
-        userId: this.userId,
+      const token = localStorage.getItem("usertoken");
+      const userId = parseInt(localStorage.getItem("userId"));
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("articleId", this.articleId);
+      formData.append("commentaire", this.commentaire);
+      console.log(formData);
+      Axios.post("http://localhost:3000/api/comment", formData, {
+        headers: {
+          "Content-type": "multipart/form-data",
+          "Authorization": "Bearer " + token,
+        },
       })
-        .then(function(response) {
-          console.log(response);
+        .then((res) => {
+          console.log(res);
         })
         .catch((error) => console.log({ error }));
     },

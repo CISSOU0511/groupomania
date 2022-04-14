@@ -4,13 +4,7 @@ const sequelize = new Sequelize('groupomania', 'root', '', {
     dialect: 'mysql'
 });
 
-const User = sequelize.define('utilisateurs', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-    },
+const User = sequelize.define('users', {
     email: {
         type: DataTypes.STRING,
         allowNull: false
@@ -32,22 +26,9 @@ const User = sequelize.define('utilisateurs', {
         defaultValue: 1,
         allowNull: false
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.NOW
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.NOW
-    }
 });
-User.associate = function(models) {
-    models.User.hasMany(models.Articles)
-    //models.User.hasMany(models.Articles, foreignKey: "userId")
-}
-User.sync({force:true})
+
+User.sync()
     .then(() => console.log('Table utilisateurs créée dans la bdd'))
     .catch(error => console.error('Une erreur est survenue', error));
 

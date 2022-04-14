@@ -33,18 +33,15 @@
                       label="Contenu"
                     ></v-text-field>
                     <div class="mb-3 align-items-start">
-                      <label
-                        for="imageUrl"
-                        name="imageUrl"
-                        class="form-label d-flex align-items-start"
-                        >Ajoutez une image</label
-                      >
+                      <label>
                       <input
                         class="form-control form-control-sm"
                         type="file"
-                        id="file"
-                        ref="fileInput"
+                        name="imageUrl"
+                        ref="file"
+                        @change="onFileSelected"
                       />
+                      </label>
                     </div>
                   </v-form>
                 </v-card>
@@ -71,14 +68,14 @@
 
 <script>
 import Axios from "axios";
-
 export default {
   name: "NewArticle",
   data() {
     return {
-      id:1,
-      article:"",
+      id: "",
+      article: "",
       articles: "",
+      selectedFile: null,
       userId: "",
       contenu: "",
       imageUrl: "",
@@ -91,6 +88,9 @@ export default {
     createdAt: String,
   },
   methods: {
+    onFileSelected() {
+      this.selectedFile = this.$refs.file.files[0];
+    },
     createArticle() {
       const self = this;
       const token = localStorage.getItem("usertoken");
@@ -98,16 +98,15 @@ export default {
       const formData = new FormData();
       formData.append("userId", userId);
       formData.append("contenu", this.contenu);
-      formData.append("imageUrl", this.imageUrl);
-      console.log(formData);
-      Axios.post("http://localhost:3000/api/articles",formData, {
+      formData.append("image", this.selectedFile);
+      Axios.post("http://localhost:3000/api/articles", formData, {
         headers: {
-          "Content-type": "multipart/form-data",
-          "Authorization": "Bearer " + token,
+          /*"Content-type": "multipart/form-data",*/
+          Authorization: "Bearer " + token,
         },
       })
-        .then(() => {
-          this.contenu = "";
+        .then((res) => {
+          console.log(res);
           /*this.$router.push("/Accueil");*/
         })
         .catch((error) => console.log({ error }));
