@@ -22,10 +22,10 @@
         <v-icon class="mr-2">mdi-login</v-icon>Se Connecter
       </v-btn>
       <v-btn to="/NewArticle" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-notebook</v-icon>Articles
+        <v-icon class="mr-2">mdi-notebook</v-icon> nouvel Article
       </v-btn>
-      <v-btn to="/comment" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-comment</v-icon>Commentaires
+      <v-btn to="/Articles" class="mr-5 indigo darken-4 white--text">
+        <v-icon class="mr-2">mdi-comment</v-icon>Articles
       </v-btn>
       <v-btn to="/logout" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-logout</v-icon>Déconnexion

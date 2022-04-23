@@ -22,10 +22,10 @@
         <v-icon class="mr-2">mdi-login</v-icon>Se Connecter
       </v-btn>
       <v-btn to="/NewArticle" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-notebook</v-icon>Articles
+        <v-icon class="mr-2">mdi-notebook</v-icon>Nouvel Article
       </v-btn>
-      <v-btn to="/comment" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-comment</v-icon>Commentaires
+      <v-btn to="/Articles" class="mr-5 indigo darken-4 white--text">
+        <v-icon class="mr-2">mdi-notebook</v-icon>Mes Articles
       </v-btn>
       <v-btn @click="logout()" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-logout</v-icon>
@@ -61,25 +61,19 @@
     </v-navigation-drawer>
     <v-layout row wrap>
       <v-flex xs12 sm-6 class="flex">
-        <v-btn router to="/NewArticle" class="red darken-4 white--text"
-          >Articles</v-btn
-        >
         <h1>BIENVENUE SUR GROUPOMANIA</h1>
-        <v-btn router to="/comment" class="red darken-4 white--text"
-          >Commentaires</v-btn
-        >
       </v-flex>
     </v-layout>
     <v-container class="container">
       <v-carousel class="carousel">
         <v-carousel-item
           style="cursor: pointer"
-          v-for="Articles in Articles"
-          :src="Articles.imageUrl"
-          :key="Articles.id"
+          v-for="article in articles"
+          :src="article.imageUrl"
+          :key="article.id"
         >
           <div class="title">
-            {{ Articles.title }}
+            {{ article.contenu }}
           </div>
         </v-carousel-item>
       </v-carousel>
@@ -88,35 +82,39 @@
 </template>
 
 <script>
+import Axios from "axios";
 export default {
   name: "Accueil",
-
   data() {
     return {
+      articles: {},
       NavBar: false,
       drawer: false,
-      Articles: [
-        {
-          imageUrl:
-            "https://www.nyc.fr/wp-content/uploads/2015/07/New_York_City-770x385.jpg",
-          title: "New York",
-        },
-        {
-          imageUrl:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Eiffel_trocadero_i.jpg/240px-Eiffel_trocadero_i.jpg",
-          title: "Paris",
-        },
-      ],
       menuItems: [
         { icon: "mdi-account", title: "Inscription", link: "/Signup" },
         { icon: "mdi-login", title: "Connexion", link: "/Login" },
-        { icon: "mdi-notebook", title: "Articles", link: "/Articles" },
-        { icon: "mdi-comment", title: "Commentaires", link: "/Commentaires" },
+        { icon: "mdi-notebook", title: "Nouvel Article", link: "/Articles" },
         { icon: "mdi-logout", title: "Déconnexion", link: "/Logout" },
       ],
     };
   },
+  mounted: function() {
+    this.listAllUsersArticles();
+  },
   methods: {
+    listAllUsersArticles() {
+      const token = localStorage.getItem("usertoken");
+      Axios.get("http://localhost:3000/api/articles/All/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          this.articles = res.data.articles;
+        })
+        .catch((error) => console.log({ error }));
+    },
     logout: function() {
       this.$store.commit("logout");
       this.$router.push("/");
@@ -145,7 +143,7 @@ export default {
   padding-bottom: 20px;
   margin-top: 10px;
 }
-h1{
-  color: #B71C1C;
+h1 {
+  color: #b71c1c;
 }
 </style>

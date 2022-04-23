@@ -104,7 +104,7 @@ export default {
       })
         .then(function(response) {
           console.log(response);
-          self.$router.push("/Accueil");
+          self.$router.push("/Login");
         })
         .catch((error) => console.log({ error }));
     },

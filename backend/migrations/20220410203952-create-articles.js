@@ -1,5 +1,5 @@
 'use strict';
-module.exports = {
+/*module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Articles', {
       id: {
@@ -23,8 +23,21 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+    Articles.associate = (models) => {
+      Articles.hasMany(models.Comment, {
+        onDelete: "cascade",
+      });
+    },
+    Articles.associate = (models) => {
+      Articles.belongsTo(models.Users, {
+        onDelete: "cascade",
+        foreignKey: "userId",
+        sourceKey: "id",
+      });
+    }
   },
+
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Articles');
   }
-};
+};*/

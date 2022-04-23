@@ -31,12 +31,12 @@ module.exports = {
     });
     User.associate = (models) => {
       User.hasMany(models.Articles, {
-          onDelete: "cascade",
+        onDelete: "cascade",
       });
       User.hasMany(models.Comment, {
-          onDelete: "cascade",
+        onDelete: "cascade",
       });
-  }
+    }
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Users');

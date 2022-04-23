@@ -27,9 +27,18 @@ const User = sequelize.define('users', {
         allowNull: false
     },
 });
+User.associate = (models) => {
+    User.hasMany(models.Articles, {
+      onDelete: "cascade",
+    });
+    /*User.hasMany(models.Comment, {
+      onDelete: "cascade",
+    });*/
+  },
+
 
 User.sync()
-    .then(() => console.log('Table utilisateurs créée dans la bdd'))
+    .then(() => console.log('Table users créée dans la bdd'))
     .catch(error => console.error('Une erreur est survenue', error));
 
 module.exports = User;

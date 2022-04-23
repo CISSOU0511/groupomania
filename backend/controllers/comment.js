@@ -20,6 +20,6 @@ exports.createOneComment = function (req, res, next) {
         articleId: req.body.articleId,
         commentaire: req.body.commentaire        
     })
-        .then(() => res.status(200).json({ msg: 'Commentaire créé !' }))
+        .then(() => res.status(201).json({ msg: 'Commentaire créé !' }))
         .catch(error => res.status(400).json({ error }));
 };

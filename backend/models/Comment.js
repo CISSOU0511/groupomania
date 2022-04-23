@@ -3,8 +3,7 @@ const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = new Sequelize('groupomania', 'root', '', {
     dialect: 'mysql'
 })
-const User = require('../models/User');
-const Article = require('../models/Articles');
+
 const Comment = sequelize.define('commentaire', {
     userId: {
         type: DataTypes.INTEGER,
@@ -19,7 +18,6 @@ const Comment = sequelize.define('commentaire', {
         allowNull: false
     },
 });
-
 Comment.sync()
     .then(() => console.log('Table commentaire créée dans la bdd'))
     .catch(error => console.error('Une erreur est survenue', error));

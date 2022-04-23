@@ -18,17 +18,21 @@
                   </div>
                 </v-card-title>
                 <v-card class="mx-auto ma-6" style="max-width: 500px;">
-                  <v-form
-                    ref="formComment"
-                    v-model="form"
-                    class="pa-4 pt-6"
-                    style="width:500px"
-                  >
-                    <v-text-field
-                      v-model="commentaire"
-                      filled
-                      label="Commentaire"
-                    ></v-text-field>
+                  <v-form>
+                    <label>
+                      <input
+                        type="text"
+                        name="commentaire"
+                        id="commentaire"
+                        class="pa-4 pt-6"
+                        style="width:500px"
+                      />
+                      <v-text-field
+                        v-model="commentaire"
+                        filled
+                        label="Commentaire"
+                      ></v-text-field>
+                    </label>
                   </v-form>
                 </v-card>
               </v-flex>
@@ -74,7 +78,7 @@ export default {
       Axios.post("http://localhost:3000/api/comment", formData, {
         headers: {
           "Content-type": "multipart/form-data",
-          "Authorization": "Bearer " + token,
+          Authorization: "Bearer " + token,
         },
       })
         .then((res) => {

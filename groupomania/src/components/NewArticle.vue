@@ -8,15 +8,14 @@
               <v-flex xs12 sm8 md9>
                 <v-card-title primary-title>
                   <div
-                    id="post"
-                    v-for="article in articles"
-                    :key="article.articleId"
+                    id="user"
+                    v-for="user in user"
+                    :key="user.id"
                   ></div>
                   <div>
                     <h4 class="white--text mb-0">Nouvel Article</h4>
                     <div class="white--text mb-0">
-                      {{ createdAt }}
-                      <p>{{ userPrenom }} {{ userNom }}</p>
+                      <p>{{ user[0].prenom }} {{ user[0].nom }}</p>
                     </div>
                   </div>
                 </v-card-title>
@@ -34,13 +33,13 @@
                     ></v-text-field>
                     <div class="mb-3 align-items-start">
                       <label>
-                      <input
-                        class="form-control form-control-sm"
-                        type="file"
-                        name="imageUrl"
-                        ref="file"
-                        @change="onFileSelected"
-                      />
+                        <input
+                          class="form-control form-control-sm"
+                          type="file"
+                          name="imageUrl"
+                          ref="file"
+                          @change="onFileSelected"
+                        />
                       </label>
                     </div>
                   </v-form>
@@ -52,11 +51,6 @@
                 class="indigo darken-4 white--text"
                 @click="createArticle()"
                 >Ajouter un Article</v-btn
-              >
-              <v-btn
-                class="indigo darken-4 white--text"
-                @click="deleteArticle()"
-                >Supprimer</v-btn
               >
             </div>
           </v-container>
@@ -73,8 +67,7 @@ export default {
   data() {
     return {
       id: "",
-      article: "",
-      articles: "",
+      user: {},
       selectedFile: null,
       userId: "",
       contenu: "",
@@ -82,10 +75,12 @@ export default {
       form: false,
     };
   },
-  props: {
-    userPrenom: String,
-    userNom: String,
-    createdAt: String,
+  /*props: {
+    prenom: String,
+    nom: String,
+  },*/
+  mounted: function (){
+    this.getUserInfos();
   },
   methods: {
     onFileSelected() {
@@ -99,18 +94,55 @@ export default {
       formData.append("userId", userId);
       formData.append("contenu", this.contenu);
       formData.append("image", this.selectedFile);
-      Axios.post("http://localhost:3000/api/articles", formData, {
+      Axios.post("http://localhost:3000/api/articles/Create", formData, {
         headers: {
-          /*"Content-type": "multipart/form-data",*/
+          "Content-type": "multipart/form-data",
           Authorization: "Bearer " + token,
         },
       })
         .then((res) => {
           console.log(res);
-          /*this.$router.push("/Accueil");*/
+          this.$router.push("/Accueil");
         })
         .catch((error) => console.log({ error }));
     },
+    getUserInfos() {
+      const token = localStorage.getItem("usertoken");
+      const userId = parseInt(localStorage.getItem("userId"));
+      Axios.get("http://localhost:3000/api/" + userId, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res.data.user);
+          this.user = res.data.user;
+        })
+        .catch((error) => console.log({ error }));
+    },
+    /*modifyArticle() {
+      const articleId = localStorage.getItem("articleId");
+      const token = localStorage.getItem("usertoken");
+      const userId = parseInt(localStorage.getItem("userId"));
+      const formData = new FormData();
+      formData.set("articleId", articleId);
+      console.log(articleId);
+      formData.set("userId", userId);
+      formData.set("contenu", this.contenu);
+      formData.set("image", this.selectedFile);
+      Axios.put("http://localhost:3000/api/articles/:id", formData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.$router.push("/Accueil");
+        })
+        .catch((error) => console.log({ error }));
+    },*/
     /*deleteArticle() {
       Axios.delete("http://localhost:3000/api/articles/:id", {
         articleId: this.articleId,

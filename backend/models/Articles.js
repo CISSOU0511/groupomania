@@ -23,6 +23,20 @@ const Article = sequelize.define('Articles', {
         }
     },
 });
+/*Article.associate = (models) => {
+    Article.hasMany(models.Comment, {
+      onDelete: "cascade",
+      foreignKey: "userId",
+      sourceKey: "id",
+    });
+  },*/
+Article.associate = (models) => {
+    Article.belongsTo(models.users, {
+        onDelete: "cascade",
+        foreignKey: "userId",
+        sourceKey: "id",
+    });
+}
 Article.sync()
     .then(() => console.log('Table article créée dans la bdd'))
     .catch(error => console.error('Une erreur est survenue', error));

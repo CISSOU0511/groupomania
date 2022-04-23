@@ -1,9 +1,9 @@
 <template>
   <div class="profile">
     <v-main>
-      <div id="profile" v-for="user in profile" :key="user.userId"></div>
+      <div id="profile" v-bind:userId="userId" v-bind:token="token"></div>
       <h2>
-        Bonjour <span>{{ user.prenom }}</span> ravi de vous revoir !
+        Bonjour ravi de vous revoir !
       </h2>
       <v-btn @click="toggleModale" class="mt-5 indigo darken-4 white--text"
         >Supprimer mon compte</v-btn
@@ -28,10 +28,11 @@ import Axios from "axios";
 
 export default {
   name: "Profile",
-  props: ["userId", 'token'],
   data() {
     return {
       profile: "",
+      userId: localStorage.getItem("userId"),
+      token: localStorage.getItem("usertoken"),
       showModal: false,
     };
   },
@@ -41,15 +42,17 @@ export default {
       this.showModal = !this.showModal;
     },
     deleteAccount() {
-      Axios.delete("http://localhost:3000/api/user/" + this.userId, {
+      const token = localStorage.getItem("usertoken");
+      const userId = parseInt(localStorage.getItem("userId"));
+      Axios.delete("http://localhost:3000/api/" + userId, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token}`,
+          Authorization: "Bearer" + token,
         },
       }).then(() => {
         console.log("Profil supprimé");
         sessionStorage.clear();
-        this.$router.push("/Login");
+        this.$router.push("/Logout");
       });
     },
   },

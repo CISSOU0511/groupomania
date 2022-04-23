@@ -13,7 +13,7 @@ export default {
         userPassword: String,
         createAt: String,
     },
-    methods: {
+    /*methods: {
         deleteUser: function(){
             Axios
             .delete("http://localhost:3000/api/user/" + this.userId,{
@@ -26,6 +26,6 @@ export default {
                 console.log(error.response.data.msg);
             })
         }
-    }
+    }*/
 }
 </script>

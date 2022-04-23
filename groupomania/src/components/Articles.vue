@@ -6,35 +6,38 @@
           <v-container fluid>
             <v-layout row>
               <v-flex xs12 sm8 md9>
-                <v-card-title primary-title>
-                  <div>
-                    <h5 class="white--text mb-0">Nouvel Article</h5>
-                    <div>17 juillet 2021</div>
+                <v-card
+                  id="userArticle"
+                  v-for="userArticle in userArticles"
+                  :key="userArticle.id"
+                >
+                  <div class="indigo darken-4 white--text">
+                    {{ userArticle.contenu }}
                   </div>
-                </v-card-title>
-                <v-card class="mx-auto ma-6" style="max-width: 500px;">
-                  <v-form ref="formArticle" v-model="form" class="pa-4 pt-6">
-                    <v-text-field
-                      v-model="contenu"
-                      filled
-                      label="Contenu"
-                    ></v-text-field>
-                    <v-text-field
-                      v-model="imageUrl"
-                      filled
-                      label="Image"
-                    ></v-text-field>
-                  </v-form>
+                  <div>
+                    <v-img :src="userArticle.imageUrl" />
+                  </div>
+                  <v-btn
+                    class="indigo darken-4 white--text"
+                    @click="modifyArticle()"
+                  >
+                    Modifier</v-btn
+                  >
                 </v-card>
               </v-flex>
-              <v-btn
-                class="indigo darken-4 white--text" @click="modifyArticle()"
-                >Modifier</v-btn
-              >
-              <v-btn
-                class="indigo darken-4 white--text"
-                >Supprimer</v-btn
-              >
+              <div class="btn">
+                <v-btn
+                  class="indigo darken-4 white--text"
+                  @click="modifyArticle()"
+                >
+                  Modifier</v-btn
+                >
+                <v-btn
+                  class="indigo darken-4 white--text"
+                  @click="deleteArticle()"
+                  >Supprimer</v-btn
+                >
+              </div>
             </v-layout>
           </v-container>
         </v-card>
@@ -44,18 +47,75 @@
 </template>
 
 <script>
-
+import Axios from "axios";
 export default {
   name: "Articles",
   data() {
     return {
-      userId: "",
-      imageUrl: "",
-      contenu: "",
+      userArticle: "",
+      userArticles: {},
+      userId: localStorage.getItem("userId"),
+      token: localStorage.getItem("usertoken"),
       form: false,
     };
   },
- };
+  mounted: function() {
+    this.listUserArticles();
+  },
+  methods: {
+    onFileSelected() {
+      this.selectedFile = this.$refs.file.files[0];
+    },
+    modifyArticle() {
+      const token = localStorage.getItem("usertoken");
+      const userId = parseInt(localStorage.getItem("userId"));
+      const formData = new FormData();
+      formData.set("userId", userId);
+      formData.set("contenu", this.contenu);
+      formData.set("image", this.selectedFile);
+      Axios.put("http://localhost:3000/api/articles/:id", formData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.$router.push("/Accueil");
+        })
+        .catch((error) => console.log({ error }));
+    },
+    listUserArticles() {
+      const token = localStorage.getItem("usertoken");
+      const userId = parseInt(localStorage.getItem("userId"));
+      Axios.get("http://localhost:3000/api/articles/user/" + userId, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res.data.userArticles);
+          this.userArticles = res.data.userArticles;
+        })
+        .catch((error) => console.log({ error }));
+    },
+    /*deleteArticle() {
+      const token = localStorage.getItem("usertoken");
+      Axios.delete("http://localhost:3000/api/articles/:id", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        articleId: this.articleId,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => console.log({ error }));
+    },*/
+  },
+};
 </script>
 
 <style scoped>
@@ -73,5 +133,9 @@ export default {
 .white {
   max-width: 100%;
 }
-
+.btn {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 20px;
+}
 </style>
