@@ -75,6 +75,12 @@
           <div class="title">
             {{ article.contenu }}
           </div>
+          <v-btn
+            @click="goToCreateComment(article.id)"
+            class="indigo darken-4 white--text"
+          >
+            Ajouter un commentaire
+          </v-btn>
         </v-carousel-item>
       </v-carousel>
     </v-container>
@@ -88,6 +94,7 @@ export default {
   data() {
     return {
       articles: {},
+      commentaires: "",
       NavBar: false,
       drawer: false,
       menuItems: [
@@ -114,6 +121,10 @@ export default {
           this.articles = res.data.articles;
         })
         .catch((error) => console.log({ error }));
+    },
+    goToCreateComment(articleId) {
+      localStorage.setItem("articleId", articleId);
+      this.$router.push("/CreateComment");
     },
     logout: function() {
       this.$store.commit("logout");
@@ -144,6 +155,6 @@ export default {
   margin-top: 10px;
 }
 h1 {
-  color: #b71c1c;
+  color: #1a237e;
 }
 </style>

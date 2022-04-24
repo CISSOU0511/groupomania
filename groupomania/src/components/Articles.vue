@@ -5,39 +5,39 @@
         <v-card class="indigo darken-4">
           <v-container fluid>
             <v-layout row>
-              <v-flex xs12 sm8 md9>
+              <v-flex>
                 <v-card
                   id="userArticle"
                   v-for="userArticle in userArticles"
                   :key="userArticle.id"
                 >
-                  <div class="indigo darken-4 white--text">
+                  <div
+                    class="indigo darken-4 white--text width:20px"
+                    :name="userArticle.id"
+                  >
                     {{ userArticle.contenu }}
                   </div>
                   <div>
-                    <v-img :src="userArticle.imageUrl" />
+                    <v-img
+                      style="max-width:100px;"
+                      :src="userArticle.imageUrl"
+                    />
                   </div>
-                  <v-btn
-                    class="indigo darken-4 white--text"
-                    @click="modifyArticle()"
-                  >
-                    Modifier</v-btn
-                  >
+                  <div class="btn">
+                    <v-btn
+                      class="indigo darken-4 white--text"
+                      @click="goToUpdateArticle(userArticle.id)"
+                    >
+                      Modifier</v-btn
+                    >
+                    <v-btn
+                      class="indigo darken-4 white--text"
+                      @click="deleteArticle(userArticle.id)"
+                      >Supprimer</v-btn
+                    >
+                  </div>
                 </v-card>
               </v-flex>
-              <div class="btn">
-                <v-btn
-                  class="indigo darken-4 white--text"
-                  @click="modifyArticle()"
-                >
-                  Modifier</v-btn
-                >
-                <v-btn
-                  class="indigo darken-4 white--text"
-                  @click="deleteArticle()"
-                  >Supprimer</v-btn
-                >
-              </div>
             </v-layout>
           </v-container>
         </v-card>
@@ -66,25 +66,6 @@ export default {
     onFileSelected() {
       this.selectedFile = this.$refs.file.files[0];
     },
-    modifyArticle() {
-      const token = localStorage.getItem("usertoken");
-      const userId = parseInt(localStorage.getItem("userId"));
-      const formData = new FormData();
-      formData.set("userId", userId);
-      formData.set("contenu", this.contenu);
-      formData.set("image", this.selectedFile);
-      Axios.put("http://localhost:3000/api/articles/:id", formData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          this.$router.push("/Accueil");
-        })
-        .catch((error) => console.log({ error }));
-    },
     listUserArticles() {
       const token = localStorage.getItem("usertoken");
       const userId = parseInt(localStorage.getItem("userId"));
@@ -100,20 +81,23 @@ export default {
         })
         .catch((error) => console.log({ error }));
     },
-    /*deleteArticle() {
+    goToUpdateArticle(articleId) {
+      localStorage.setItem("articleId", articleId);
+      this.$router.push("/modifArticle");
+    },
+    deleteArticle(articleId) {
       const token = localStorage.getItem("usertoken");
-      Axios.delete("http://localhost:3000/api/articles/:id", {
+      Axios.delete("http://localhost:3000/api/articles/article/" + articleId, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        articleId: this.articleId,
       })
-        .then((response) => {
-          console.log(response);
+        .then((res) => {
+          console.log(res.data);
         })
         .catch((error) => console.log({ error }));
-    },*/
+    },
   },
 };
 </script>
@@ -136,6 +120,7 @@ export default {
 .btn {
   display: flex;
   justify-content: space-around;
-  padding-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>

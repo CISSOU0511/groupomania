@@ -7,27 +7,15 @@
             <v-layout row>
               <v-flex xs12 sm8 md9>
                 <v-card-title primary-title>
-                  <div
-                    id="comment"
-                    v-for="commentaire in commentaires"
-                    :key="commentaire.commentaireId"
-                  ></div>
                   <div>
                     <h5 class="white--text mb-0">Nouveau Commentaire</h5>
-                    <div>{{ createAt }}</div>
                   </div>
                 </v-card-title>
                 <v-card class="mx-auto ma-6" style="max-width: 500px;">
                   <v-form>
                     <label>
-                      <input
-                        type="text"
-                        name="commentaire"
-                        id="commentaire"
-                        class="pa-4 pt-6"
-                        style="width:500px"
-                      />
                       <v-text-field
+                        ref="commentaire"
                         v-model="commentaire"
                         filled
                         label="Commentaire"
@@ -58,24 +46,23 @@ export default {
 
   data() {
     return {
-      commentaire: "",
-      commentaires: "",
+      commentaire:"",
       userId: "",
       articleId: "",
-      createAt: "",
       form: false,
     };
   },
   methods: {
     createComment() {
+      const self = this;
       const token = localStorage.getItem("usertoken");
       const userId = parseInt(localStorage.getItem("userId"));
+      const articleId = localStorage.getItem("articleId");
       const formData = new FormData();
+      formData.append("articleId", articleId);
       formData.append("userId", userId);
-      formData.append("articleId", this.articleId);
       formData.append("commentaire", this.commentaire);
-      console.log(formData);
-      Axios.post("http://localhost:3000/api/comment", formData, {
+      Axios.post("http://localhost:3000/api/comment/Create", formData, {
         headers: {
           "Content-type": "multipart/form-data",
           Authorization: "Bearer " + token,
@@ -83,6 +70,7 @@ export default {
       })
         .then((res) => {
           console.log(res);
+          this.$router.push("/Accueil");
         })
         .catch((error) => console.log({ error }));
     },

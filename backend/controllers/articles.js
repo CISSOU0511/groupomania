@@ -3,6 +3,7 @@
 
 const { sequelize } = require('../models/Articles');
 const Articles = require('../models/Articles');
+const Comment = require('../models/Comment');
 const User = require('../models/User');
 const fs = require('fs');
 
@@ -17,7 +18,7 @@ exports.getAllArticles = function (req, res, next) {
 
 exports.getOneArticle = function (req, res, next) {
     Articles.findAll({ where: { id: req.params.id }, include: [{ model: User }] })
-        .then(users => res.status(200).json(users))
+        .then((article) => res.status(200).json({article}))
         .catch(error => res.status(400).json({ error }));
 };
 

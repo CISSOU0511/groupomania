@@ -11,6 +11,7 @@ import Signup from '@/views/Signup'
 import NewArticle from '@/components/NewArticle'
 import Post from '@/components/Post'
 import CreateComment from '@/components/CreateComment'
+import modifArticle from '@/components/modifArticle'
 import Home from '@/views/Home'
 
 Vue.use(VueRouter)
@@ -76,6 +77,11 @@ const routes = [
     path: '/Post',
     name: 'Post',
     component: Post,
+  },
+  {
+    path: '/modifArticle',
+    name: 'modifArticle',
+    component: modifArticle,
   },
 ]
 

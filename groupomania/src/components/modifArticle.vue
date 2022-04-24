@@ -5,28 +5,39 @@
         <v-card class="indigo darken-4">
           <v-container fluid>
             <v-layout row>
-              <v-flex xs12 sm8 md9>
+              <v-flex>
                 <v-card-title primary-title>
+                  <div
+                    id="userArticle"
+                    v-for="articleUpd in articleToUpdate"
+                    :key="articleUpd.id"
+                  ></div>
                   <div>
-                    <h4 class="white--text mb-0">Nouvel Article</h4>
+                    <h4 class="white--text mb-0">Modifier un Article</h4>
                   </div>
                 </v-card-title>
-                <v-card class="mx-auto ma-6" style="max-width:500px">
+                <v-card class="mx-auto ma-6" style="max-width:1000px">
                   <v-form
-                    ref="formArticle"
+                    v-for="articleUpd in articleToUpdate"
+                    :key="articleUpd.id"
+                    ref="contenu"
                     v-model="form"
                     class="pa-4 pt-6"
-                    style="width:500px"
+                    style="max-width:750px"
                   >
                     <v-text-field
                       v-model="contenu"
                       filled
-                      label="Contenu"
+                      :label="articleUpd.contenu"
                     ></v-text-field>
+                    <v-img
+                      style="max-width:100px"
+                      :src="articleUpd.imageUrl"
+                    ></v-img>
                     <div class="mb-3 align-items-start">
                       <label>
                         <input
-                          class="form-control form-control-sm"
+                          class="form-control form-control-sm pa-4 pt-6"
                           type="file"
                           name="imageUrl"
                           ref="file"
@@ -41,8 +52,9 @@
             <div class="btn">
               <v-btn
                 class="indigo darken-4 white--text"
-                @click="createArticle()"
-                >Ajouter un Article</v-btn
+                @click="modifyArticle()"
+              >
+                Modifier</v-btn
               >
             </div>
           </v-container>
@@ -58,33 +70,57 @@ export default {
   name: "NewArticle",
   data() {
     return {
+      articleUpd: "",
+      articleToUpdate: {},
       selectedFile: null,
+      userId: localStorage.getItem("userId"),
+      token: localStorage.getItem("usertoken"),
       contenu: "",
       imageUrl: "",
       form: false,
     };
   },
+  /*props: {
+    prenom: String,
+    nom: String,
+  },*/
+  mounted: function() {
+    this.getArticleToUpdate();
+  },
   methods: {
     onFileSelected() {
       this.selectedFile = this.$refs.file.files[0];
     },
-    createArticle() {
-      const self = this;
+    getArticleToUpdate() {
       const token = localStorage.getItem("usertoken");
-      const userId = parseInt(localStorage.getItem("userId"));
-      const formData = new FormData();
-      formData.append("userId", userId);
-      formData.append("contenu", this.contenu);
-      formData.append("image", this.selectedFile);
-      Axios.post("http://localhost:3000/api/articles/Create", formData, {
+      const articleId = localStorage.getItem("articleId");
+      Axios.get("http://localhost:3000/api/articles/" + articleId, {
         headers: {
-          "Content-type": "multipart/form-data",
-          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       })
         .then((res) => {
-          console.log(res);
-          this.$router.push("/Accueil");
+          console.log(res.data.article);
+          this.articleToUpdate = res.data.article;
+        })
+        .catch((error) => console.log({ error }));
+    },
+    modifyArticle() {
+      const articleId = localStorage.getItem("articleId");
+      const token = localStorage.getItem("usertoken");
+      const formData = new FormData();
+      formData.set("contenu", this.contenu);
+      formData.set("image", this.selectedFile);
+      Axios.put("http://localhost:3000/api/articles/" + articleId, formData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          console.log(res.data);
+          this.$router.push("/Articles");
         })
         .catch((error) => console.log({ error }));
     },
