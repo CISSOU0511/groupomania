@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+/*const { Sequelize, DataTypes, Model } = require('sequelize');
 
 const sequelize = new Sequelize('groupomania', 'root', '', {
     dialect: 'mysql'
@@ -44,4 +44,4 @@ Comment.sync()
     .then(() => console.log('Table commentaire créée dans la bdd'))
     .catch(error => console.error('Une erreur est survenue', error));
 
-module.exports = Comment;
+module.exports = Comment;*/

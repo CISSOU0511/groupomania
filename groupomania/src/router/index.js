@@ -10,7 +10,7 @@ import Profile from '@/components/Profile'
 import Signup from '@/views/Signup'
 import NewArticle from '@/components/NewArticle'
 import Post from '@/components/Post'
-import CreateComment from '@/components/CreateComment'
+import createComment from '@/components/createComment'
 import modifArticle from '@/components/modifArticle'
 import Home from '@/views/Home'
 
@@ -23,9 +23,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/CreateComment',
-    name: 'CreateComment',
-    component: CreateComment
+    path: '/createComment',
+    name: 'createComment',
+    component: createComment
   },
   {
     path: '/NavBar',

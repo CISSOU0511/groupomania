@@ -31,11 +31,11 @@ User.associate = (models) => {
     User.hasMany(models.articles, {
         onDelete: "cascade",
     });
-    User.associate = (models) => {
+    /*User.associate = (models) => {
         User.hasMany(models.commentaires, {
             onDelete: "cascade",
         });
-    }
+    }*/
 },
 
     User.sync()

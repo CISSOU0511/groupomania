@@ -19,7 +19,7 @@
         <v-icon class="mr-2">mdi-account</v-icon>Inscription
       </v-btn>
       <v-btn to="/Login" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-login</v-icon>Se Connecter
+        <v-icon class="mr-2">mdi-login</v-icon>Connexion
       </v-btn>
       <v-btn to="/NewArticle" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-notebook</v-icon>Nouvel Article
@@ -94,7 +94,8 @@ export default {
       menuItems: [
         { icon: "mdi-account", title: "Inscription", link: "/Signup" },
         { icon: "mdi-login", title: "Connexion", link: "/Login" },
-        { icon: "mdi-notebook", title: "Nouvel Article", link: "/Articles" },
+        { icon: "mdi-notebook", title: "Nouvel Article", link: "/NewArticle" },
+        { icon: "mdi-notebook", title: "Mes Articles", link: "/Articles" },
         { icon: "mdi-face-woman-profile", title: "Profil", link: "/Profile" },
       ],
     };

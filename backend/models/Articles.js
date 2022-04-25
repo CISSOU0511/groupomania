@@ -23,13 +23,13 @@ const Article = sequelize.define('articles', {
         }
     },
 });
-Article.associate = (models) => {
+/*Article.associate = (models) => {
     Article.hasMany(models.commentaires, {
       onDelete: "cascade",
       foreignKey: "articleId",
       sourceKey: "id",
     });
-  },
+  },*/
 Article.associate = (models) => {
     Article.belongsTo(models.users, {
         onDelete: "cascade",

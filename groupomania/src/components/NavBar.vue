@@ -19,13 +19,14 @@
         <v-icon class="mr-2">mdi-account</v-icon>Inscription
       </v-btn>
       <v-btn to="/Login" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-login</v-icon>Se Connecter
+        <v-icon class="mr-2">mdi-login</v-icon>Connexion
       </v-btn>
       <v-btn to="/NewArticle" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-notebook</v-icon> nouvel Article
       </v-btn>
-      <v-btn to="/logout" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-logout</v-icon>Déconnexion
+      <v-btn to="/Profile" class="mr-5 indigo darken-4 white--text">
+        <v-icon class="mr-2">mdi-face-woman-profile</v-icon>
+        Profil
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer
@@ -73,9 +74,8 @@ export default {
       menuItems: [
         { icon: "mdi-account", title: "Inscription", link: "/Signup" },
         { icon: "mdi-login", title: "Connexion", link: "/Login" },
-        { icon: "mdi-notebook", title: "Articles", link: "/NewArticle" },
-        { icon: "mdi-comment", title: "Commentaires", link: "/Commentaires" },
-         { icon: "mdi-logout", title: "Déconnexion", link: "/Logout" },
+        { icon: "mdi-notebook", title: "Nouvel Article", link: "/NewArticle" },
+        { icon: "mdi-face-woman-profile", title: "Profil", link: "/Profile" },
       ],
     };
   },

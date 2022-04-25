@@ -13,7 +13,7 @@
 
 git clone https://github.com/CISSOU0511/groupomania.git
 + cd groupomania
-+ cd frontend
++ cd groupomania
 + npm run serve
 + cd backend
 + nodemon server
