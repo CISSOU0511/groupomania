@@ -16,7 +16,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn to="/Signup" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-face-woman-profile</v-icon>Inscription
+        <v-icon class="mr-2">mdi-account</v-icon>Inscription
       </v-btn>
       <v-btn to="/Login" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-login</v-icon>Se Connecter

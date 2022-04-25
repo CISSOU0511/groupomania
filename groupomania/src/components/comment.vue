@@ -1,59 +1,41 @@
 <template>
-  <div class="comment">
-    <div id="comment">
-      <div class="btn">
-        <v-btn
-          to="/CreateComment"
-          class="indigo darken-4 white--text"
-          @click="createComment()"
-          >Nouveau commentaire</v-btn
-        >
-        <v-btn class="indigo darken-4 white--text">Modifier</v-btn>
-        <v-btn class="indigo darken-4 white--text">Supprimer</v-btn>
-      </div>
-    </div>
-  </div>
+  <v-container>
+    <v-layout row wrap>
+      <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
+        <v-card class="indigo darken-4">
+          <v-container fluid>
+            <v-layout row>
+              <v-flex>
+                <v-card
+                  id="commentaire"
+                  v-for="commentaire in commentaires"
+                  :key="commentaire.id"
+                >
+                  <div
+                    class="indigo darken-4 white--text width:20px"
+                    :name="commentaire.id"
+                  >
+                    {{ commentaire.commentaire }}
+                  </div>
+                  <div class="btn">
+                    <v-btn
+                      class="indigo darken-4 white--text"
+                      @click="goToUpdateComment(commentaire.id)"
+                    >
+                      Modifier</v-btn
+                    >
+                    <v-btn
+                      class="indigo darken-4 white--text"
+                      @click="deleteComment(commentaire.id)"
+                      >Supprimer</v-btn
+                    >
+                  </div>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
-
-<script>
-import Axios from "axios";
-export default {
-  name: "comment",
-  data() {
-    return {
-      commentaire: "",
-      articleId: "",
-      userId: "",
-    };
-  },
-  methods: {
-    createComment() {
-      const token = localStorage.getItem("usertoken");
-      const userId = parseInt(localStorage.getItem("userId"));
-      Axios.post("http://localhost:3000/api/comment", {
-        headers: {
-          "Content-type": "multipart/form-data",
-          Authorization: "Bearer " + token,
-        },
-        commentaire: this.commentaire,
-        articleId: this.articleId,
-        userId: userId,
-      })
-        .then(function(response) {
-          console.log(response);
-        })
-        .catch((error) => console.log({ error }));
-    },
-  },
-};
-</script>
-<style scoped>
-#comment {
-  display: block;
-  padding-top: 10px;
-}
-.btn {
-  display: flex;
-  justify-content: space-around;
-}
-</style>

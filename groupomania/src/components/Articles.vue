@@ -4,6 +4,9 @@
       <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
         <v-card class="indigo darken-4">
           <v-container fluid>
+            <h2 class="indigo darken-4 white--text pb-6 d-flex justify-center">
+              MES ARTICLES
+            </h2>
             <v-layout row>
               <v-flex>
                 <v-card
@@ -12,14 +15,14 @@
                   :key="userArticle.id"
                 >
                   <div
-                    class="indigo darken-4 white--text width:20px"
+                    class="indigo darken-4 white--text pt-1 pb-1"
                     :name="userArticle.id"
                   >
-                    {{ userArticle.contenu }}
+                      {{ userArticle.contenu }}
                   </div>
-                  <div>
+                  <div class="d-flex justify-center">
                     <v-img
-                      style="max-width:100px;"
+                      style="max-width:150px;"
                       :src="userArticle.imageUrl"
                     />
                   </div>
@@ -64,7 +67,7 @@ export default {
   },
   methods: {
     onFileSelected() {
-      this.selectedFile = this.$refs.file.files[0];
+      this.selectedFile = this.$refs.file.fileS[0];
     },
     listUserArticles() {
       const token = localStorage.getItem("usertoken");

@@ -16,7 +16,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn to="/Signup" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-face-woman-profile</v-icon>Inscription
+        <v-icon class="mr-2">mdi-account</v-icon>Inscription
       </v-btn>
       <v-btn to="/Login" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-login</v-icon>Se Connecter
@@ -28,8 +28,8 @@
         <v-icon class="mr-2">mdi-notebook</v-icon>Mes Articles
       </v-btn>
       <v-btn @click="logout()" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-logout</v-icon>
-        Déconnexion
+        <v-icon class="mr-2">mdi-face-woman-profile</v-icon>
+        Profil
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer
@@ -67,7 +67,7 @@
     <v-container class="container">
       <v-carousel class="carousel">
         <v-carousel-item
-          style="cursor: pointer"
+          style="cursor: pointer max-width:100px;"
           v-for="article in articles"
           :src="article.imageUrl"
           :key="article.id"
@@ -75,7 +75,7 @@
           <div class="title">
             {{ article.contenu }}
           </div>
-          <v-btn
+          <v-btn 
             @click="goToCreateComment(article.id)"
             class="indigo darken-4 white--text"
           >
@@ -101,7 +101,7 @@ export default {
         { icon: "mdi-account", title: "Inscription", link: "/Signup" },
         { icon: "mdi-login", title: "Connexion", link: "/Login" },
         { icon: "mdi-notebook", title: "Nouvel Article", link: "/Articles" },
-        { icon: "mdi-logout", title: "Déconnexion", link: "/Logout" },
+        { icon: "mdi-face-woman-profile", title: "Profil", link: "/Profile" },
       ],
     };
   },

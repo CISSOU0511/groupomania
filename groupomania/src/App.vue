@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <NavBar></NavBar>  
+    <NavBar></NavBar> 
     <v-main>
       <router-view>
       </router-view>      
@@ -16,10 +16,10 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 export default {
   name: "App",
-  components: { 
+  components: {
     NavBar,
     Footer,
-    },
+},
   data() {
     return {};
   },
