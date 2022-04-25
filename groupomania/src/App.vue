@@ -1,12 +1,11 @@
 <template>
   <v-app>
-    <NavBar></NavBar> 
+    <NavBar></NavBar>
     <v-main>
-      <router-view>
-      </router-view>      
+      <router-view> </router-view>
     </v-main>
     <div id="Footer">
-    <Footer></Footer>
+      <Footer></Footer>
     </div>
   </v-app>
 </template>
@@ -19,7 +18,7 @@ export default {
   components: {
     NavBar,
     Footer,
-},
+  },
   data() {
     return {};
   },

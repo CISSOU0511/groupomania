@@ -27,7 +27,7 @@
       <v-btn to="/Articles" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-notebook</v-icon>Mes Articles
       </v-btn>
-      <v-btn @click="logout()" class="mr-5 indigo darken-4 white--text">
+      <v-btn to="/Profile" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-face-woman-profile</v-icon>
         Profil
       </v-btn>
