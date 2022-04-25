@@ -75,12 +75,6 @@
           <div class="title">
             {{ article.contenu }}
           </div>
-          <v-btn 
-            @click="goToCreateComment(article.id)"
-            class="indigo darken-4 white--text"
-          >
-            Ajouter un commentaire
-          </v-btn>
         </v-carousel-item>
       </v-carousel>
     </v-container>
@@ -122,14 +116,14 @@ export default {
         })
         .catch((error) => console.log({ error }));
     },
-    goToCreateComment(articleId) {
+    /*goToCreateComment(articleId) {
       localStorage.setItem("articleId", articleId);
       this.$router.push("/CreateComment");
     },
     logout: function() {
       this.$store.commit("logout");
       this.$router.push("/");
-    },
+    },*/
   },
 };
 </script>

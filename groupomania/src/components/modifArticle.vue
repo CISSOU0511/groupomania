@@ -34,18 +34,18 @@
                       style="max-width:100px"
                       :src="articleUpd.imageUrl"
                     ></v-img>
-                    <div class="mb-3 align-items-start">
-                      <label>
-                        <input
-                          class="form-control form-control-sm pa-4 pt-6"
-                          type="file"
-                          name="imageUrl"
-                          ref="file"
-                          @change="onFileSelected"
-                        />
-                      </label>
-                    </div>
                   </v-form>
+                  <div class="mb-3 align-items-start">
+                    <label>
+                      <input
+                        class="form-control form-control-sm pa-4 pt-6"
+                        type="file"
+                        name="imageUrl"
+                        ref="file"
+                        @change="onFileSelected"
+                      />
+                    </label>
+                  </div>
                 </v-card>
               </v-flex>
             </v-layout>
