@@ -16,26 +16,38 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="v-btn">
-      <v-btn to="/Signup" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-account</v-icon>Inscription
-      </v-btn>
-      <v-btn to="/Login" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-login</v-icon>Connexion
-      </v-btn>
-      <v-btn to="/NewArticle" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-notebook</v-icon>Nouvel Article
-      </v-btn>
-      <v-btn to="/Articles" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-notebook</v-icon>Mes Articles
-      </v-btn>
-      <v-btn to="/Profile" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-face-woman-profile</v-icon>
-        Profil
-      </v-btn>
-      <v-btn to="/Logout" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-logout</v-icon>
-        Déconnexion
-      </v-btn>
+        <v-btn
+          v-if="isConnected == false"
+          to="/Signup"
+          class="mr-5 indigo darken-4 white--text"
+        >
+          <v-icon class="mr-2">mdi-account</v-icon>Inscription
+        </v-btn>
+        <v-btn
+          v-if="isConnected == false"
+          to="/Login"
+          class="mr-5 indigo darken-4 white--text"
+        >
+          <v-icon class="mr-2">mdi-login</v-icon>Connexion
+        </v-btn>
+        <v-btn to="/NewArticle" class="mr-5 indigo darken-4 white--text">
+          <v-icon class="mr-2">mdi-notebook</v-icon>Nouvel Article
+        </v-btn>
+        <v-btn to="/Articles" class="mr-5 indigo darken-4 white--text">
+          <v-icon class="mr-2">mdi-notebook</v-icon>Mes Articles
+        </v-btn>
+        <v-btn to="/Profile" class="mr-5 indigo darken-4 white--text">
+          <v-icon class="mr-2">mdi-face-woman-profile</v-icon>
+          Profil
+        </v-btn>
+        <v-btn
+          v-if="isConnected == true"
+          to="/Logout"
+          class="mr-5 indigo darken-4 white--text"
+        >
+          <v-icon class="mr-2">mdi-logout</v-icon>
+          Déconnexion
+        </v-btn>
       </div>
     </v-app-bar>
     <v-navigation-drawer
@@ -93,6 +105,7 @@ export default {
   name: "Accueil",
   data() {
     return {
+      isConnected: false,
       articles: {},
       commentaires: "",
       NavBar: false,
@@ -109,8 +122,17 @@ export default {
   },
   mounted: function() {
     this.listAllUsersArticles();
+    this.setIsConnected();
   },
   methods: {
+    setIsConnected() {
+      const userToken = localStorage.getItem("usertoken");
+      if (userToken != undefined) {
+        this.isConnected = true;
+      } else {
+        this.isConnected = false;
+      }
+    },
     listAllUsersArticles() {
       const token = localStorage.getItem("usertoken");
       Axios.get("http://localhost:3000/api/articles/All/", {
@@ -129,8 +151,8 @@ export default {
 </script>
 
 <style scoped>
-.v-btn{
-font-size: 12px;
+.v-btn {
+  font-size: 12px;
 }
 .container {
   width: 60%;

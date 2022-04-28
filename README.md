@@ -14,8 +14,11 @@
 git clone https://github.com/CISSOU0511/groupomania.git
 + cd groupomania
 + cd groupomania
++ npm install
 + npm run serve
 + cd backend
++ npm install
++ npm install sequelize
 + nodemon server
 
 ## Base de données 
