@@ -18,9 +18,11 @@
                     class="indigo darken-4 white--text pt-1 pb-1"
                     :name="userArticle.id"
                   >
+                    <h4 class="pl-3 pb-2">
                       {{ userArticle.contenu }}
+                    </h4>
                   </div>
-                  <div class="d-flex justify-center">
+                  <div class="d-flex justify-center pt-5">
                     <v-img
                       style="max-width:150px;"
                       :src="userArticle.imageUrl"
@@ -98,6 +100,7 @@ export default {
       })
         .then((res) => {
           console.log(res.data);
+          this.$router.push("/Accueil");
         })
         .catch((error) => console.log({ error }));
     },

@@ -80,10 +80,6 @@ export default {
       form: false,
     };
   },
-  /*props: {
-    prenom: String,
-    nom: String,
-  },*/
   mounted: function() {
     this.getArticleToUpdate();
   },

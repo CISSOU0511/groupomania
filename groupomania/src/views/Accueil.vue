@@ -2,19 +2,20 @@
   <nav>
     <v-app-bar flat app class="indigo darken-4">
       <v-app-bar-nav-icon
-        class="white--text ml-3"
+        class="white--text"
         @click.native="drawer = !drawer"
       ></v-app-bar-nav-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
           <v-img
-            style="max-width: 200px;"
+            style="max-width: 150px;"
             src="@/assets/images/icon-left-font-monochrome-white.svg"
             alt="logo"
           ></v-img>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <div class="v-btn">
       <v-btn to="/Signup" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-account</v-icon>Inscription
       </v-btn>
@@ -31,6 +32,11 @@
         <v-icon class="mr-2">mdi-face-woman-profile</v-icon>
         Profil
       </v-btn>
+      <v-btn to="/Logout" class="mr-5 indigo darken-4 white--text">
+        <v-icon class="mr-2">mdi-logout</v-icon>
+        Déconnexion
+      </v-btn>
+      </div>
     </v-app-bar>
     <v-navigation-drawer
       style="cursor: pointer"
@@ -97,6 +103,7 @@ export default {
         { icon: "mdi-notebook", title: "Nouvel Article", link: "/NewArticle" },
         { icon: "mdi-notebook", title: "Mes Articles", link: "/Articles" },
         { icon: "mdi-face-woman-profile", title: "Profil", link: "/Profile" },
+        { icon: "mdi-logout", title: "Déconnexion", link: "/Logout" },
       ],
     };
   },
@@ -117,19 +124,14 @@ export default {
         })
         .catch((error) => console.log({ error }));
     },
-    /*goToCreateComment(articleId) {
-      localStorage.setItem("articleId", articleId);
-      this.$router.push("/CreateComment");
-    },
-    logout: function() {
-      this.$store.commit("logout");
-      this.$router.push("/");
-    },*/
   },
 };
 </script>
 
 <style scoped>
+.v-btn{
+font-size: 12px;
+}
 .container {
   width: 60%;
 }
