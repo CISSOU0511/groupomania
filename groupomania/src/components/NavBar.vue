@@ -15,25 +15,14 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        v-if="isConnected == true"
-        to="/Signup"
-        class="mr-5 indigo darken-4 white--text"
-      >
+      <v-btn to="/Signup" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-account</v-icon>Inscription
       </v-btn>
-      <v-btn
-        v-if="isConnected == true"
-        to="/Login"
-        class="mr-5 indigo darken-4 white--text"
-      >
+      <v-btn to="/Login" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-login</v-icon>Connexion
       </v-btn>
       <v-btn to="/NewArticle" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-notebook</v-icon> nouvel Article
-      </v-btn>
-      <v-btn to="/Articles" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-notebook</v-icon> Mes Articles
       </v-btn>
       <v-btn to="/Profile" class="mr-5 indigo darken-4 white--text">
         <v-icon class="mr-2">mdi-face-woman-profile</v-icon>
@@ -89,19 +78,6 @@ export default {
         { icon: "mdi-face-woman-profile", title: "Profil", link: "/Profile" },
       ],
     };
-  },
-  mounted: function() {
-    this.setIsConnected();
-  },
-  methods: {
-    setIsConnected() {
-      const userToken = localStorage.getItem("usertoken");
-      if (userToken != undefined) {
-        this.isConnected = true;
-      } else {
-        this.isConnected = false;
-      }
-    },
   },
 };
 </script>
