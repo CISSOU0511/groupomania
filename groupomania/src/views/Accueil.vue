@@ -8,7 +8,7 @@
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor: pointer">
           <v-img
-            style="max-width: 150px;"
+            style="max-width: 200px;"
             src="@/assets/images/icon-left-font-monochrome-white.svg"
             alt="logo"
           ></v-img>
@@ -30,11 +30,26 @@
         >
           <v-icon class="mr-2">mdi-login</v-icon>Connexion
         </v-btn>
-        <v-btn to="/NewArticle" class="mr-5 indigo darken-4 white--text">
+        <v-btn
+          v-if="isConnected == false"
+          to="/NewArticle"
+          class="mr-5 indigo darken-4 white--text"
+        >
           <v-icon class="mr-2">mdi-notebook</v-icon>Nouvel Article
         </v-btn>
-        <v-btn to="/Articles" class="mr-5 indigo darken-4 white--text">
+        <v-btn
+          v-if="isAdmin == false"
+          to="/Articles"
+          class="mr-5 indigo darken-4 white--text"
+        >
           <v-icon class="mr-2">mdi-notebook</v-icon>Mes Articles
+        </v-btn>
+        <v-btn
+          v-if="isAdmin == true"
+          to="/Articles"
+          class="mr-5 indigo darken-4 white--text"
+        >
+          <v-icon class="mr-2">mdi-notebook</v-icon>Liste des Articles
         </v-btn>
         <v-btn to="/Profile" class="mr-5 indigo darken-4 white--text">
           <v-icon class="mr-2">mdi-face-woman-profile</v-icon>
@@ -106,8 +121,8 @@ export default {
   data() {
     return {
       isConnected: false,
+      isAdmin: false,
       articles: {},
-      commentaires: "",
       NavBar: false,
       drawer: false,
       menuItems: [
@@ -121,8 +136,9 @@ export default {
     };
   },
   mounted: function() {
-    this.listAllUsersArticles();
     this.setIsConnected();
+    this.setIsAdmin();
+    this.listAllUsersArticles();
   },
   methods: {
     setIsConnected() {
@@ -131,6 +147,14 @@ export default {
         this.isConnected = true;
       } else {
         this.isConnected = false;
+      }
+    },
+    setIsAdmin() {
+      const role = localStorage.getItem("role");
+      if (role == 2) {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
       }
     },
     listAllUsersArticles() {

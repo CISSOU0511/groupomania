@@ -51,7 +51,7 @@ export default {
         },
       }).then(() => {
         console.log("Profil supprimé");
-        sessionStorage.clear();
+        localStorage.clear();
         this.$router.push("/Logout");
       });
     },

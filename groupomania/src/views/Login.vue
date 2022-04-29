@@ -83,6 +83,7 @@ export default {
         .then((res) => {
           localStorage.setItem("usertoken", res.data.token);
           localStorage.setItem("userId", res.data.id);
+          localStorage.setItem("role", res.data.role);
           console.log("Vous êtes bien connecté !");
           this.$router.push("/Accueil");
         })

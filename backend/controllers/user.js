@@ -30,7 +30,8 @@ exports.login = (req, res, next) => {
                         return res.status(401).json({ error: 'Mot de passe incorrect !' });
                     }
                     res.status(200).json({
-                        id: user.id, 
+                        role: user.role,
+                        id: user.id,
                         token: jwt.sign(
                             { id: user.id },
                             'RANDOM_TOKEN_SECRET',
@@ -40,12 +41,10 @@ exports.login = (req, res, next) => {
                 })
                 .catch(error => res.status(500).json({ error }))
         })
-
-
 };
 exports.getOneUser = (req, res, next) => {
     User.findAll({ where: { id: req.params.id } /*,include: [{ model: User }]*/ })
-        .then((user) => res.status(200).json({user}))
+        .then((user) => res.status(200).json({ user }))
         .catch(error => res.status(404).json({ error }));
 }
 

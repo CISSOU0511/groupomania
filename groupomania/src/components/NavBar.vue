@@ -6,7 +6,7 @@
         @click.native="drawer = !drawer"
       ></v-app-bar-nav-icon>
       <v-toolbar-title>
-        <router-link to="/" tag="span">
+        <router-link to="/Accueil" tag="span" style="cursor: pointer">
           <v-img
             style="max-width: 200px;"
             src="@/assets/images/icon-left-font-monochrome-white.svg"
@@ -15,18 +15,35 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn to="/Signup" class="mr-5 indigo darken-4 white--text">
+      <v-btn
+        v-if="isConnected == false"
+        to="/Signup"
+        class="mr-5 indigo darken-4 white--text"
+      >
         <v-icon class="mr-2">mdi-account</v-icon>Inscription
       </v-btn>
-      <v-btn to="/Login" class="mr-5 indigo darken-4 white--text">
+      <v-btn
+        v-if="isConnected == false"
+        to="/Login"
+        class="mr-5 indigo darken-4 white--text"
+      >
         <v-icon class="mr-2">mdi-login</v-icon>Connexion
       </v-btn>
-      <v-btn to="/NewArticle" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-notebook</v-icon> nouvel Article
+      <v-btn
+        v-if="isConnected == true"
+        to="/Accueil"
+        class="mr-5 indigo darken-4 white--text"
+      >
+        <v-icon class="mr-2">mdi-home</v-icon>
+        Accueil
       </v-btn>
-      <v-btn to="/Profile" class="mr-5 indigo darken-4 white--text">
-        <v-icon class="mr-2">mdi-face-woman-profile</v-icon>
-        Profil
+      <v-btn
+        v-if="isConnected == false"
+        @click="logout()"
+        class="mr-5 indigo darken-4 white--text"
+      >
+        <v-icon class="mr-2">mdi-logout</v-icon>
+        Déconnexion
       </v-btn>
     </v-app-bar>
     <v-navigation-drawer
@@ -69,15 +86,28 @@ export default {
   name: "NavBar",
   data() {
     return {
+      isConnected: false,
       NavBar: false,
       drawer: false,
       menuItems: [
         { icon: "mdi-account", title: "Inscription", link: "/Signup" },
         { icon: "mdi-login", title: "Connexion", link: "/Login" },
-        { icon: "mdi-notebook", title: "Nouvel Article", link: "/NewArticle" },
-        { icon: "mdi-face-woman-profile", title: "Profil", link: "/Profile" },
       ],
     };
+  },
+  methods: {
+    setIsConnected() {
+      const userToken = localStorage.getItem("usertoken");
+      if (userToken != undefined) {
+        this.isConnected = true;
+      } else {
+        this.isConnected = false;
+      }
+    },
+    logout() {
+      localStorage.clear();
+      this.$router.push("/");
+    },
   },
 };
 </script>
